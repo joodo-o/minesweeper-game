@@ -6,265 +6,407 @@
 <title>지뢰 추리전</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
-:root {
-  --bg: #0c0c10;
-  --surf: #16161e;
-  --surf2: #1e1e28;
-  --surf3: #26263200;
-  --bdr: rgba(255,255,255,0.08);
-  --bdr2: rgba(255,255,255,0.14);
-  --txt: #e8e8f2;
-  --muted: #6a6a88;
-  --accent: #c8a83a;
-  --accent-dim: #8a6e1e;
-  --red: #d94040;
-  --green: #3ab87c;
-  --blue: #4a8fd4;
-  --p1c: #4a8fd4;
-  --p2c: #c44ab8;
-  --dot-on: #c8a83a;
-  --dot-off: #2a2830;
-  --dot-border-on: #8a6e1e;
-  --dot-border-off: #3a3850;
-  --num0: #44445a; --num1: #4a8fd4; --num2: #3ab87c;
-  --num3: #d94040; --num4: #9f4ad4; --num5: #d4844a;
-  --num6: #4ad4d4; --num7: #d44a9f; --num8: #e8e8f2;
+@font-face{font-family:'A2z';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-1Thin.woff2') format('woff2');font-weight:100;font-display:swap}
+@font-face{font-family:'A2z';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-3Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'A2z';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-4Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'A2z';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-6SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'A2z';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-7Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'A2z';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2601-6@1.0/에이투지체-8ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+
+:root{
+  /* LIGHT MODE */
+  --bg:#f0ede8;
+  --surf:#ffffff;
+  --surf2:#f5f2ee;
+  --surf3:#ede9e3;
+  --bdr:rgba(0,0,0,0.10);
+  --bdr2:rgba(0,0,0,0.16);
+  --txt:#1a1a24;
+  --txt2:#4a4a5a;
+  --muted:#9a9aaa;
+  --accent:#b8900a;
+  --accent-bg:#fff8e6;
+  --red:#c83030;
+  --red-bg:#fff0f0;
+  --green:#1f9e5a;
+  --green-bg:#f0fff6;
+
+  --p1c:#e8192c;
+  --p1-tint:rgba(232,25,44,0.08);
+  --p1-tint-strong:rgba(232,25,44,0.16);
+  --p2c:#2272c4;
+  --p2-tint:rgba(34,114,196,0.10);
+  --p2-tint-strong:rgba(34,114,196,0.18);
+
+  --num0:#bbbbcc;--num1:#2272c4;--num2:#1f9e5a;--num3:#c83030;
+  --num4:#8030c8;--num5:#c86020;--num6:#108888;--num7:#b030a0;--num8:#333344;
+
+  --topbar-h:56px;--panel-w:180px;
+  --cell-size:48px;--cell-gap:4px;--cell-fs:20px;
+  --tile-size:44px;--tile-fs:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:'Noto Sans KR',system-ui,sans-serif;min-height:100dvh;display:flex;flex-direction:column;overflow-x:hidden;font-size:14px}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-serif;font-size:14px;display:flex;flex-direction:column;}
+.screen{display:none;flex-direction:column;width:100%;height:100%;}
+.screen.active{display:flex;}
 
-.screen{display:none;flex-direction:column;min-height:100dvh}
-.screen.active{display:flex}
-
-/* ── SETUP ── */
-#s-setup{align-items:center;justify-content:center;gap:20px;padding:36px 20px;background:var(--bg)}
-.logo-title{font-size:36px;font-weight:700;letter-spacing:2px;color:var(--accent);text-align:center;line-height:1}
-.logo-sub{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-top:4px}
-.card{background:var(--surf);border:0.5px solid var(--bdr2);border-radius:14px;padding:18px;width:100%;max-width:360px}
-.card-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px}
+/* ══ SETUP ══ */
+#s-setup{align-items:center;justify-content:center;gap:14px;padding:24px 20px;overflow-y:auto;background:var(--bg);}
+.logo-sub{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;text-align:center;}
+.setup-card{background:var(--surf);border:0.5px solid var(--bdr2);border-radius:14px;padding:16px;width:100%;max-width:380px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.card-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:500;}
 .pinput{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .pdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.pinput input{flex:1;background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:8px;padding:10px 12px;color:var(--txt);font-size:14px;outline:none;font-family:inherit}
+.pinput input{flex:1;background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:8px;padding:9px 12px;color:var(--txt);font-size:14px;outline:none;font-family:'A2z',sans-serif;}
 .pinput input:focus{border-color:var(--accent)}
-.rules-box{background:var(--surf2);border-radius:8px;padding:12px;font-size:12px;line-height:2;color:var(--muted)}
-.rules-box b{color:var(--accent)}
-.btn-start{width:100%;max-width:360px;padding:15px;background:var(--accent);border:none;border-radius:12px;font-size:17px;font-weight:700;letter-spacing:2px;color:#0c0c10;cursor:pointer;transition:opacity .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-start:active{transform:scale(.97);opacity:.9}
+.diff-wrap{display:flex;align-items:stretch;background:var(--surf);border-radius:10px;border:0.5px solid var(--bdr2);overflow:hidden;width:100%;max-width:380px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.diff-btn{flex:1;padding:11px 8px;border:none;background:transparent;color:var(--muted);font-family:'A2z',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.diff-btn.active-easy{background:var(--green-bg);color:var(--green);}
+.diff-btn.active-hard{background:var(--red-bg);color:var(--red);}
+.diff-sep{width:0.5px;background:var(--bdr2);flex-shrink:0;}
+.diff-desc{font-size:10px;font-weight:400;opacity:0.7;}
+.btn-start{width:100%;max-width:380px;padding:14px;background:var(--accent);border:none;border-radius:12px;font-size:16px;font-weight:700;letter-spacing:2px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'A2z',sans-serif;box-shadow:0 2px 8px rgba(184,144,10,0.25);}
+.btn-start:active{opacity:.85}
 
-/* ── TOPBAR ── */
-.topbar{display:flex;align-items:stretch;background:var(--surf);border-bottom:0.5px solid var(--bdr2);position:sticky;top:0;z-index:20;flex-shrink:0}
-.pbadge{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 6px;gap:3px;transition:background .2s}
-.pbadge.active{background:var(--surf2)}
-.pbadge .pname{font-size:12px;font-weight:600;transition:color .2s}
-.pbadge .pscore{font-size:10px;color:var(--muted)}
-.turn-pill{align-self:center;padding:4px 12px;border-radius:20px;background:var(--surf2);font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
-.token-row{display:flex;gap:4px;align-items:center;margin-top:2px}
+/* ══ TOPBAR ══ */
+#s-game{flex-direction:column;height:100%;overflow:hidden;}
+.topbar{height:var(--topbar-h);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:20px;padding:0 20px;background:var(--surf);border-bottom:0.5px solid var(--bdr2);box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.topbar-label{font-size:clamp(11px,1.5vh,14px);color:var(--muted);font-weight:400;}
+.topbar-name{font-size:clamp(18px,3vh,28px);font-weight:700;margin-left:4px;transition:color .3s;}
+.topbar-stat{display:flex;flex-direction:column;align-items:center;gap:0;padding:3px 14px;border-left:0.5px solid var(--bdr);}
+.topbar-stat-val{font-size:clamp(20px,2.8vh,30px);font-weight:800;line-height:1.1;color:var(--txt);}
+.topbar-stat-lbl{font-size:clamp(9px,1.1vh,11px);color:var(--muted);letter-spacing:1px;font-weight:400;}
 
-/* ── DOTS (baseball scoreboard style) ── */
-.dot{width:8px;height:8px;border-radius:50%;background:var(--dot-off);border:1px solid var(--dot-border-off);transition:background .3s,border-color .3s,box-shadow .3s}
-.dot.on{background:var(--dot-on);border-color:var(--dot-border-on);box-shadow:0 0 4px var(--dot-on)}
+/* ══ MAIN ══ */
+.game-main{flex:1;display:flex;overflow:hidden;min-height:0;}
 
-/* ── GAME BODY ── */
-#s-game{flex-direction:column}
-.game-body{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:0;-webkit-overflow-scrolling:touch}
+/* ══ PANELS ══ */
+.ppanel{width:var(--panel-w);flex-shrink:0;display:flex;flex-direction:column;background:var(--surf);border-right:0.5px solid var(--bdr2);overflow:hidden;transition:background .25s,opacity .25s;}
+.ppanel.right{border-right:none;border-left:0.5px solid var(--bdr2);}
+.ppanel.active{background:var(--surf2);}
+.ppanel.inactive{opacity:0.45;}
+.pp-top{padding:12px 12px 10px;border-bottom:0.5px solid var(--bdr);flex-shrink:0;}
+.pp-name{font-size:clamp(13px,1.4vw,17px);font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+.pp-name .ndot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.pp-lbl{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;font-weight:400;}
+.token-lamps{display:flex;gap:8px;align-items:center;}
+.lamp{width:clamp(16px,2vh,24px);height:clamp(16px,2vh,24px);border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;transition:background .4s,border-color .4s,box-shadow .4s;flex-shrink:0;}
+.lamp-core{width:50%;height:50%;border-radius:50%;transition:background .4s,opacity .4s;}
+.lamp.on{box-shadow:0 0 5px 1px currentColor;}
+.lamp.off{background:var(--surf3)!important;border-color:var(--bdr)!important;color:transparent!important;box-shadow:none!important;}
+.lamp.off .lamp-core{background:var(--bdr2);opacity:.3;}
+.p1-lamp.on{background:rgba(232,25,44,0.12);border-color:var(--p1c);color:var(--p1c);}
+.p1-lamp.on .lamp-core{background:var(--p1c);opacity:.85;}
+.p2-lamp.on{background:rgba(34,114,196,0.15);border-color:var(--p2c);color:var(--p2c);}
+.p2-lamp.on .lamp-core{background:var(--p2c);opacity:.85;}
 
-/* ── BOTH HANDS ── */
-.hands-wrap{display:flex;gap:0;border-bottom:0.5px solid var(--bdr)}
-.hand-panel{flex:1;padding:10px 10px 10px;border-right:0.5px solid var(--bdr);display:flex;flex-direction:column;gap:6px}
-.hand-panel:last-child{border-right:none}
-.hand-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:4px}
-.hand-tiles{display:flex;gap:5px;flex-wrap:wrap}
+/* HAND */
+.pp-hand{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch;min-height:0;}
+.pp-hand-lbl{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;flex-shrink:0;font-weight:400;}
+.hand-tiles{display:flex;flex-direction:column;gap:5px;}
 
-.tile{width:44px;height:44px;border-radius:8px;background:var(--surf);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;cursor:pointer;transition:border-color .15s,transform .1s,background .15s;flex-shrink:0;position:relative}
+/* TILES */
+.tile{width:100%;aspect-ratio:1/1;border-radius:8px;background:var(--surf);border:1px solid var(--bdr2);display:flex;align-items:center;justify-content:center;font-size:var(--tile-fs);font-weight:700;cursor:pointer;transition:border-color .12s,transform .1s,background .12s;flex-shrink:0;position:relative;}
 .tile:active{transform:scale(.9)}
-.tile.selected{border-color:var(--accent);background:var(--surf2);box-shadow:0 0 0 2px var(--accent)}
-.tile.discard-sel{border-color:var(--red);background:#2e1212;box-shadow:0 0 0 2px var(--red)}
-.tile.inactive{opacity:.4;cursor:default;pointer-events:none}
-.tile[data-v="0"]{color:var(--num0)}
-.tile[data-v="1"]{color:var(--num1)}
-.tile[data-v="2"]{color:var(--num2)}
-.tile[data-v="3"]{color:var(--num3)}
-.tile[data-v="4"]{color:var(--num4)}
-.tile[data-v="5"]{color:var(--num5)}
-.tile[data-v="6"]{color:var(--num6)}
-.tile[data-v="7"]{color:var(--num7)}
-.tile[data-v="8"]{color:var(--num8)}
-.tile[data-v="M"]{color:var(--red);font-size:16px}
-.tile-mine-icon{font-size:18px}
+.tile.selected{border-color:var(--accent);background:var(--accent-bg);box-shadow:0 0 0 2px var(--accent)}
+.tile.discard-sel{border-color:var(--red);background:var(--red-bg);box-shadow:0 0 0 2px var(--red)}
+.tile.inactive-tile{opacity:.35;cursor:default;pointer-events:none}
+.tile[data-v="0"]{color:var(--num0)}.tile[data-v="1"]{color:var(--num1)}.tile[data-v="2"]{color:var(--num2)}
+.tile[data-v="3"]{color:var(--num3)}.tile[data-v="4"]{color:var(--num4)}.tile[data-v="5"]{color:var(--num5)}
+.tile[data-v="6"]{color:var(--num6)}.tile[data-v="7"]{color:var(--num7)}.tile[data-v="8"]{color:var(--num8)}
+.tile[data-v="M"]{color:var(--red);}
 
-/* ── BOARD ── */
-.board-wrap{padding:10px;display:flex;justify-content:center;background:var(--bg)}
-.board{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;width:100%;max-width:340px}
-.cell{aspect-ratio:1;border-radius:5px;background:var(--surf);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;cursor:pointer;transition:background .12s,border-color .12s,transform .1s;position:relative}
-.cell:active{transform:scale(.88)}
-.cell.empty:hover,.cell.empty.highlight{border-color:var(--accent);background:var(--surf2)}
-.cell.placed{cursor:default;background:var(--surf2)}
+/* FOOTER */
+.pp-footer{flex-shrink:0;border-top:0.5px solid var(--bdr);padding:8px;display:flex;flex-direction:column;gap:5px;}
+.pp-footer.hidden{display:none;}
+.status-mini{font-size:clamp(10px,1.1vw,12px);color:var(--accent);text-align:center;min-height:17px;font-weight:400;}
+.status-mini.red{color:var(--red);}
+.btn{width:100%;padding:clamp(7px,0.9vh,11px) 6px;border-radius:8px;border:none;font-family:'A2z',sans-serif;font-size:clamp(10px,1.1vw,13px);font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;transition:transform .1s,opacity .15s;}
+.btn:active{transform:scale(.95)}.btn:disabled{opacity:.3;cursor:default}.btn:disabled:active{transform:none}
+.btn i{font-size:clamp(11px,1.3vw,15px);}
+.btn-place{background:var(--accent);color:#fff}
+.btn-impos{background:var(--red);color:#fff}
+.btn-reroll{background:var(--surf3);color:var(--txt);border:0.5px solid var(--bdr2)}
+.btn-rc{background:var(--green);color:#fff}
+.btn-cancel{background:var(--surf3);color:var(--txt2);border:0.5px solid var(--bdr)}
+
+/* ══ BOARD CENTER ══ */
+.board-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);min-width:0;min-height:0;padding:8px;gap:10px;}
+.board{display:grid;grid-template-columns:repeat(6,var(--cell-size));grid-template-rows:repeat(6,var(--cell-size));gap:var(--cell-gap);flex-shrink:0;}
+
+/* CELLS */
+.cell{width:var(--cell-size);height:var(--cell-size);border-radius:6px;background:var(--surf);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:var(--cell-fs);font-weight:700;cursor:pointer;transition:background .15s,border-color .15s,transform .1s;}
+.cell:active{transform:scale(.86)}
+.cell.empty.hl{border-color:var(--accent);background:var(--accent-bg);}
+.cell.placed{cursor:default;}
 .cell.placed:active{transform:none}
-.cell[data-v="0"]{color:var(--num0)}
-.cell[data-v="1"]{color:var(--num1)}
-.cell[data-v="2"]{color:var(--num2)}
-.cell[data-v="3"]{color:var(--num3)}
-.cell[data-v="4"]{color:var(--num4)}
-.cell[data-v="5"]{color:var(--num5)}
-.cell[data-v="6"]{color:var(--num6)}
-.cell[data-v="7"]{color:var(--num7)}
-.cell[data-v="8"]{color:var(--num8)}
-.cell[data-v="M"]{color:var(--red)}
-.cell.mine-hi{border-color:var(--red) !important;background:#2e1212 !important}
-@keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+/* player tints */
+.cell.by-p1{background:var(--p1-tint);border-color:rgba(232,25,44,0.20);}
+.cell.by-p2{background:var(--p2-tint);border-color:rgba(34,114,196,0.22);}
+.cell[data-v="0"]{color:var(--num0)}.cell[data-v="1"]{color:var(--num1)}.cell[data-v="2"]{color:var(--num2)}
+.cell[data-v="3"]{color:var(--num3)}.cell[data-v="4"]{color:var(--num4)}.cell[data-v="5"]{color:var(--num5)}
+.cell[data-v="6"]{color:var(--num6)}.cell[data-v="7"]{color:var(--num7)}.cell[data-v="8"]{color:var(--num8)}
+.cell[data-v="M"]{color:var(--red);}
+.cell.mine-hi{border-color:var(--red)!important;background:var(--red-bg)!important;}
+@keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
 .cell.just-in{animation:pop .2s ease-out}
 
-/* ── INFO BAR ── */
-.info-bar{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surf);border-top:0.5px solid var(--bdr);border-bottom:0.5px solid var(--bdr);font-size:11px;color:var(--muted);flex-wrap:wrap}
-.chip{display:flex;align-items:center;gap:4px;background:var(--surf2);border-radius:20px;padding:4px 9px}
-.chip b{color:var(--txt);font-weight:600}
-.chip i{font-size:13px}
+/* RULES SUMMARY */
+.rules-summary{flex-shrink:0;display:flex;gap:clamp(8px,1.5vw,20px);flex-wrap:wrap;justify-content:center;padding:2px 8px;}
+.rule-item{display:flex;align-items:center;gap:4px;font-size:clamp(9px,1vw,11px);color:var(--muted);font-weight:400;white-space:nowrap;}
+.rule-item i{font-size:clamp(10px,1.1vw,13px);}
 
-/* ── ACTIONS ── */
-.actions{display:flex;flex-direction:column;gap:7px;padding:10px}
-.arow{display:flex;gap:7px}
-.btn{flex:1;padding:11px 8px;border-radius:9px;border:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .1s,opacity .15s}
-.btn:active{transform:scale(.96)}
-.btn:disabled{opacity:.3;cursor:default}
-.btn:disabled:active{transform:none}
-.btn-place{background:var(--accent);color:#0c0c10}
-.btn-impos{background:var(--red);color:#fff}
-.btn-reroll{background:var(--surf2);color:var(--txt);border:0.5px solid var(--bdr2)}
-.btn-rc{background:var(--green);color:#0c0c10}
-.btn-cancel{background:var(--surf2);color:var(--muted);border:0.5px solid var(--bdr)}
-.btn-verify{background:var(--red);color:#fff}
-.btn i{font-size:16px}
+/* ══ VERIFY SCREEN ══ */
+#s-verify{flex-direction:column;height:100%;overflow:hidden;background:var(--bg);}
 
-.status{padding:6px 12px;font-size:12px;color:var(--accent);min-height:28px;text-align:center}
+/* top announce */
+.v-top{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;
+  padding:clamp(10px,1.8vh,18px) 20px;
+  background:var(--surf);
+  border-bottom:0.5px solid var(--bdr2);
+  text-align:center;
+}
+.v-top-badge{font-size:clamp(9px,1.1vh,11px);color:var(--red);font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--red-bg);border-radius:20px;padding:3px 12px;}
+.v-top-name{font-size:clamp(22px,4vh,40px);font-weight:800;line-height:1.1;}
+.v-top-msg{font-size:clamp(11px,1.4vh,14px);color:var(--txt2);font-weight:400;line-height:1.5;max-width:600px;}
 
-/* ── VERIFY ── */
-#s-verify{flex-direction:column}
-.vheader{padding:14px;background:var(--surf);border-bottom:0.5px solid var(--bdr2)}
-.vheader h2{font-size:20px;font-weight:700;letter-spacing:1px;color:var(--red);display:flex;align-items:center;gap:7px}
-.vheader p{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.6}
-.vbody{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.vmine-hand{padding:10px;display:flex;flex-wrap:wrap;gap:5px}
-.vmine-lbl{padding:4px 10px;font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
-.vstatus{padding:6px 12px;font-size:12px;color:var(--muted);text-align:center}
-.vactions{padding:10px;display:flex;flex-direction:column;gap:7px}
+/* board area */
+.v-board-area{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px;min-height:0;}
 
-/* ── RESULT ── */
-#s-result{align-items:center;justify-content:center;gap:16px;padding:40px 20px}
-.res-icon{font-size:56px;color:var(--accent)}
-.res-title{font-size:40px;font-weight:700;letter-spacing:2px;text-align:center;color:var(--accent)}
-.res-sub{font-size:14px;color:var(--muted);text-align:center;line-height:1.7}
-.res-sub b{color:var(--txt)}
-.btn-ng{padding:14px 40px;background:var(--accent);border:none;border-radius:12px;font-size:17px;font-weight:700;letter-spacing:2px;color:#0c0c10;cursor:pointer;margin-top:8px;font-family:inherit}
+/* bottom controls */
+.v-bottom{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:clamp(10px,1.8vh,18px) 20px;
+  background:var(--surf);
+  border-top:0.5px solid var(--bdr2);
+}
+.v-bottom-hint{font-size:clamp(10px,1.3vh,13px);color:var(--muted);font-weight:400;text-align:center;}
+.v-bottom-hint b{color:var(--txt2);font-weight:600;}
+.v-err{font-size:clamp(11px,1.4vh,14px);color:var(--red);font-weight:600;text-align:center;min-height:20px;}
+.v-mine-count{display:flex;align-items:center;gap:6px;font-size:clamp(12px,1.5vh,15px);color:var(--txt2);font-weight:400;}
+.v-mine-count b{font-size:clamp(18px,2.5vh,26px);font-weight:800;color:var(--red);}
+.v-btns{display:flex;gap:12px;width:100%;max-width:500px;}
+.btn-verify-big{flex:1;padding:clamp(11px,1.6vh,16px);border-radius:10px;border:none;font-family:'A2z',sans-serif;font-size:clamp(13px,1.6vw,16px);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .1s,opacity .15s,box-shadow .15s;}
+.btn-verify-big:active{transform:scale(.96)}
+.btn-verify-big.confirm{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(200,48,48,0.25);}
+.btn-verify-big.giveup{background:var(--surf3);color:var(--txt2);border:0.5px solid var(--bdr2);}
 
-/* ── MODAL ── */
-.moverlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:flex-end;justify-content:center}
+/* ══ RESULT OVERLAY (on top of game board) ══ */
+.result-overlay{
+  display:none;
+  position:fixed;inset:0;z-index:50;
+  background:rgba(240,237,232,0.88);
+  backdrop-filter:blur(4px);
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:24px;
+}
+.result-overlay.open{display:flex;}
+.res-icon{font-size:clamp(40px,6vh,64px);color:var(--accent);}
+.res-title{font-size:clamp(28px,5vw,48px);font-weight:800;letter-spacing:2px;text-align:center;}
+.res-sub{font-size:clamp(13px,1.8vh,16px);color:var(--txt2);text-align:center;line-height:1.7;font-weight:400;max-width:420px;}
+.res-sub b{color:var(--txt);font-weight:700;}
+.res-board-hint{font-size:clamp(11px,1.4vh,13px);color:var(--muted);text-align:center;}
+.res-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px;}
+.btn-res{padding:11px 28px;border-radius:10px;border:0.5px solid var(--bdr2);font-family:'A2z',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;}
+.btn-res.primary{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 8px rgba(184,144,10,0.25);}
+.btn-res.secondary{background:var(--surf);color:var(--txt2);}
+
+/* RESTART BAR */
+.restart-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--surf);border-top:0.5px solid var(--bdr2);box-shadow:0 -2px 12px rgba(0,0,0,0.10);padding:12px 20px;align-items:center;justify-content:space-between;gap:12px;}
+.restart-bar.show{display:flex;}
+.restart-bar-msg{font-size:clamp(13px,1.6vh,16px);color:var(--txt2);font-weight:600;}
+.restart-bar-btn{padding:10px 24px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-family:'A2z',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;box-shadow:0 2px 8px rgba(184,144,10,0.2);}
+.restart-bar-btn:active{opacity:.85;}
+/* freeze game when ended */
+.game-frozen{pointer-events:none;user-select:none;}
+.game-frozen .ppanel{opacity:0.4;}
+
+/* MODAL */
+.moverlay{display:none;position:fixed;inset:0;background:rgba(240,237,232,0.75);backdrop-filter:blur(3px);z-index:100;align-items:center;justify-content:center;padding:20px;}
 .moverlay.open{display:flex}
-.modal{background:var(--surf);border-radius:18px 18px 0 0;padding:20px;width:100%;max-width:480px;border-top:0.5px solid var(--bdr2)}
-@keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal{animation:sUp .22s ease-out}
-.modal h3{font-size:18px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:7px;color:var(--red)}
-.modal h3 i{font-size:20px}
-.modal p{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6}
-.mbtns{display:flex;gap:8px}
+.modal{background:var(--surf);border-radius:16px;padding:20px;width:100%;max-width:340px;border:0.5px solid var(--bdr2);box-shadow:0 4px 20px rgba(0,0,0,0.12);}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:7px;color:var(--red)}
+.modal p{font-size:13px;color:var(--txt2);margin-bottom:16px;line-height:1.6;font-weight:400;}
+.mbtns{display:flex;gap:8px}.mbtns .btn{flex:1}
+
+.orient-hint{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:24px;}
+.orient-hint i{font-size:48px;color:var(--accent)}
+.orient-hint p{color:var(--muted);font-size:14px;line-height:1.7;font-weight:400;}
+@media (orientation:portrait) and (max-width:640px){.orient-hint{display:flex;}}
+
+/* DARK MODE */
+body.dark{
+  --bg:#0e0e12;--surf:#18181f;--surf2:#202028;--surf3:#28282f;
+  --bdr:rgba(255,255,255,0.08);--bdr2:rgba(255,255,255,0.14);
+  --txt:#e8e8f2;--txt2:#a0a0b8;--muted:#606078;
+  --accent:#c8a830;--accent-bg:#2a2210;
+  --red:#e8192c;--red-bg:#2a0a0e;
+  --green:#28b870;--green-bg:#081a10;
+  --p1c:#e8192c;--p1-tint:rgba(232,25,44,0.12);--p1-tint-strong:rgba(232,25,44,0.22);
+  --p2c:#4a9fe8;--p2-tint:rgba(74,159,232,0.12);--p2-tint-strong:rgba(74,159,232,0.22);
+  --num0:#44445a;--num1:#4a9fe8;--num2:#28b870;--num3:#e8192c;
+  --num4:#a060e8;--num5:#e8904a;--num6:#40d0d0;--num7:#e840b0;--num8:#e8e8f2;
+}
+body.dark .result-overlay{background:rgba(14,14,18,0.88);}
+body.dark .moverlay{background:rgba(14,14,18,0.75);}
+body.dark .cell.by-p1{border-color:rgba(232,25,44,0.28);}
+body.dark .cell.by-p2{border-color:rgba(74,159,232,0.28);}
+body.dark .p2-lamp.on{background:rgba(74,159,232,0.15);border-color:var(--p2c);color:var(--p2c);}
+body.dark .p2-lamp.on .lamp-core{background:var(--p2c);}
+
+/* THEME TOGGLE */
+.theme-toggle{
+  display:flex;align-items:center;gap:6px;
+  background:var(--surf2);border:0.5px solid var(--bdr2);
+  border-radius:20px;padding:4px 10px;cursor:pointer;
+  font-family:'A2z',sans-serif;font-size:11px;color:var(--muted);
+  transition:background .2s,color .2s;flex-shrink:0;
+}
+.theme-toggle:hover{color:var(--txt2);}
+.theme-toggle i{font-size:14px;}
+.toggle-track{
+  width:30px;height:17px;border-radius:9px;
+  background:var(--surf3);border:0.5px solid var(--bdr2);
+  position:relative;transition:background .3s;flex-shrink:0;
+}
+body.dark .toggle-track{background:var(--accent);}
+.toggle-thumb{
+  position:absolute;top:2px;left:2px;
+  width:11px;height:11px;border-radius:50%;
+  background:var(--muted);
+  transition:transform .25s,background .25s;
+}
+body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
 </style>
 </head>
 <body>
 
+<div class="orient-hint">
+  <i class="ti ti-rotate-clockwise-2"></i>
+  <p>이 게임은 <b style="color:var(--txt)">가로 화면</b>에 최적화되어 있습니다.<br>기기를 회전해 주세요.</p>
+</div>
+
+<!-- RESULT OVERLAY -->
+<div class="result-overlay" id="result-overlay">
+  <i class="ti ti-trophy res-icon" id="res-icon"></i>
+  <div class="res-title" id="res-title">—</div>
+  <div class="res-sub" id="res-sub"></div>
+  <div class="res-board-hint">아래 게임판에서 마지막 상태를 확인하세요</div>
+  <div class="res-btns">
+    <button class="btn-res secondary" onclick="closeResult()"><i class="ti ti-eye"></i> 판 보기</button>
+    <button class="btn-res primary" onclick="location.reload()"><i class="ti ti-refresh"></i> 다시 시작</button>
+  </div>
+</div>
+
+<!-- RESTART BAR -->
+<div class="restart-bar" id="restart-bar">
+  <span class="restart-bar-msg" id="restart-bar-msg">게임 종료</span>
+  <button class="restart-bar-btn" onclick="location.reload()"><i class="ti ti-refresh"></i> 다시 시작</button>
+</div>
+
 <!-- SETUP -->
 <div id="s-setup" class="screen active">
-  <div>
-    <div class="logo-title">지뢰 추리전</div>
-    <div class="logo-sub">Minesweeper Deduction</div>
-  </div>
-  <div class="card">
+  <div class="logo-sub">Minesweeper Deduction Game</div>
+  <div class="setup-card">
     <div class="card-title">플레이어 이름</div>
     <div class="pinput"><div class="pdot" style="background:var(--p1c)"></div><input id="n1" value="플레이어 1" maxlength="10"></div>
     <div class="pinput"><div class="pdot" style="background:var(--p2c)"></div><input id="n2" value="플레이어 2" maxlength="10"></div>
   </div>
-  <div class="card">
-    <div class="card-title">규칙 요약</div>
-    <div class="rules-box">
-      <i class="ti ti-cards"></i> 손패 <b>3장</b> 유지 · 재굴림 토큰 <b>3개</b><br>
-      <i class="ti ti-layout-grid"></i> 타일 배치 또는 불가능 선언<br>
-      <i class="ti ti-bomb"></i> 숫자 = 인접한 지뢰 수<br>
-      <i class="ti ti-shield"></i> 불가능 선언 → 상대방이 지뢰로 반박<br>
-      <i class="ti ti-trophy"></i> 반박 성공 → 배치자 승 / 실패 → 선언자 승
-    </div>
+  <div class="diff-wrap">
+    <button class="diff-btn active-easy" id="diff-easy" onclick="setDiff('easy')">
+      이지 모드<span class="diff-desc">지뢰 타일 15개</span>
+    </button>
+    <div class="diff-sep"></div>
+    <button class="diff-btn" id="diff-hard" onclick="setDiff('hard')">
+      하드 모드<span class="diff-desc">지뢰 타일 5개</span>
+    </button>
   </div>
-  <button class="btn-start" onclick="startGame()">
-    <i class="ti ti-player-play"></i> 게임 시작
-  </button>
+  <button class="btn-start" onclick="startGame()"><i class="ti ti-player-play"></i> 게임 시작</button>
 </div>
 
 <!-- GAME -->
 <div id="s-game" class="screen">
-  <div class="topbar" id="topbar">
-    <div class="pbadge" id="b0">
-      <div class="pname" id="pn0" style="color:var(--p1c)">P1</div>
-      <div class="token-row" id="tr0"></div>
-      <div class="pscore" id="ps0">손패 3장</div>
+  <div class="topbar">
+    <span class="topbar-label">현재 차례</span>
+    <span class="topbar-name" id="turn-name">—</span>
+    <div class="topbar-stat">
+      <span class="topbar-stat-val" id="deckc">—</span>
+      <span class="topbar-stat-lbl">덱</span>
     </div>
-    <div class="turn-pill" id="turnpill">차례</div>
-    <div class="pbadge" id="b1">
-      <div class="pname" id="pn1" style="color:var(--p2c)">P2</div>
-      <div class="token-row" id="tr1"></div>
-      <div class="pscore" id="ps1">손패 3장</div>
+    <div class="topbar-stat">
+      <span class="topbar-stat-val" id="minec">0</span>
+      <span class="topbar-stat-lbl">배치된 지뢰</span>
     </div>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="다크모드 토글">
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+      <i class="ti ti-moon" id="theme-icon"></i>
+    </button>
   </div>
-
-  <div class="game-body">
-    <!-- both hands -->
-    <div class="hands-wrap">
-      <div class="hand-panel" id="hp0">
-        <div class="hand-lbl" id="hl0"><i class="ti ti-cards" style="font-size:12px"></i> P1 손패</div>
+  <div class="game-main" id="game-main">
+    <!-- P1 -->
+    <div class="ppanel active" id="pp0">
+      <div class="pp-top">
+        <div class="pp-name"><div class="ndot" style="background:var(--p1c)"></div><span id="ppn0">P1</span></div>
+        <div class="pp-lbl">재굴림 토큰</div>
+        <div class="token-lamps" id="lamps0"></div>
+      </div>
+      <div class="pp-hand">
+        <div class="pp-hand-lbl">손패</div>
         <div class="hand-tiles" id="ht0"></div>
       </div>
-      <div class="hand-panel" id="hp1">
-        <div class="hand-lbl" id="hl1"><i class="ti ti-cards" style="font-size:12px"></i> P2 손패</div>
+      <div class="pp-footer" id="ft0">
+        <div class="status-mini" id="st0">타일을 선택하세요</div>
+        <div id="act0-normal">
+          <button class="btn btn-place" id="bp0" onclick="doPlace()" disabled style="margin-bottom:4px"><i class="ti ti-layout-grid-add"></i> 타일 배치</button>
+          <button class="btn btn-reroll" id="br0" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-refresh"></i> 재굴림</button>
+          <button class="btn btn-impos" onclick="openModal('m-impos')"><i class="ti ti-ban"></i> 불가능 선언</button>
+        </div>
+        <div id="act0-reroll" style="display:none">
+          <div class="status-mini red" style="margin-bottom:4px">버릴 타일을 선택하세요</div>
+          <button class="btn btn-rc" id="brc0" onclick="confirmReroll()" disabled style="margin-bottom:4px"><i class="ti ti-check"></i> 재굴림 확정</button>
+          <button class="btn btn-cancel" onclick="cancelReroll()"><i class="ti ti-x"></i> 취소</button>
+        </div>
+      </div>
+    </div>
+    <!-- BOARD -->
+    <div class="board-center" id="board-center">
+      <div class="board" id="board"></div>
+      <div class="rules-summary">
+        <div class="rule-item"><i class="ti ti-cards"></i>손패 3장 유지</div>
+        <div class="rule-item"><i class="ti ti-refresh"></i>재굴림 토큰 3개</div>
+        <div class="rule-item"><i class="ti ti-bomb"></i>숫자 = 인접 지뢰 수</div>
+        <div class="rule-item"><i class="ti ti-ban"></i>불가능 선언 → 상대 반박</div>
+        <div class="rule-item"><i class="ti ti-trophy"></i>반박 성공 시 배치자 승</div>
+      </div>
+    </div>
+    <!-- P2 -->
+    <div class="ppanel right inactive" id="pp1">
+      <div class="pp-top">
+        <div class="pp-name"><div class="ndot" style="background:var(--p2c)"></div><span id="ppn1">P2</span></div>
+        <div class="pp-lbl">재굴림 토큰</div>
+        <div class="token-lamps" id="lamps1"></div>
+      </div>
+      <div class="pp-hand">
+        <div class="pp-hand-lbl">손패</div>
         <div class="hand-tiles" id="ht1"></div>
       </div>
-    </div>
-
-    <!-- board -->
-    <div class="board-wrap">
-      <div class="board" id="board"></div>
-    </div>
-
-    <!-- info -->
-    <div class="info-bar">
-      <div class="chip"><i class="ti ti-stack-2"></i> 덱 <b id="deckc">—</b>장</div>
-      <div class="chip"><i class="ti ti-bomb"></i> 배치된 지뢰 <b id="minec">0</b>개</div>
-    </div>
-
-    <div class="status" id="gstatus">타일을 선택하세요</div>
-
-    <!-- normal actions -->
-    <div class="actions" id="act-normal">
-      <div class="arow">
-        <button class="btn btn-place" id="btn-place" onclick="doPlace()" disabled>
-          <i class="ti ti-layout-grid-add"></i> 타일 배치
-        </button>
-        <button class="btn btn-reroll" id="btn-reroll" onclick="startReroll()">
-          <i class="ti ti-refresh"></i> 재굴림
-        </button>
-      </div>
-      <div class="arow">
-        <button class="btn btn-impos" onclick="openModal('m-impos')">
-          <i class="ti ti-ban"></i> 불가능 선언
-        </button>
-      </div>
-    </div>
-
-    <!-- reroll actions -->
-    <div class="actions" id="act-reroll" style="display:none">
-      <div class="status" style="color:var(--red);padding:0 0 4px">버릴 타일을 선택하세요</div>
-      <div class="arow">
-        <button class="btn btn-rc" id="btn-rconf" onclick="confirmReroll()" disabled>
-          <i class="ti ti-check"></i> 재굴림 확정
-        </button>
-        <button class="btn btn-cancel" onclick="cancelReroll()">
-          <i class="ti ti-x"></i> 취소
-        </button>
+      <div class="pp-footer hidden" id="ft1">
+        <div class="status-mini" id="st1"></div>
+        <div id="act1-normal">
+          <button class="btn btn-place" id="bp1" onclick="doPlace()" disabled style="margin-bottom:4px"><i class="ti ti-layout-grid-add"></i> 타일 배치</button>
+          <button class="btn btn-reroll" id="br1" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-refresh"></i> 재굴림</button>
+          <button class="btn btn-impos" onclick="openModal('m-impos')"><i class="ti ti-ban"></i> 불가능 선언</button>
+        </div>
+        <div id="act1-reroll" style="display:none">
+          <div class="status-mini red" style="margin-bottom:4px">버릴 타일을 선택하세요</div>
+          <button class="btn btn-rc" id="brc1" onclick="confirmReroll()" disabled style="margin-bottom:4px"><i class="ti ti-check"></i> 재굴림 확정</button>
+          <button class="btn btn-cancel" onclick="cancelReroll()"><i class="ti ti-x"></i> 취소</button>
+        </div>
       </div>
     </div>
   </div>
@@ -272,343 +414,343 @@ body{background:var(--bg);color:var(--txt);font-family:'Noto Sans KR',system-ui,
 
 <!-- VERIFY -->
 <div id="s-verify" class="screen">
-  <div class="vheader">
-    <h2><i class="ti ti-alert-triangle"></i> 불가능 선언!</h2>
-    <p id="vdesc">지뢰를 배치해 반박하세요.</p>
+  <!-- TOP: announce -->
+  <div class="v-top">
+    <div class="v-top-badge">불가능 선언</div>
+    <div class="v-top-name" id="v-declarant-name">—</div>
+    <div class="v-top-msg" id="vdesc">지뢰를 배치해 반박하세요.</div>
   </div>
-  <div class="vbody">
-    <div class="board-wrap"><div class="board" id="vboard"></div></div>
-    <div class="vmine-lbl">사용 가능한 지뢰</div>
-    <div class="vmine-hand" id="vmine-hand"></div>
-    <div class="vstatus" id="vstatus">빈 칸에 지뢰를 배치하세요</div>
-    <div class="vactions">
-      <button class="btn btn-verify" onclick="verifyDone()">
-        <i class="ti ti-check"></i> 배치 완료 · 검증하기
-      </button>
-      <button class="btn btn-cancel" onclick="verifyGiveUp()">
-        <i class="ti ti-flag"></i> 포기 (선언 인정)
-      </button>
+  <!-- BOARD -->
+  <div class="v-board-area"><div class="board" id="vboard"></div></div>
+  <!-- BOTTOM: controls -->
+  <div class="v-bottom">
+    <div class="v-mine-count">
+      <i class="ti ti-bomb" style="font-size:18px;color:var(--red)"></i>
+      배치된 지뢰 <b id="v-mine-count">0</b>개
+    </div>
+    <div class="v-bottom-hint">빈 칸을 <b>누르면 지뢰 배치</b> · 다시 누르면 제거</div>
+    <div class="v-err" id="v-err"></div>
+    <div class="v-btns">
+      <button class="btn-verify-big confirm" onclick="verifyDone()"><i class="ti ti-check" style="font-size:18px"></i> 검증하기</button>
+      <button class="btn-verify-big giveup" onclick="verifyGiveUp()"><i class="ti ti-flag" style="font-size:18px"></i> 포기하기</button>
     </div>
   </div>
 </div>
 
-<!-- RESULT -->
-<div id="s-result" class="screen">
-  <i class="ti ti-trophy res-icon"></i>
-  <div class="res-title" id="res-title">승리!</div>
-  <div class="res-sub" id="res-sub"></div>
-  <button class="btn-ng" onclick="location.reload()">
-    <i class="ti ti-refresh"></i> 다시 시작
-  </button>
-</div>
-
-<!-- MODAL: impossible confirm -->
+<!-- MODAL -->
 <div class="moverlay" id="m-impos">
   <div class="modal">
     <h3><i class="ti ti-ban"></i> 불가능 선언</h3>
-    <p>현재 보드가 어떤 지뢰 배치로도 불가능하다고 확신하시나요?<br>상대방이 지뢰를 배치해 반박할 기회를 얻습니다.</p>
+    <p>현재 보드가 어떤 지뢰 배치로도 불가능하다고 확신하시나요?<br>상대방이 반박할 기회를 얻습니다.</p>
     <div class="mbtns">
-      <button class="btn btn-impos" style="flex:1" onclick="confirmImpossible()"><i class="ti ti-ban"></i> 선언!</button>
-      <button class="btn btn-cancel" style="flex:1" onclick="closeModal('m-impos')"><i class="ti ti-x"></i> 취소</button>
+      <button class="btn btn-impos" onclick="confirmImpossible()"><i class="ti ti-ban"></i> 선언!</button>
+      <button class="btn btn-cancel" onclick="closeModal('m-impos')"><i class="ti ti-x"></i> 취소</button>
     </div>
   </div>
 </div>
 
 <script>
-const DIST={'M':15,'0':3,'1':10,'2':8,'3':6,'4':3,'5':2,'6':1,'7':1,'8':1};
-const ROWS=6,COLS=6,HSIZE=3,TOTAL_MINES=15;
-
+const NUM_DIST={'0':3,'1':10,'2':8,'3':6,'4':3,'5':2,'6':1,'7':1,'8':1};
+const ROWS=6,COLS=6,HSIZE=3;
 let G={};
+let difficulty='easy';
+
+function setDiff(d){
+  difficulty=d;
+  document.getElementById('diff-easy').className='diff-btn'+(d==='easy'?' active-easy':'');
+  document.getElementById('diff-hard').className='diff-btn'+(d==='hard'?' active-hard':'');
+}
 
 function buildDeck(){
+  const mc=difficulty==='easy'?15:5;
   let d=[];
-  for(const[v,n] of Object.entries(DIST)) for(let i=0;i<n;i++) d.push(v);
+  for(const[v,n] of Object.entries(NUM_DIST)) for(let i=0;i<n;i++) d.push(v);
+  for(let i=0;i<mc;i++) d.push('M');
   for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}
   return d;
 }
 
+/* ── SIZING ── */
+function updateSizes(){
+  const vh=window.innerHeight, vw=window.innerWidth;
+  const tbh=Math.max(44,Math.min(80,Math.round(vh*0.09)));
+  document.documentElement.style.setProperty('--topbar-h',tbh+'px');
+  const pw=Math.max(120,Math.min(220,Math.round(vw*0.17)));
+  document.documentElement.style.setProperty('--panel-w',pw+'px');
+  const mainH=vh-tbh;
+  const baw=vw-pw*2-16;
+  const bah=mainH-52;
+  let cs=Math.floor(Math.min(baw/6.3,bah/6.3));
+  cs=Math.max(26,Math.min(90,cs));
+  const gap=Math.max(2,Math.round(cs*0.06));
+  const fs=Math.max(11,Math.round(cs*0.44));
+  const ts=Math.max(26,Math.round(pw*0.72));
+  const tfs=Math.max(11,Math.round(ts*0.44));
+  document.documentElement.style.setProperty('--cell-size',cs+'px');
+  document.documentElement.style.setProperty('--cell-gap',gap+'px');
+  document.documentElement.style.setProperty('--cell-fs',fs+'px');
+  document.documentElement.style.setProperty('--tile-size',ts+'px');
+  document.documentElement.style.setProperty('--tile-fs',tfs+'px');
+}
+window.addEventListener('resize',updateSizes);
+window.addEventListener('orientationchange',()=>setTimeout(updateSizes,200));
+
+/* ── START ── */
 function startGame(){
   const n1=document.getElementById('n1').value.trim()||'플레이어 1';
   const n2=document.getElementById('n2').value.trim()||'플레이어 2';
   G={
-    players:[{name:n1,color:'var(--p1c)',tokens:3,hand:[]},{name:n2,color:'var(--p2c)',tokens:3,hand:[]}],
-    cur:0, deck:buildDeck(),
+    players:[
+      {name:n1,color:'var(--p1c)',tintCls:'by-p1',lampCls:'p1-lamp',tokens:3,hand:[]},
+      {name:n2,color:'var(--p2c)',tintCls:'by-p2',lampCls:'p2-lamp',tokens:3,hand:[]}
+    ],
+    cur:0,deck:buildDeck(),
     board:Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
-    mines:0, selTile:null, reroll:false, rsel:[],
-    vMines:[], vPlaced:[], selMineV:false, imposer:-1
+    boardOwner:Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)), // who placed
+    mines:0,selTile:null,reroll:false,rsel:[],
+    vPlaced:[],imposer:-1
   };
   for(let p=0;p<2;p++) for(let i=0;i<HSIZE;i++) if(G.deck.length) G.players[p].hand.push(G.deck.pop());
-  renderGame();
   showScreen('s-game');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{updateSizes();renderGame();}));
 }
 
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  requestAnimationFrame(()=>requestAnimationFrame(updateSizes));
 }
 
-/* ── RENDER ── */
+/* ── RENDER GAME ── */
 function renderGame(){
   const cp=G.cur;
-  // badges
   for(let i=0;i<2;i++){
-    const b=document.getElementById('b'+i);
-    b.classList.toggle('active',i===cp);
-    b.style.opacity=i===cp?'1':'0.5';
-    document.getElementById('pn'+i).textContent=G.players[i].name;
-    document.getElementById('ps'+i).textContent=`손패 ${G.players[i].hand.length}장`;
-    renderDots(i);
+    const p=G.players[i];const isA=i===cp;
+    document.getElementById('ppn'+i).textContent=p.name;
+    document.getElementById('pp'+i).classList.toggle('active',isA);
+    document.getElementById('pp'+i).classList.toggle('inactive',!isA);
+    renderLamps(i);renderHand(i);
+    document.getElementById('ft'+i).classList.toggle('hidden',!isA);
+    if(isA){
+      const norm=!G.reroll;
+      document.getElementById('act'+i+'-normal').style.display=norm?'':'none';
+      document.getElementById('act'+i+'-reroll').style.display=norm?'none':'';
+      if(norm) document.getElementById('st'+i).textContent='타일을 선택하세요';
+      document.getElementById('bp'+i).disabled=G.selTile===null;
+      document.getElementById('br'+i).disabled=p.tokens<=0;
+      document.getElementById('brc'+i).disabled=G.rsel.length===0;
+    }
   }
-  document.getElementById('turnpill').textContent=G.players[cp].name;
+  document.getElementById('turn-name').textContent=G.players[cp].name;
+  document.getElementById('turn-name').style.color=G.players[cp].color;
   document.getElementById('deckc').textContent=G.deck.length;
   document.getElementById('minec').textContent=G.mines;
-  renderBothHands();
   renderBoard();
-  updateActs();
 }
 
-function renderDots(pi){
-  const row=document.getElementById('tr'+pi);
-  row.innerHTML='';
+function renderLamps(pi){
+  const row=document.getElementById('lamps'+pi);
+  const p=G.players[pi];row.innerHTML='';
   for(let i=0;i<3;i++){
-    const d=document.createElement('div');
-    d.className='dot'+(i<G.players[pi].tokens?' on':'');
-    row.appendChild(d);
+    const l=document.createElement('div');
+    const on=i<p.tokens;
+    l.className=`lamp ${p.lampCls} ${on?'on':'off'}`;
+    const core=document.createElement('div');core.className='lamp-core';
+    l.appendChild(core);row.appendChild(l);
   }
 }
 
-function renderBothHands(){
-  for(let pi=0;pi<2;pi++){
-    const isActive=pi===G.cur;
-    const cont=document.getElementById('ht'+pi);
-    const lbl=document.getElementById('hl'+pi);
-    lbl.style.color=isActive?G.players[pi].color:'var(--muted)';
-    cont.innerHTML='';
-    G.players[pi].hand.forEach((v,i)=>{
-      const t=document.createElement('div');
-      t.className='tile'+(isActive?'':' inactive');
-      t.dataset.v=v;
-      t.innerHTML=v==='M'?'<i class="ti ti-bomb tile-mine-icon" aria-hidden="true"></i>':v;
-      if(isActive){
-        if(G.reroll){if(G.rsel.includes(i))t.classList.add('discard-sel');t.onclick=()=>toggleRS(i);}
-        else{if(G.selTile===i)t.classList.add('selected');t.onclick=()=>selTile(i);}
-      }
-      cont.appendChild(t);
-    });
-  }
+function renderHand(pi){
+  const cont=document.getElementById('ht'+pi);const isA=pi===G.cur;
+  cont.innerHTML='';
+  G.players[pi].hand.forEach((v,i)=>{
+    const t=document.createElement('div');
+    t.className='tile'+(isA?'':' inactive-tile');
+    t.dataset.v=v;
+    t.innerHTML=v==='M'?'<i class="ti ti-bomb" aria-hidden="true"></i>':v;
+    if(isA){
+      if(G.reroll){if(G.rsel.includes(i))t.classList.add('discard-sel');t.onclick=()=>toggleRS(i);}
+      else{if(G.selTile===i)t.classList.add('selected');t.onclick=()=>selTile(i);}
+    }
+    cont.appendChild(t);
+  });
 }
 
 function renderBoard(){
-  const b=document.getElementById('board');
-  b.innerHTML='';
+  const b=document.getElementById('board');b.innerHTML='';
   for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const cell=document.createElement('div');
-    cell.className='cell';
-    const v=G.board[r][c];
+    const cell=document.createElement('div');cell.className='cell';
+    const v=G.board[r][c];const owner=G.boardOwner[r][c];
     if(v!==null){
       cell.classList.add('placed');
+      if(owner!==null) cell.classList.add(G.players[owner].tintCls);
       cell.dataset.v=v;
       cell.innerHTML=v==='M'?'<i class="ti ti-bomb" aria-hidden="true"></i>':v;
     } else {
       cell.classList.add('empty');
-      if(G.selTile!==null&&!G.reroll) cell.classList.add('highlight');
+      if(G.selTile!==null&&!G.reroll) cell.classList.add('hl');
       cell.onclick=()=>placeCell(r,c);
     }
     b.appendChild(cell);
   }
 }
 
-function updateActs(){
-  const na=document.getElementById('act-normal');
-  const ra=document.getElementById('act-reroll');
-  if(G.reroll){na.style.display='none';ra.style.display='';}
-  else{na.style.display='';ra.style.display='none';}
-  document.getElementById('btn-place').disabled=G.selTile===null;
-  document.getElementById('btn-reroll').disabled=G.players[G.cur].tokens<=0;
-  document.getElementById('btn-rconf').disabled=G.rsel.length===0;
-}
+function setStatus(msg){document.getElementById('st'+G.cur).textContent=msg;}
 
-function setStatus(m){document.getElementById('gstatus').textContent=m;}
-
-/* ── TILE SELECT & PLACE ── */
+/* ── ACTIONS ── */
 function selTile(i){
   G.selTile=G.selTile===i?null:i;
   setStatus(G.selTile!==null?'배치할 칸을 선택하세요':'타일을 선택하세요');
-  renderBothHands();renderBoard();updateActs();
+  renderHand(G.cur);renderBoard();
+  document.getElementById('bp'+G.cur).disabled=G.selTile===null;
 }
-
-function doPlace(){if(G.selTile===null){setStatus('먼저 타일을 선택하세요');return;}setStatus('배치할 칸을 선택하세요');}
-
+function doPlace(){if(G.selTile===null){setStatus('타일을 먼저 선택하세요');return;}setStatus('배치할 칸을 선택하세요');}
 function placeCell(r,c){
   if(G.board[r][c]!==null) return;
-  if(G.selTile===null){setStatus('먼저 손패에서 타일을 선택하세요');return;}
-  const p=G.players[G.cur];
-  const v=p.hand[G.selTile];
-  G.board[r][c]=v;
+  if(G.selTile===null){setStatus('타일을 먼저 선택하세요');return;}
+  const p=G.players[G.cur];const v=p.hand[G.selTile];
+  G.board[r][c]=v;G.boardOwner[r][c]=G.cur;
   if(v==='M') G.mines++;
-  p.hand.splice(G.selTile,1);
-  G.selTile=null;
+  p.hand.splice(G.selTile,1);G.selTile=null;
   if(G.deck.length) p.hand.push(G.deck.pop());
-  setStatus('타일을 배치했습니다');
-  // animate
   const cells=document.getElementById('board').children;
   cells[r*COLS+c].classList.add('just-in');
-  setTimeout(()=>{if(cells[r*COLS+c])cells[r*COLS+c].classList.remove('just-in');},250);
+  setTimeout(()=>{if(cells[r*COLS+c])cells[r*COLS+c].classList.remove('just-in');},220);
   endTurn();
 }
-
 function endTurn(){
   G.selTile=null;G.reroll=false;G.rsel=[];
-  const full=G.board.flat().every(v=>v!==null);
-  if(full){showResult(G.cur,'보드가 가득 찼습니다!');return;}
-  G.cur=1-G.cur;
-  renderGame();
+  if(G.board.flat().every(v=>v!==null)){showResult(G.cur,'보드가 가득 찼습니다!','ti-layout-grid');return;}
+  G.cur=1-G.cur;renderGame();
 }
-
-/* ── REROLL ── */
-function startReroll(){
-  const p=G.players[G.cur];
-  if(p.tokens<=0) return;
-  G.reroll=true;G.rsel=[];
-  setStatus('버릴 타일을 선택하세요');
-  renderBothHands();updateActs();
-}
-
+function startReroll(){if(G.players[G.cur].tokens<=0)return;G.reroll=true;G.rsel=[];renderGame();}
 function toggleRS(i){
-  const idx=G.rsel.indexOf(i);
-  if(idx>=0)G.rsel.splice(idx,1);else G.rsel.push(i);
-  renderBothHands();updateActs();
+  const idx=G.rsel.indexOf(i);if(idx>=0)G.rsel.splice(idx,1);else G.rsel.push(i);
+  renderHand(G.cur);document.getElementById('brc'+G.cur).disabled=G.rsel.length===0;
 }
-
 function confirmReroll(){
-  if(G.rsel.length===0) return;
-  const p=G.players[G.cur];
-  p.tokens--;
+  if(G.rsel.length===0)return;
+  const p=G.players[G.cur];p.tokens--;
   const sorted=[...G.rsel].sort((a,b)=>b-a);
   for(const i of sorted) p.hand.splice(i,1);
   for(let i=0;i<sorted.length;i++) if(G.deck.length) p.hand.push(G.deck.pop());
-  G.reroll=false;G.rsel=[];
-  setStatus(`재굴림 완료! (남은 토큰: ${p.tokens})`);
-  renderGame();
+  G.reroll=false;G.rsel=[];renderGame();
 }
-
-function cancelReroll(){G.reroll=false;G.rsel=[];renderBothHands();updateActs();setStatus('타일을 선택하세요');}
+function cancelReroll(){G.reroll=false;G.rsel=[];renderGame();}
 
 /* ── IMPOSSIBLE ── */
 function confirmImpossible(){
   closeModal('m-impos');
-  G.imposer=G.cur;
-  const verifier=1-G.cur;
-  // collect mines
-  const deckMines=G.deck.filter(v=>v==='M').length;
-  const p0mines=G.players[0].hand.filter(v=>v==='M').length;
-  const p1mines=G.players[1].hand.filter(v=>v==='M').length;
-  G.vMines=Array(deckMines+p0mines+p1mines).fill('M');
-  G.vPlaced=[];G.selMineV=false;
-  document.getElementById('vdesc').textContent=
-    `${G.players[G.imposer].name}이(가) 불가능을 선언했습니다. `+
-    `${G.players[verifier].name}, 지뢰를 배치해 반박하세요!`;
-  renderVerify();
+  G.imposer=G.cur;G.vPlaced=[];
+  const dp=G.players[G.imposer];const verifier=1-G.imposer;const vp=G.players[verifier];
+  document.getElementById('v-declarant-name').textContent=dp.name;
+  document.getElementById('v-declarant-name').style.color=dp.color;
+  document.getElementById('vdesc').textContent=`${vp.name}, 지뢰를 배치해 반박하세요. 빈 칸을 누르면 지뢰 배치 · 다시 누르면 제거.`;
+  document.getElementById('v-err').textContent='';
+  renderVBoard();updateVCount();
   showScreen('s-verify');
 }
 
 /* ── VERIFY ── */
-function renderVerify(){
-  renderVBoard();renderVMines();
-  document.getElementById('vstatus').textContent='빈 칸에 지뢰를 배치하세요 (원하는 만큼)';
-}
-
 function renderVBoard(){
-  const b=document.getElementById('vboard');
-  b.innerHTML='';
+  const b=document.getElementById('vboard');b.innerHTML='';
   for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const cell=document.createElement('div');
-    cell.className='cell';
+    const cell=document.createElement('div');cell.className='cell';
     const placed=G.vPlaced.find(p=>p.r===r&&p.c===c);
-    const orig=G.board[r][c];
+    const orig=G.board[r][c];const owner=G.boardOwner[r][c];
     if(placed){
-      cell.classList.add('placed','mine-hi');
-      cell.dataset.v='M';
+      cell.classList.add('placed','mine-hi');cell.dataset.v='M';
       cell.innerHTML='<i class="ti ti-bomb" aria-hidden="true"></i>';
-      cell.onclick=()=>removeVMine(r,c);
+      cell.onclick=()=>toggleVMine(r,c);
     } else if(orig!==null){
       cell.classList.add('placed');
+      if(owner!==null) cell.classList.add(G.players[owner].tintCls);
       cell.dataset.v=orig;
       cell.innerHTML=orig==='M'?'<i class="ti ti-bomb" aria-hidden="true"></i>':orig;
     } else {
       cell.classList.add('empty');
-      if(G.selMineV) cell.classList.add('mine-hi');
-      cell.onclick=()=>placeVMine(r,c);
+      cell.onclick=()=>toggleVMine(r,c);
     }
     b.appendChild(cell);
   }
 }
-
-function renderVMines(){
-  const cont=document.getElementById('vmine-hand');
-  cont.innerHTML='';
-  const avail=G.vMines.length-G.vPlaced.length;
-  if(avail<=0){cont.innerHTML='<span style="color:var(--muted);font-size:12px;padding:4px">지뢰 없음</span>';return;}
-  // show one stack tile
-  const t=document.createElement('div');
-  t.className='tile'+(G.selMineV?' selected':'');
-  t.dataset.v='M';
-  t.innerHTML='<i class="ti ti-bomb tile-mine-icon" aria-hidden="true"></i>';
-  const badge=document.createElement('span');
-  badge.style.cssText='position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center';
-  badge.textContent=avail;
-  t.appendChild(badge);
-  t.onclick=()=>{G.selMineV=!G.selMineV;renderVBoard();renderVMines();};
-  cont.appendChild(t);
+function toggleVMine(r,c){
+  if(G.board[r][c]!==null) return;
+  const idx=G.vPlaced.findIndex(p=>p.r===r&&p.c===c);
+  if(idx>=0) G.vPlaced.splice(idx,1);else G.vPlaced.push({r,c});
+  renderVBoard();updateVCount();
+  document.getElementById('v-err').textContent='';
 }
-
-function placeVMine(r,c){
-  if(!G.selMineV){document.getElementById('vstatus').textContent='먼저 지뢰 타일을 선택하세요';return;}
-  const avail=G.vMines.length-G.vPlaced.length;
-  if(avail<=0){document.getElementById('vstatus').textContent='사용 가능한 지뢰가 없습니다';return;}
-  G.vPlaced.push({r,c});G.selMineV=false;
-  renderVBoard();renderVMines();
-}
-
-function removeVMine(r,c){
-  G.vPlaced=G.vPlaced.filter(p=>!(p.r===r&&p.c===c));
-  renderVBoard();renderVMines();
+function updateVCount(){
+  document.getElementById('v-mine-count').textContent=G.vPlaced.length;
 }
 
 function verifyDone(){
-  // build mine set: original board mines + verify placed
+  // build mine set
   const mines=new Set();
   for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) if(G.board[r][c]==='M') mines.add(`${r},${c}`);
   G.vPlaced.forEach(p=>mines.add(`${p.r},${p.c}`));
-  // validate all number tiles
-  let valid=true;
-  outer:for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const v=G.board[r][c];
-    if(v===null||v==='M') continue;
-    let cnt=0;
+
+  // validate ALL number tiles; collect errors
+  const errors=[];
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
+    const v=G.board[r][c];if(v===null||v==='M') continue;
+    const num=parseInt(v);let cnt=0;
     for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++)
       if((dr||dc)&&mines.has(`${r+dr},${c+dc}`)) cnt++;
-    if(cnt!==parseInt(v)){valid=false;break outer;}
+    if(cnt!==num) errors.push(`(${r+1}행 ${c+1}열) : ${num} 필요, ${cnt} 인접`);
   }
+
+  if(errors.length>0){
+    // invalid — show errors, let verifier retry
+    const errEl=document.getElementById('v-err');
+    if(errors.length<=2) errEl.textContent=`조건 불일치 → ${errors.join(' / ')}`;
+    else errEl.textContent=`조건 불일치 ${errors.length}곳 — 배치를 수정하세요`;
+    return;
+  }
+
+  // valid — verifier wins
   const verifier=1-G.imposer;
-  if(valid) showResult(verifier,`${G.players[verifier].name}이(가) 지뢰 배치로 반박에 성공했습니다!`);
-  else showResult(G.imposer,`${G.players[G.imposer].name}의 불가능 선언이 정확했습니다!`);
+  showResult(verifier,`${G.players[verifier].name}이(가) 지뢰 배치로 반박 성공!`,'ti-shield-check');
 }
 
 function verifyGiveUp(){
-  showResult(G.imposer,`${G.players[1-G.imposer].name}이(가) 반박을 포기했습니다.`);
+  showResult(G.imposer,`${G.players[1-G.imposer].name}이(가) 반박을 포기했습니다.`,'ti-flag');
 }
 
 /* ── RESULT ── */
-function showResult(wi,reason){
+function showResult(wi,reason,icon){
+  // freeze verify/game board visually — go back to game screen so board shows
+  showScreen('s-game');
+  renderGame(); // re-render final board state with tints
+  document.getElementById('res-icon').className=`ti ti-${icon||'trophy'} res-icon`;
   document.getElementById('res-title').textContent=`${G.players[wi].name} 승리!`;
+  document.getElementById('res-title').style.color=G.players[wi].color;
   document.getElementById('res-sub').innerHTML=`<b>${G.players[wi].name}</b>이(가) 이겼습니다!<br><br>${reason}`;
-  showScreen('s-result');
+  document.getElementById('result-overlay').classList.add('open');
+}
+function closeResult(){
+  document.getElementById('result-overlay').classList.remove('open');
+  // make sure we're on game screen to show the final board
+  showScreen('s-game');
+  // freeze — null-safe
+  const gm = document.getElementById('game-main');
+  const tb = document.getElementById('topbar');
+  if(gm) gm.classList.add('game-frozen');
+  if(tb) tb.classList.add('game-frozen');
+  // show restart bar
+  document.getElementById('restart-bar-msg').textContent =
+    document.getElementById('res-title').textContent;
+  document.getElementById('restart-bar').classList.add('show');
 }
 
-/* ── MODAL ── */
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+function toggleTheme(){
+  const dark = document.body.classList.toggle('dark');
+  document.getElementById('theme-icon').className = dark ? 'ti ti-sun' : 'ti ti-moon';
+}
 </script>
 </body>
 </html>
