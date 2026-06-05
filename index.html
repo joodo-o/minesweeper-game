@@ -126,7 +126,6 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .btn:active{transform:scale(.95)}.btn:disabled{opacity:.3;cursor:default}.btn:disabled:active{transform:none}
 .btn i{font-size:clamp(11px,1.3vw,15px);}
 .btn-place{background:var(--accent);color:#fff}
-.btn-impos{background:var(--red);color:#fff}
 .btn-reroll{background:var(--surf3);color:var(--txt);border:0.5px solid var(--bdr2)}
 .btn-rc{background:var(--green);color:#fff}
 .btn-cancel{background:var(--surf3);color:var(--txt2);border:0.5px solid var(--bdr)}
@@ -157,40 +156,6 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .rule-item{display:flex;align-items:center;gap:4px;font-size:clamp(9px,1vw,11px);color:var(--muted);font-weight:400;white-space:nowrap;}
 .rule-item i{font-size:clamp(10px,1.1vw,13px);}
 
-/* ══ VERIFY SCREEN ══ */
-#s-verify{flex-direction:column;height:100%;overflow:hidden;background:var(--bg);}
-
-/* top announce */
-.v-top{
-  flex-shrink:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;
-  padding:clamp(10px,1.8vh,18px) 20px;
-  background:var(--surf);
-  border-bottom:0.5px solid var(--bdr2);
-  text-align:center;
-}
-.v-top-badge{font-size:clamp(9px,1.1vh,11px);color:var(--red);font-weight:600;letter-spacing:2px;text-transform:uppercase;background:var(--red-bg);border-radius:20px;padding:3px 12px;}
-.v-top-name{font-size:clamp(22px,4vh,40px);font-weight:800;line-height:1.1;}
-.v-top-msg{font-size:clamp(11px,1.4vh,14px);color:var(--txt2);font-weight:400;line-height:1.5;max-width:600px;}
-
-/* board area */
-.v-board-area{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:8px;min-height:0;}
-
-/* bottom controls */
-.v-bottom{
-  flex-shrink:0;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:clamp(10px,1.8vh,18px) 20px;
-  background:var(--surf);
-  border-top:0.5px solid var(--bdr2);
-}
-.v-bottom-hint{font-size:clamp(10px,1.3vh,13px);color:var(--muted);font-weight:400;text-align:center;}
-.v-bottom-hint b{color:var(--txt2);font-weight:600;}
-.v-err{font-size:clamp(11px,1.4vh,14px);color:var(--red);font-weight:600;text-align:center;min-height:20px;}
-.v-mine-count{display:flex;align-items:center;gap:6px;font-size:clamp(12px,1.5vh,15px);color:var(--txt2);font-weight:400;}
-.v-mine-count b{font-size:clamp(18px,2.5vh,26px);font-weight:800;color:var(--red);}
-.v-btns{display:flex;gap:12px;width:100%;max-width:500px;}
 .btn-verify-big{flex:1;padding:clamp(11px,1.6vh,16px);border-radius:10px;border:none;font-family:'A2z',sans-serif;font-size:clamp(13px,1.6vw,16px);font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .1s,opacity .15s,box-shadow .15s;}
 .btn-verify-big:active{transform:scale(.96)}
 .btn-verify-big.confirm{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(200,48,48,0.25);}
@@ -233,6 +198,67 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .modal h3{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:7px;color:var(--red)}
 .modal p{font-size:13px;color:var(--txt2);margin-bottom:16px;line-height:1.6;font-weight:400;}
 .mbtns{display:flex;gap:8px}.mbtns .btn{flex:1}
+
+/* IMPOSSIBLE OVERLAY */
+.impos-overlay{
+  display:none;position:fixed;inset:0;z-index:80;
+  background:rgba(240,237,232,0.92);backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;padding:20px;
+}
+body.dark .impos-overlay{background:rgba(10,10,14,0.92);}
+.impos-overlay.open{display:flex;}
+.impos-card{
+  background:var(--surf);border:0.5px solid var(--bdr2);
+  border-radius:20px;padding:28px 24px;
+  max-width:480px;width:100%;
+  box-shadow:0 8px 32px rgba(0,0,0,0.12);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  text-align:center;
+}
+.impos-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--red-bg);color:var(--red);
+  border-radius:20px;padding:5px 14px;
+  font-size:12px;font-weight:700;letter-spacing:1px;
+}
+.impos-badge i{font-size:14px;}
+.impos-placer{font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1.1;margin-top:4px;}
+.impos-placer-label{font-size:clamp(13px,1.8vh,16px);color:var(--txt2);font-weight:400;}
+.impos-why{
+  font-size:clamp(12px,1.6vh,15px);color:var(--txt2);line-height:1.8;
+  background:var(--surf2);border-radius:12px;padding:14px 16px;
+  width:100%;text-align:left;margin-top:4px;font-weight:400;
+}
+.impos-why b{color:var(--txt);font-weight:700;}
+/* mini board viz */
+.impos-viz{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:2px;}
+.impos-cell{
+  width:32px;height:32px;border-radius:4px;
+  background:var(--surf2);border:1px solid var(--bdr);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;position:relative;
+}
+/* confirmed mine (forced) — yellow */
+.impos-cell.forced-mine{background:#fff8d6;border:1.5px solid #c8960a;color:#8a6400;}
+body.dark .impos-cell.forced-mine{background:#2a2000;border-color:#c8960a;color:#e8b820;}
+/* confirmed safe — green */
+.impos-cell.forced-safe{background:#e8f8ef;border:1.5px solid var(--green);color:var(--green);}
+body.dark .impos-cell.forced-safe{background:#0a2018;border:1.5px solid #28b870;color:#28b870;}
+/* conflict tile — red, same border thickness */
+.impos-cell.conflict{background:var(--red-bg);border:1.5px solid var(--red);color:var(--red);}
+.impos-cell[data-v="0"]{color:var(--num0)}.impos-cell[data-v="1"]{color:var(--num1)}
+.impos-cell[data-v="2"]{color:var(--num2)}.impos-cell[data-v="3"]{color:var(--num3)}
+.impos-cell[data-v="4"]{color:var(--num4)}.impos-cell[data-v="5"]{color:var(--num5)}
+.impos-cell[data-v="6"]{color:var(--num6)}.impos-cell[data-v="7"]{color:var(--num7)}
+.impos-cell[data-v="8"]{color:var(--num8)}.impos-cell[data-v="M"]{color:var(--red);}
+.impos-btn{
+  margin-top:6px;padding:12px 32px;border-radius:10px;border:none;
+  background:var(--accent);color:#fff;
+  font-family:'A2z',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;gap:8px;
+  box-shadow:0 2px 8px rgba(184,144,10,0.2);
+}
+.impos-btn:active{opacity:.85;}
 
 .orient-hint{display:none;position:fixed;inset:0;background:var(--bg);z-index:200;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:24px;}
 .orient-hint i{font-size:48px;color:var(--accent)}
@@ -309,6 +335,34 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
   <button class="restart-bar-btn" onclick="location.reload()"><i class="ti ti-refresh"></i> 다시 시작</button>
 </div>
 
+<!-- IMPOSSIBLE OVERLAY -->
+<div class="impos-overlay" id="impos-overlay">
+  <div class="impos-card">
+    <div class="impos-badge"><i class="ti ti-alert-triangle"></i> 모순 감지</div>
+    <div class="impos-placer" id="impos-placer-name">—</div>
+    <div class="impos-placer-label">이(가) 불가능한 상황을 만들었습니다</div>
+    <div class="impos-why" id="impos-why"></div>
+    <div class="impos-legend" id="impos-legend" style="display:none;gap:10px;flex-wrap:wrap;justify-content:center;width:100%;">
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;background:#fff8d6;border:1.5px solid #c8960a;flex-shrink:0"></div>반드시 지뢰
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;background:#e8f8ef;border:1.5px solid var(--green);flex-shrink:0"></div>반드시 안전
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;background:var(--surf2);border:1px solid var(--bdr);flex-shrink:0"></div>미확정
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;background:var(--red-bg);border:1.5px solid var(--red);flex-shrink:0"></div>모순 타일
+      </div>
+    </div>
+    <div class="impos-viz" id="impos-viz"></div>
+    <button class="impos-btn" id="impos-continue-btn" onclick="resolveImpossible()">
+      <i class="ti ti-arrow-right"></i> 결과 확인
+    </button>
+  </div>
+</div>
+
 <!-- SETUP -->
 <div id="s-setup" class="screen active">
   <div class="logo-sub">Minesweeper Deduction Game</div>
@@ -364,7 +418,6 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
         <div id="act0-normal">
           <button class="btn btn-place" id="bp0" onclick="doPlace()" disabled style="margin-bottom:4px"><i class="ti ti-layout-grid-add"></i> 타일 배치</button>
           <button class="btn btn-reroll" id="br0" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-refresh"></i> 재굴림</button>
-          <button class="btn btn-impos" onclick="openModal('m-impos')"><i class="ti ti-ban"></i> 불가능 선언</button>
         </div>
         <div id="act0-reroll" style="display:none">
           <div class="status-mini red" style="margin-bottom:4px">버릴 타일을 선택하세요</div>
@@ -380,8 +433,8 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
         <div class="rule-item"><i class="ti ti-cards"></i>손패 4장 유지</div>
         <div class="rule-item"><i class="ti ti-refresh"></i>재굴림 1회</div>
         <div class="rule-item"><i class="ti ti-bomb"></i>숫자 = 인접 지뢰 수</div>
-        <div class="rule-item"><i class="ti ti-ban"></i>불가능 선언 → 상대 반박</div>
-        <div class="rule-item"><i class="ti ti-trophy"></i>반박 성공 시 배치자 승</div>
+        <div class="rule-item"><i class="ti ti-alert-triangle"></i>모순 발생 시 자동 판정</div>
+        <div class="rule-item"><i class="ti ti-trophy"></i>모순을 만든 플레이어 패배</div>
       </div>
     </div>
     <!-- P2 -->
@@ -400,7 +453,6 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
         <div id="act1-normal">
           <button class="btn btn-place" id="bp1" onclick="doPlace()" disabled style="margin-bottom:4px"><i class="ti ti-layout-grid-add"></i> 타일 배치</button>
           <button class="btn btn-reroll" id="br1" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-refresh"></i> 재굴림</button>
-          <button class="btn btn-impos" onclick="openModal('m-impos')"><i class="ti ti-ban"></i> 불가능 선언</button>
         </div>
         <div id="act1-reroll" style="display:none">
           <div class="status-mini red" style="margin-bottom:4px">버릴 타일을 선택하세요</div>
@@ -412,42 +464,9 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
   </div>
 </div>
 
-<!-- VERIFY -->
-<div id="s-verify" class="screen">
-  <!-- TOP: announce -->
-  <div class="v-top">
-    <div class="v-top-badge">불가능 선언</div>
-    <div class="v-top-name" id="v-declarant-name">—</div>
-    <div class="v-top-msg" id="vdesc">지뢰를 배치해 반박하세요.</div>
-  </div>
-  <!-- BOARD -->
-  <div class="v-board-area"><div class="board" id="vboard"></div></div>
-  <!-- BOTTOM: controls -->
-  <div class="v-bottom">
-    <div class="v-mine-count">
-      <i class="ti ti-bomb" style="font-size:18px;color:var(--red)"></i>
-      배치된 지뢰 <b id="v-mine-count">0</b>개
-    </div>
-    <div class="v-bottom-hint">빈 칸을 <b>누르면 지뢰 배치</b> · 다시 누르면 제거</div>
-    <div class="v-err" id="v-err"></div>
-    <div class="v-btns">
-      <button class="btn-verify-big confirm" onclick="verifyDone()"><i class="ti ti-check" style="font-size:18px"></i> 검증하기</button>
-      <button class="btn-verify-big giveup" onclick="verifyGiveUp()"><i class="ti ti-flag" style="font-size:18px"></i> 포기하기</button>
-    </div>
-  </div>
-</div>
+<!-- verify screen removed -->
 
-<!-- MODAL -->
-<div class="moverlay" id="m-impos">
-  <div class="modal">
-    <h3><i class="ti ti-ban"></i> 불가능 선언</h3>
-    <p>현재 보드가 어떤 지뢰 배치로도 불가능하다고 확신하시나요?<br>상대방이 반박할 기회를 얻습니다.</p>
-    <div class="mbtns">
-      <button class="btn btn-impos" onclick="confirmImpossible()"><i class="ti ti-ban"></i> 선언!</button>
-      <button class="btn btn-cancel" onclick="closeModal('m-impos')"><i class="ti ti-x"></i> 취소</button>
-    </div>
-  </div>
-</div>
+<!-- impossible modal removed -->
 
 <script>
 const NUM_DIST={'0':3,'1':10,'2':8,'3':6,'4':3,'5':2,'6':1,'7':1,'8':1};
@@ -620,6 +639,12 @@ function placeCell(r,c){
 }
 function endTurn(){
   G.selTile=null;G.reroll=false;G.rsel=[];
+  // CSP check — did the last placer create an impossible state?
+  const result = checkBoardPossibility(G.board);
+  if (!result.possible) {
+    showImpossibleOverlay(G.cur, result);
+    return;
+  }
   if(G.board.flat().every(v=>v!==null)){showResult(G.cur,'보드가 가득 찼습니다!','ti-layout-grid');return;}
   G.cur=1-G.cur;renderGame();
 }
@@ -638,116 +663,278 @@ function confirmReroll(){
 }
 function cancelReroll(){G.reroll=false;G.rsel=[];renderGame();}
 
-/* ── IMPOSSIBLE ── */
-function confirmImpossible(){
-  closeModal('m-impos');
-  G.imposer=G.cur;G.vPlaced=[];
-  const dp=G.players[G.imposer];const verifier=1-G.imposer;const vp=G.players[verifier];
-  document.getElementById('v-declarant-name').textContent=dp.name;
-  document.getElementById('v-declarant-name').style.color=dp.color;
-  document.getElementById('vdesc').textContent=`${vp.name}, 지뢰를 배치해 반박하세요. 빈 칸을 누르면 지뢰 배치 · 다시 누르면 제거.`;
-  document.getElementById('v-err').textContent='';
-  renderVBoard();updateVCount();
-  showScreen('s-verify');
+
+
+
+/* ══ CSP IMPOSSIBLE CHECKER ══ */
+
+function getAdjacentCells(r, c) {
+  const adj = [];
+  for (let dr = -1; dr <= 1; dr++)
+    for (let dc = -1; dc <= 1; dc++)
+      if ((dr || dc) && r+dr >= 0 && r+dr < ROWS && c+dc >= 0 && c+dc < COLS)
+        adj.push([r+dr, c+dc]);
+  return adj;
 }
 
-/* ── VERIFY ── */
-function renderVBoard(){
-  const b=document.getElementById('vboard');b.innerHTML='';
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const cell=document.createElement('div');cell.className='cell';
-    const placed=G.vPlaced.find(p=>p.r===r&&p.c===c);
-    const orig=G.board[r][c];const owner=G.boardOwner[r][c];
-    if(placed){
-      cell.classList.add('placed','mine-hi');cell.dataset.v='M';
-      cell.innerHTML='<i class="ti ti-bomb" aria-hidden="true"></i>';
-      cell.onclick=()=>toggleVMine(r,c);
-    } else if(orig!==null){
-      cell.classList.add('placed');
-      if(owner!==null) cell.classList.add(G.players[owner].tintCls);
-      cell.dataset.v=orig;
-      cell.innerHTML=orig==='M'?'<i class="ti ti-bomb" aria-hidden="true"></i>':orig;
-    } else {
-      cell.classList.add('empty');
-      cell.onclick=()=>toggleVMine(r,c);
+// Returns {possible, reason, conflictCells, forcedMines:Set, forcedSafe:Set}
+function checkBoardPossibility(board) {
+  const constraints = [];
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const v = board[r][c];
+      if (v === null || v === 'M') continue;
+      const num = parseInt(v);
+      const adj = getAdjacentCells(r, c);
+      const adjMines = adj.filter(([ar,ac]) => board[ar][ac] === 'M').length;
+      const adjEmpty = adj.filter(([ar,ac]) => board[ar][ac] === null);
+      const remaining = num - adjMines;
+
+      if (remaining < 0) {
+        return { possible:false, forcedMines:new Set(), forcedSafe:new Set(),
+          reason:`<b>${r+1}행 ${c+1}열의 ${num}</b> 타일 주변에 이미 지뢰가 ${adjMines}개로 숫자보다 많습니다.`,
+          conflictCells:[[r,c]] };
+      }
+      if (remaining > adjEmpty.length) {
+        return { possible:false, forcedMines:new Set(), forcedSafe:new Set(),
+          reason:`<b>${r+1}행 ${c+1}열의 ${num}</b> 타일은 지뢰가 ${remaining}개 더 필요하지만 주변 빈칸이 ${adjEmpty.length}개뿐입니다.`,
+          conflictCells:[[r,c],...adjEmpty] };
+      }
+      if (num === 0 && adjMines > 0) {
+        const minePos = adj.filter(([ar,ac]) => board[ar][ac] === 'M');
+        return { possible:false, forcedMines:new Set(), forcedSafe:new Set(),
+          reason:`<b>${r+1}행 ${c+1}열의 0</b> 타일은 주변에 지뢰가 없어야 하는데 인접한 지뢰가 있습니다.`,
+          conflictCells:[[r,c],...minePos] };
+      }
+      constraints.push({r, c, num, adjEmpty, remaining});
     }
-    b.appendChild(cell);
-  }
-}
-function toggleVMine(r,c){
-  if(G.board[r][c]!==null) return;
-  const idx=G.vPlaced.findIndex(p=>p.r===r&&p.c===c);
-  if(idx>=0) G.vPlaced.splice(idx,1);else G.vPlaced.push({r,c});
-  renderVBoard();updateVCount();
-  document.getElementById('v-err').textContent='';
-}
-function updateVCount(){
-  document.getElementById('v-mine-count').textContent=G.vPlaced.length;
-}
-
-function verifyDone(){
-  // build mine set
-  const mines=new Set();
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++) if(G.board[r][c]==='M') mines.add(`${r},${c}`);
-  G.vPlaced.forEach(p=>mines.add(`${p.r},${p.c}`));
-
-  // validate ALL number tiles; collect errors
-  const errors=[];
-  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
-    const v=G.board[r][c];if(v===null||v==='M') continue;
-    const num=parseInt(v);let cnt=0;
-    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++)
-      if((dr||dc)&&mines.has(`${r+dr},${c+dc}`)) cnt++;
-    if(cnt!==num) errors.push(`(${r+1}행 ${c+1}열) : ${num} 필요, ${cnt} 인접`);
   }
 
-  if(errors.length>0){
-    // invalid — show errors, let verifier retry
-    const errEl=document.getElementById('v-err');
-    if(errors.length<=2) errEl.textContent=`조건 불일치 → ${errors.join(' / ')}`;
-    else errEl.textContent=`조건 불일치 ${errors.length}곳 — 배치를 수정하세요`;
-    return;
+  // Unit propagation — collect forcedMines & forcedSafe
+  const fixed = new Map(); // "r,c" -> 0(safe)|1(mine)
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const con of constraints) {
+      const unknowns = con.adjEmpty.filter(([ar,ac]) => !fixed.has(`${ar},${ac}`));
+      const fixedMines = con.adjEmpty.filter(([ar,ac]) => fixed.get(`${ar},${ac}`) === 1).length;
+      const need = con.remaining - fixedMines;
+      if (need < 0 || need > unknowns.length) {
+        return { possible:false,
+          forcedMines: new Set([...fixed].filter(([,v])=>v===1).map(([k])=>k)),
+          forcedSafe:  new Set([...fixed].filter(([,v])=>v===0).map(([k])=>k)),
+          reason:`<b>${con.r+1}행 ${con.c+1}열의 ${con.num}</b> 타일의 조건을 동시에 만족하는 지뢰 배치가 없습니다.`,
+          conflictCells:[[con.r,con.c],...con.adjEmpty] };
+      }
+      if (unknowns.length === 0) continue;
+      if (need === 0) {
+        unknowns.forEach(([ar,ac]) => {
+          if (!fixed.has(`${ar},${ac}`)) { fixed.set(`${ar},${ac}`, 0); changed = true; }
+        });
+      } else if (need === unknowns.length) {
+        unknowns.forEach(([ar,ac]) => {
+          if (!fixed.has(`${ar},${ac}`)) { fixed.set(`${ar},${ac}`, 1); changed = true; }
+        });
+      }
+    }
+    for (const con of constraints) {
+      const fixedM = con.adjEmpty.filter(([ar,ac]) => fixed.get(`${ar},${ac}`) === 1).length;
+      const unknowns = con.adjEmpty.filter(([ar,ac]) => !fixed.has(`${ar},${ac}`));
+      const need = con.remaining - fixedM;
+      if (need < 0 || need > unknowns.length) {
+        return { possible:false,
+          forcedMines: new Set([...fixed].filter(([,v])=>v===1).map(([k])=>k)),
+          forcedSafe:  new Set([...fixed].filter(([,v])=>v===0).map(([k])=>k)),
+          reason:`<b>${con.r+1}행 ${con.c+1}열의 ${con.num}</b> 타일 조건이 다른 타일과 충돌합니다.`,
+          conflictCells:[[con.r,con.c],...con.adjEmpty] };
+      }
+    }
   }
 
-  // valid — verifier wins
-  const verifier=1-G.imposer;
-  showResult(verifier,`${G.players[verifier].name}이(가) 지뢰 배치로 반박 성공!`,'ti-shield-check');
+  // Backtracking on remaining unknowns — but first collect what propagation found
+  const allEmpty = [];
+  for (let r = 0; r < ROWS; r++)
+    for (let c = 0; c < COLS; c++)
+      if (board[r][c] === null && !fixed.has(`${r},${c}`)) allEmpty.push([r,c]);
+
+  // For backtracking, also track what's forced across ALL solutions
+  // (intersect forced mine/safe across all valid solutions)
+  let solutionCount = 0;
+  let intersectMine = null; // Set of keys forced mine in every solution
+  let intersectSafe = null;
+  const MAX_SOLUTIONS = 50; // cap for perf
+
+  function bt(idx, assignment) {
+    if (solutionCount >= MAX_SOLUTIONS) return;
+    if (idx === allEmpty.length) {
+      for (const con of constraints) {
+        const total = con.adjEmpty.filter(([ar,ac]) => {
+          const k = `${ar},${ac}`;
+          return assignment.get(k) === 1 || fixed.get(k) === 1;
+        }).length;
+        if (total !== con.remaining) return;
+      }
+      // valid solution found
+      solutionCount++;
+      const solMine = new Set();
+      const solSafe = new Set();
+      allEmpty.forEach(([r,c]) => {
+        const k = `${r},${c}`;
+        if (assignment.get(k) === 1) solMine.add(k);
+        else solSafe.add(k);
+      });
+      if (intersectMine === null) {
+        intersectMine = solMine;
+        intersectSafe = solSafe;
+      } else {
+        for (const k of [...intersectMine]) if (!solMine.has(k)) intersectMine.delete(k);
+        for (const k of [...intersectSafe]) if (!solSafe.has(k)) intersectSafe.delete(k);
+      }
+      return;
+    }
+    const [r,c] = allEmpty[idx];
+    const key = `${r},${c}`;
+    for (const val of [0,1]) {
+      assignment.set(key, val);
+      let ok = true;
+      for (const con of constraints) {
+        const mines = con.adjEmpty.filter(([ar,ac]) => {
+          const k=`${ar},${ac}`;
+          return fixed.get(k)===1 || assignment.get(k)===1;
+        }).length;
+        const unkn = con.adjEmpty.filter(([ar,ac]) => {
+          const k=`${ar},${ac}`;
+          return !fixed.has(k) && !assignment.has(k);
+        }).length;
+        const need = con.remaining - mines;
+        if (need < 0 || need > unkn) { ok=false; break; }
+      }
+      if (ok) bt(idx+1, assignment);
+    }
+    assignment.delete(key);
+  }
+
+  bt(0, new Map());
+
+  if (solutionCount === 0) {
+    const worst = constraints.reduce((a,b) => {
+      const ra = b.remaining / Math.max(1, b.adjEmpty.length);
+      const rb = a.remaining / Math.max(1, a.adjEmpty.length);
+      return ra > rb ? b : a;
+    }, constraints[0]);
+    return {
+      possible: false,
+      forcedMines: new Set([...fixed].filter(([,v])=>v===1).map(([k])=>k)),
+      forcedSafe:  new Set([...fixed].filter(([,v])=>v===0).map(([k])=>k)),
+      reason: worst
+        ? `여러 타일의 조건을 <b>동시에 만족하는 지뢰 배치가 없습니다.</b> <b>${worst.r+1}행 ${worst.c+1}열의 ${worst.num}</b> 주변이 핵심 충돌 지점입니다.`
+        : '어떤 지뢰 배치로도 모든 조건을 동시에 만족할 수 없습니다.',
+      conflictCells: worst ? [[worst.r,worst.c],...worst.adjEmpty] : []
+    };
+  }
+
+  // Merge propagation + backtrack intersect
+  const allForcedMines = new Set([...fixed].filter(([,v])=>v===1).map(([k])=>k));
+  const allForcedSafe  = new Set([...fixed].filter(([,v])=>v===0).map(([k])=>k));
+  if (intersectMine) for (const k of intersectMine) allForcedMines.add(k);
+  if (intersectSafe) for (const k of intersectSafe) allForcedSafe.add(k);
+
+  return { possible:true, reason:'', conflictCells:[],
+    forcedMines: allForcedMines, forcedSafe: allForcedSafe };
 }
 
-function verifyGiveUp(){
-  showResult(G.imposer,`${G.players[1-G.imposer].name}이(가) 반박을 포기했습니다.`,'ti-flag');
+/* ── IMPOSSIBLE OVERLAY ── */
+let _imposPlacer = -1;
+
+function showImpossibleOverlay(placerIdx, result) {
+  _imposPlacer = placerIdx;
+  const placer = G.players[placerIdx];
+  const nameEl = document.getElementById('impos-placer-name');
+  nameEl.textContent = placer.name;
+  nameEl.style.color = placer.color;
+  document.getElementById('impos-why').innerHTML = result.reason;
+
+  const conflictSet = new Set(result.conflictCells.map(([r,c])=>`${r},${c}`));
+  const forcedMines = result.forcedMines || new Set();
+  const forcedSafe  = result.forcedSafe  || new Set();
+
+  const hasDeductions = forcedMines.size > 0 || forcedSafe.size > 0;
+  document.getElementById('impos-legend').style.display = hasDeductions ? 'flex' : 'none';
+
+  const viz = document.getElementById('impos-viz');
+  viz.innerHTML = '';
+  viz.style.cssText = `display:grid;grid-template-columns:repeat(${COLS},32px);gap:3px;`;
+
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'impos-cell';
+      const v = G.board[r][c];
+      const key = `${r},${c}`;
+
+      if (v !== null) {
+        // Placed tile
+        cell.dataset.v = v;
+        if (v === 'M') {
+          cell.innerHTML = '<i class="ti ti-bomb"></i>';
+          cell.classList.add('forced-mine');
+        } else {
+          cell.textContent = v;
+          if (conflictSet.has(key)) cell.classList.add('conflict');
+        }
+      } else {
+        // Empty cell — show deduction
+        if (forcedMines.has(key)) {
+          cell.classList.add('forced-mine');
+          cell.innerHTML = '<i class="ti ti-bomb" style="font-size:12px"></i>';
+        } else if (forcedSafe.has(key)) {
+          cell.classList.add('forced-safe');
+          cell.innerHTML = '<i class="ti ti-check" style="font-size:12px"></i>';
+        } else if (conflictSet.has(key)) {
+          cell.classList.add('conflict');
+        }
+      }
+      viz.appendChild(cell);
+    }
+  }
+
+  document.getElementById('impos-overlay').classList.add('open');
 }
 
-/* ── RESULT ── */
-function showResult(wi,reason,icon){
-  // freeze verify/game board visually — go back to game screen so board shows
+function resolveImpossible() {
+  document.getElementById('impos-overlay').classList.remove('open');
+  const winner = 1 - _imposPlacer;
+  showResult(winner,
+    `${G.players[_imposPlacer].name}이(가) 불가능한 상황을 만들었습니다.`,
+    'ti-trophy'
+  );
+}
+
+/* ── SHOW RESULT ── */
+function showResult(wi, reason, icon) {
   showScreen('s-game');
-  renderGame(); // re-render final board state with tints
-  document.getElementById('res-icon').className=`ti ti-${icon||'trophy'} res-icon`;
-  document.getElementById('res-title').textContent=`${G.players[wi].name} 승리!`;
-  document.getElementById('res-title').style.color=G.players[wi].color;
-  document.getElementById('res-sub').innerHTML=`<b>${G.players[wi].name}</b>이(가) 이겼습니다!<br><br>${reason}`;
+  renderGame();
+  document.getElementById('res-icon').className = `ti ti-${icon||'trophy'} res-icon`;
+  document.getElementById('res-title').textContent = `${G.players[wi].name} 승리!`;
+  document.getElementById('res-title').style.color = G.players[wi].color;
+  document.getElementById('res-sub').innerHTML =
+    `<b>${G.players[wi].name}</b>이(가) 이겼습니다!<br><br>${reason}`;
   document.getElementById('result-overlay').classList.add('open');
 }
-function closeResult(){
+
+function closeResult() {
   document.getElementById('result-overlay').classList.remove('open');
-  // make sure we're on game screen to show the final board
   showScreen('s-game');
-  // freeze — null-safe
   const gm = document.getElementById('game-main');
   const tb = document.getElementById('topbar');
-  if(gm) gm.classList.add('game-frozen');
-  if(tb) tb.classList.add('game-frozen');
-  // show restart bar
+  if (gm) gm.classList.add('game-frozen');
+  if (tb) tb.classList.add('game-frozen');
   document.getElementById('restart-bar-msg').textContent =
     document.getElementById('res-title').textContent;
   document.getElementById('restart-bar').classList.add('show');
 }
 
-function openModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-
-function toggleTheme(){
+function toggleTheme() {
   const dark = document.body.classList.toggle('dark');
   document.getElementById('theme-icon').className = dark ? 'ti ti-sun' : 'ti ti-moon';
 }
