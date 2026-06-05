@@ -377,8 +377,8 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
     <div class="board-center" id="board-center">
       <div class="board" id="board"></div>
       <div class="rules-summary">
-        <div class="rule-item"><i class="ti ti-cards"></i>손패 3장 유지</div>
-        <div class="rule-item"><i class="ti ti-refresh"></i>재굴림 토큰 3개</div>
+        <div class="rule-item"><i class="ti ti-cards"></i>손패 4장 유지</div>
+        <div class="rule-item"><i class="ti ti-refresh"></i>재굴림 1회</div>
         <div class="rule-item"><i class="ti ti-bomb"></i>숫자 = 인접 지뢰 수</div>
         <div class="rule-item"><i class="ti ti-ban"></i>불가능 선언 → 상대 반박</div>
         <div class="rule-item"><i class="ti ti-trophy"></i>반박 성공 시 배치자 승</div>
@@ -451,7 +451,7 @@ body.dark .toggle-thumb{transform:translateX(13px);background:#fff;}
 
 <script>
 const NUM_DIST={'0':3,'1':10,'2':8,'3':6,'4':3,'5':2,'6':1,'7':1,'8':1};
-const ROWS=6,COLS=6,HSIZE=3;
+const ROWS=6,COLS=6,HSIZE=4;
 let G={};
 let difficulty='easy';
 
@@ -501,8 +501,8 @@ function startGame(){
   const n2=document.getElementById('n2').value.trim()||'플레이어 2';
   G={
     players:[
-      {name:n1,color:'var(--p1c)',tintCls:'by-p1',lampCls:'p1-lamp',tokens:3,hand:[]},
-      {name:n2,color:'var(--p2c)',tintCls:'by-p2',lampCls:'p2-lamp',tokens:3,hand:[]}
+      {name:n1,color:'var(--p1c)',tintCls:'by-p1',lampCls:'p1-lamp',tokens:1,hand:[]},
+      {name:n2,color:'var(--p2c)',tintCls:'by-p2',lampCls:'p2-lamp',tokens:1,hand:[]}
     ],
     cur:0,deck:buildDeck(),
     board:Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
@@ -551,7 +551,7 @@ function renderGame(){
 function renderLamps(pi){
   const row=document.getElementById('lamps'+pi);
   const p=G.players[pi];row.innerHTML='';
-  for(let i=0;i<3;i++){
+  for(let i=0;i<1;i++){
     const l=document.createElement('div');
     const on=i<p.tokens;
     l.className=`lamp ${p.lampCls} ${on?'on':'off'}`;
