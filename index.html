@@ -88,7 +88,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .pinput input:focus{border-color:var(--accent)}
 /* map selection */
 .map-select-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;}
-.map-card{background:var(--surf);border:1.5px solid var(--bdr2);border-radius:12px;padding:12px 10px;cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;min-height:100px;}
+.map-card{background:var(--surf);border:1.5px solid var(--bdr2);border-radius:12px;padding:12px 10px 12px;cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;min-height:80px;}
 .map-card:hover{background:var(--surf2);}
 /* map active colors by identity */
 #map-card-0.active{border-color:#b87843;background:rgba(184,120,67,.12);}
@@ -99,11 +99,10 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 #map-card-2.active .map-card-icon{color:#c0aa78;}
 #map-card-random.active{border-color:#8faab8;background:rgba(143,170,184,.12);}
 #map-card-random.active .map-card-icon{color:#8faab8;}
-.map-card-icon{font-size:22px;color:var(--muted);transition:color .2s;line-height:1;}
+.map-card-icon{font-size:24px;color:var(--muted);transition:color .2s;line-height:1;}
 .map-card-name{font-size:13px;font-weight:700;color:var(--txt);}
 .map-card-info{font-size:10px;color:var(--muted);letter-spacing:0.5px;}
 .map-card-desc{font-size:10px;color:var(--txt2);line-height:1.45;font-weight:300;}
-.map-card-random .map-card-icon{font-size:28px;}
 /* mode toggle */
 .diff-wrap{display:flex;align-items:stretch;background:var(--surf);border-radius:10px;border:0.5px solid var(--bdr2);overflow:hidden;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .diff-btn{flex:1;padding:11px 8px;border:none;background:transparent;color:var(--muted);font-family:'A2z',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
@@ -404,7 +403,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .goal-box-title i{font-size:16px;}
 .goal-box p{font-size:13px;color:var(--txt2);line-height:1.65;font-weight:300;}
 /* 진행 방법 탭 */
-.howto-intro{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:14px;color:var(--txt);font-weight:400;line-height:1.65;text-align:center;}
+.howto-intro{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:16px;color:var(--txt);font-weight:400;line-height:1.65;text-align:center;}
 .howto-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
 .howto-card{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;}
 .howto-card-title{font-size:13px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:7px;}
@@ -423,7 +422,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
   display:flex;flex-direction:column;gap:11px;
 }
 .rules-example-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
-.rules-example-name{font-size:13px;color:var(--txt);font-weight:600;}
+.rules-example-name{font-size:13px;color:var(--txt);font-weight:600;text-align:center;}
 .rules-example-desc{background:var(--surf);border:0.5px solid var(--bdr);border-radius:8px;padding:10px 11px;}
 /* example-board: responsive, fills container, real board background */
 .example-board{
@@ -453,17 +452,17 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .example-board .cell.placed.example-hi::after{background:var(--red-bg);}
 /* tile showcase */
 .tile-showcase-wrap{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
-.tile-showcase-desc{font-size:13px;color:var(--txt2);font-weight:300;margin-bottom:10px;line-height:1.5;}
+.tile-showcase-desc{font-size:16px;color:var(--txt2);font-weight:400;margin-bottom:10px;line-height:1.5;text-align:center;}
 .tile-showcase-desc b{color:var(--txt);font-weight:600;}
 .tile-showcase-body{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;}
 .tile-showcase-group{display:flex;flex-direction:column;gap:6px;}
 .tile-sg-core{flex:1;}
 .tile-sg-nums{flex:4;}
-.tile-showcase-group-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:8px;}
+.tile-showcase-group-lbl{font-size:12px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:8px;}
 .tile-showcase-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
 .tile-show-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
 .tile-show-item{width:40px;height:40px;border-radius:7px;background:var(--surf);border:1px solid var(--bdr2);overflow:hidden;position:relative;flex-shrink:0;}
-.tile-show-count{font-size:10px;color:var(--muted);font-weight:400;}
+.tile-show-count{font-size:11px;color:var(--muted);font-weight:400;}
 /* howto layout: image left (3fr) + steps right (2fr) */
 .howto-layout{display:grid;grid-template-columns:3fr 2fr;gap:14px;align-items:start;}
 .howto-guide-img img{width:100%;display:block;border-radius:10px;border:0.5px solid var(--bdr2);}
@@ -516,7 +515,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 @media (max-width:640px){.expert-cols{grid-template-columns:1fr;}}
 @media (orientation:landscape) and (max-height:500px){.expert-cols{gap:8px;}.expert-col-head{padding:9px 11px;}}
 /* 공통 섹션 타이틀 */
-.rules-section-title{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:1.5px;}
+.rules-section-title{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:16px;color:var(--txt);font-weight:400;line-height:1.65;text-align:center;}
 
 @media (max-width:640px){
   .rules-modal{max-height:84vh;}
@@ -806,17 +805,17 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
         <div class="map-card active" id="map-card-0" onclick="setSelectedMap(0)">
           <span class="map-card-icon"><i class="ti ti-planet"></i></span>
           <span class="map-card-name">행성 M</span>
-          <span class="map-card-desc">이미 어떤 문명이 개발하려 했던 흔적이 있다.</span>
+          <span class="map-card-desc">테라포밍의 흔적이 남아 있다.</span>
         </div>
         <div class="map-card" id="map-card-1" onclick="setSelectedMap(1)">
           <span class="map-card-icon"><i class="ti ti-moon"></i></span>
           <span class="map-card-name">위성 T</span>
-          <span class="map-card-desc">지구와 그 기후가 비슷하다고 한다.</span>
+          <span class="map-card-desc">지구와 기후가 비슷하다.</span>
         </div>
         <div class="map-card" id="map-card-2" onclick="setSelectedMap(2)">
           <span class="map-card-icon"><i class="ti ti-planet-off"></i></span>
           <span class="map-card-name">행성 V</span>
-          <span class="map-card-desc">너무 덥다. 공기 정화가 급선무인 듯 하다.</span>
+          <span class="map-card-desc">공기 정화가 급선무인 듯 하다.</span>
         </div>
         <div class="map-card map-card-random" id="map-card-random" onclick="setSelectedMap('random')">
           <span class="map-card-icon"><i class="ti ti-dice-3"></i></span>
@@ -832,17 +831,14 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
         <button class="fp-btn" id="fp-p1" onclick="setFirstPlayer(0)">
           <span class="fp-icon"><i class="ti ti-user"></i></span>
           플레이어 1
-          <span class="fp-label">먼저 시작</span>
         </button>
         <button class="fp-btn active" id="fp-random" onclick="setFirstPlayer('random')">
           <span class="fp-icon"><i class="ti ti-dice"></i></span>
           랜덤
-          <span class="fp-label">무작위 결정</span>
         </button>
         <button class="fp-btn" id="fp-p2" onclick="setFirstPlayer(1)">
           <span class="fp-icon"><i class="ti ti-user"></i></span>
           플레이어 2
-          <span class="fp-label">먼저 시작</span>
         </button>
       </div>
     </div>
@@ -866,11 +862,11 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <span class="topbar-name" id="turn-name">—</span>
     <div class="topbar-stat">
       <span class="topbar-stat-val" id="deckc">—</span>
-      <span class="topbar-stat-lbl">남은 설계</span>
+      <span class="topbar-stat-lbl">남은 타일</span>
     </div>
     <div class="topbar-stat">
       <span class="topbar-stat-val" id="minec">0</span>
-      <span class="topbar-stat-lbl">에너지 코어</span>
+      <span class="topbar-stat-lbl">배치된 코어</span>
     </div>
   </div>
   <div class="game-main" id="game-main">
@@ -878,7 +874,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="ppanel active" id="pp0">
       <div class="pp-top">
         <div class="pp-name"><div class="ndot" style="background:var(--p1c)"></div><span id="ppn0">P1</span></div>
-        <div class="pp-lbl">설계안 재굴림</div>
+        <div class="pp-lbl">재굴림 토큰</div>
         <div class="token-lamps" id="lamps0"></div>
       </div>
       <div class="pp-hand">
@@ -917,7 +913,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="ppanel right inactive" id="pp1">
       <div class="pp-top">
         <div class="pp-name"><div class="ndot" style="background:var(--p2c)"></div><span id="ppn1">P2</span></div>
-        <div class="pp-lbl">설계안 재굴림</div>
+        <div class="pp-lbl">재굴림 토큰</div>
         <div class="token-lamps" id="lamps1"></div>
       </div>
       <div class="pp-hand">
@@ -990,7 +986,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 
     <div class="rules-tabs" role="tablist" aria-label="규칙 설명 탭">
       <button class="rules-tab-btn active" type="button" role="tab" aria-selected="true"  data-rule-tab="goal">게임 목표</button>
-      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="howto">진행 방법</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="howto">게임 진행</button>
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="numbers">숫자와 코어</button>
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="winlose">승패 조건</button>
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="revision">설계 수정</button>
@@ -1046,21 +1042,28 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
               <div class="howto-step-icon">①</div>
               <div>
                 <h4>설계안 선택</h4>
-                <p>손패에서 배치할 타일 하나를 클릭해 선택합니다. 선택된 타일은 강조 표시됩니다.</p>
+                <p>손패에서 배치할 타일 하나를 클릭해 선택합니다.<br>선택된 타일은 강조 표시됩니다.</p>
               </div>
             </div>
             <div class="howto-step">
               <div class="howto-step-icon">②</div>
               <div>
                 <h4>타일 배치</h4>
-                <p>게임판의 빈 칸을 클릭해 선택한 타일을 배치합니다. 배치 즉시 중앙 AI가 모순 여부를 검증합니다.</p>
+                <p>게임판의 빈 칸을 클릭해 선택한 타일을 해당 위치에 배치합니다.</p>
               </div>
             </div>
             <div class="howto-step">
               <div class="howto-step-icon">③</div>
               <div>
+                <h4>AI 검증</h4>
+                <p>현재 배치된 타일들에 모순이 있는지 판단합니다.<br>모순이 없을 경우 다음 단계로 넘어갑니다.<br>모순이 있는 경우 그 즉시 게임이 종료됩니다.</p>
+              </div>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-icon">④</div>
+              <div>
                 <h4>손패 보충</h4>
-                <p>덱에서 새 타일을 자동으로 받아 손패 4장을 유지합니다.</p>
+                <p>덱에서 새 타일을 자동으로 받아 손패 4장을 유지합니다.<br>그 후 상대 플레이어의 턴을 진행합니다.</p>
               </div>
             </div>
           </div>
@@ -1069,7 +1072,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 
       <!-- ③ 숫자와 코어 -->
       <section class="rules-tab-panel" data-rule-panel="numbers">
-        <div class="rules-section-title"><i class="ti ti-info-circle"></i> 숫자 타일은 주변 8칸 안에 있어야 할 에너지 코어의 정확한 개수를 나타냅니다.</div>
+        <div class="rules-section-title">숫자 타일은 주변 8칸 안에 있어야 할 에너지 코어의 정확한 개수를 나타냅니다.</div>
         <div class="rules-example-row">
           <div class="rules-example-card">
             <div class="rules-example-name">예시 A — "0"의 의미</div>
@@ -1095,7 +1098,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
               <div class="board example-board" id="rules-example-edge" aria-label="모서리 타일 예시 보드"></div>
             </div>
             <div class="rules-example-desc">
-              <p>좌상단 <b>2</b>: 인접 3칸 중 코어가 정확히 2개. 우측 가장자리 <b>5</b>: 인접 5칸이 모두 코어여야 성립합니다.</p>
+              <p>좌상단 <b>2</b>: 인접 3칸 중 코어가 정확히 2개. <br>우측 가장자리 <b>5</b>: 인접 5칸이 모두 코어여야 성립.</p>
             </div>
           </div>
         </div>
@@ -1103,17 +1106,6 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 
       <!-- ④ 승패 조건 -->
       <section class="rules-tab-panel" data-rule-panel="winlose">
-        <div class="winlose-flow">
-          <div class="winlose-flow-step"><b>내 차례</b>손패에서 타일 선택</div>
-          <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
-          <div class="winlose-flow-step"><b>배치</b>게임판 빈 칸에 놓기</div>
-          <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
-          <div class="winlose-flow-step"><b>AI 검증</b>현재 배치로 유효한 코어 배치가 존재하는가?</div>
-          <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
-          <div class="winlose-flow-step"><b>가능</b>손패 보충 → 상대 차례</div>
-          <div class="winlose-flow-arrow" style="color:var(--red)"><i class="ti ti-slash"></i></div>
-          <div class="winlose-flow-step" style="border-color:var(--red)"><b style="color:var(--red)">불가능</b>배치한 플레이어 즉시 패배</div>
-        </div>
         <div class="rules-example-row">
           <div class="rules-example-card">
             <div class="rules-example-name" style="color:var(--green)"><i class="ti ti-trophy" style="margin-right:4px"></i>승리 조건</div>
@@ -1142,7 +1134,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <section class="rules-tab-panel" data-rule-panel="revision">
         <div class="revision-note">
           <img src="assets/revision_token.svg" alt="">
-          <p>각 플레이어는 게임 중 <b>한 번</b>, 설계안 재굴림을 사용해 손패의 타일을 원하는 만큼 버리고 같은 수만큼 새 타일을 받을 수 있습니다. 전략적으로 불리한 손패를 교체할 기회입니다.</p>
+          <p>각 플레이어는 게임 중 <b>한 번</b>, 재굴림 토큰을 사용해 손패의 타일을 원하는 만큼 버리고 같은 수만큼 새 타일을 받을 수 있습니다.<br>전략적으로 불리한 손패를 교체할 기회입니다.</p>
         </div>
         <div class="revision-tip">
           <b>팁 1.</b> 버릴 타일 수에 제한이 없습니다. 손패 전부를 교체하거나 한 장만 바꿀 수도 있습니다.<br>
@@ -1161,7 +1153,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
           <div class="expert-col">
             <div class="expert-col-head">
               <div class="expert-col-num-row"><div class="expert-col-num">1</div><h4>불가능 선언</h4></div>
-              <p>상대가 타일을 배치한 직후, 현재 설계도로는 어떤 에너지 코어 배치로도 모든 숫자 조건을 동시에 만족할 수 없다고 판단되면 타일 배치 대신 <b>불가능 선언</b>을 선택합니다. 확신이 없다면 선언하지 않는 것이 안전합니다.</p>
+              <p>자신의 차례에, 현재 설계도로는 어떤 에너지 코어 배치로도 모든 숫자 조건을 동시에 만족할 수 없다고 판단되면 타일 배치 대신 <b>불가능 선언</b>을 선택합니다.</p>
             </div>
             <div class="expert-col-example">
               <div class="board example-board" id="rules-example-expert1" style="--cell-size:38px"></div>
@@ -1262,12 +1254,12 @@ function setSelectedMap(idx){
 
   // full-grid definitions for preview (including random = null)
   const previewDefs=[
-    {name:'행성 M',rows:6,cols:6,cells:null},
-    {name:'위성 T',rows:7,cols:7,cells:[
+    {name:'행성 M (6×6, 36타일)',rows:6,cols:6,cells:null},
+    {name:'위성 T (7×7, 36타일)',rows:7,cols:7,cells:[
       [0,1,1,1,0,0,0],[0,1,1,1,1,1,1],[0,1,1,1,1,1,1],
       [1,1,1,0,1,1,1],[1,1,1,1,1,1,0],[1,1,1,1,1,1,0],[0,0,0,1,1,1,0]
     ]},
-    {name:'행성 V',rows:8,cols:8,cells:[
+    {name:'행성 V (8×8, 40타일)',rows:8,cols:8,cells:[
       [0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,1,1,1,1,1],
       [1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0]
     ]},
@@ -1317,7 +1309,7 @@ function setSelectedMap(idx){
       else if(id==='map-card-2') idx=2;
       else if(id==='map-card-random') idx=3;
       if(idx===null) return;
-      hoverTimer=setTimeout(()=>showPreview(idx,card),500);
+      hoverTimer=setTimeout(()=>showPreview(idx,card),100);
     });
     card.addEventListener('mouseleave',hidePreview);
     card.addEventListener('click',hidePreview);
@@ -1714,7 +1706,7 @@ function renderGame(){
       const norm=!G.reroll;
       document.getElementById('act'+i+'-normal').style.display=norm?'':'none';
       document.getElementById('act'+i+'-reroll').style.display=norm?'none':'';
-      if(norm) document.getElementById('st'+i).textContent='설계안을 선택하세요';
+      if(norm) document.getElementById('st'+i).textContent='배치할 설계안을 선택하세요';
       const bpEl=document.getElementById('bp'+i);if(bpEl) bpEl.disabled=G.selTile===null;
       document.getElementById('br'+i).disabled=p.tokens<=0;
       document.getElementById('brc'+i).disabled=G.rsel.length===0;
