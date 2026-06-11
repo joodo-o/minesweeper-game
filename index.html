@@ -61,12 +61,19 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
   flex-direction:column;
   align-items:center;
   gap:10px;
-  padding:clamp(28px,10vh,80px) 20px 24px;
+  padding:clamp(48px,12vh,100px) 20px 24px;
   overflow-y:auto;
   height:100%;
   width:100%;
 }
-.setup-header{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;max-width:680px;}
+/* ── Setup Quick Reference ── */
+.setup-qref{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:680px;}
+.setup-qref-card{background:var(--surf);border:0.5px solid var(--bdr2);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:9px;}
+.setup-qref-card i{color:var(--accent);font-size:16px;line-height:1.3;flex-shrink:0;}
+.setup-qref-card.expert-card i{color:var(--red);}
+.setup-qref-title{font-size:12px;color:var(--txt);font-weight:600;margin-bottom:2px;}
+.setup-qref-desc{font-size:11px;color:var(--txt2);line-height:1.5;font-weight:300;}
+.setup-header{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%;max-width:680px;margin-bottom:16px;}
 .logo-sub{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;text-align:center;}
 .card-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:500;}
 /* setup sections */
@@ -120,6 +127,22 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .btn-start:active{opacity:.85}
 .btn-rules-open{flex:1;padding:14px 10px;background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:12px;font-size:14px;font-weight:700;color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'A2z',sans-serif;}
 .btn-rules-open:active{opacity:.85;transform:scale(.97);}
+/* setup hint */
+.setup-hint{font-size:12px;color:#00eeee;text-align:center;line-height:1.6;padding-bottom:4px;width:100%;max-width:680px;opacity:0.9;}
+/* map preview tooltip */
+.map-preview-tooltip{
+  position:fixed;z-index:300;
+  background:var(--surf);border:0.5px solid var(--bdr2);border-radius:14px;
+  padding:12px;box-shadow:0 8px 28px rgba(0,0,0,0.3);
+  pointer-events:none;opacity:0;transition:opacity .15s;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  width:200px;
+}
+.map-preview-tooltip.visible{opacity:1;}
+.map-preview-name{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+.map-preview-grid{display:grid;gap:3px;background:var(--surf2);border-radius:8px;padding:6px;}
+.map-preview-cell{width:16px;height:16px;border-radius:3px;background:var(--surf3);border:0.5px solid var(--bdr2);}
+.map-preview-cell.blocked{background:rgba(0,0,0,0.5);border-color:transparent;}
 /* fallback list */
 .rules-list{margin:0;padding-left:22px;color:var(--txt2);font-size:12px;line-height:1.65;}
 .rules-list li{padding-left:4px;margin-bottom:5px;}
@@ -127,8 +150,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .rules-list b{color:var(--txt);font-weight:700;}
 /* landscape: keep single column, just tighter padding */
 @media (orientation:landscape){
-  .setup-scroll{padding:clamp(16px,6vh,48px) 20px 16px;gap:8px;}
-  .setup-header{margin-bottom:2px;}
+  .setup-scroll{padding:clamp(16px,5vh,40px) 20px 16px;gap:8px;}
 }
 @media (max-height:700px) and (orientation:portrait){
   .setup-scroll{gap:10px;padding:16px 16px 16px;}
@@ -159,8 +181,8 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 #s-game{flex-direction:column;height:100%;overflow:hidden;}
 .topbar{height:var(--topbar-h);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:20px;padding:0 20px;background:var(--surf);border-bottom:0.5px solid var(--bdr2);box-shadow:0 1px 3px rgba(0,0,0,0.06);position:relative;}
 .topbar-info{position:absolute;left:16px;display:flex;flex-direction:column;gap:1px;align-items:flex-start;}
-.topbar-mode{font-size:clamp(9px,1.1vh,11px);color:var(--accent);letter-spacing:1px;font-weight:600;text-transform:uppercase;}
-.topbar-turn{font-size:clamp(9px,1.1vh,11px);color:var(--muted);letter-spacing:0.5px;font-weight:400;}
+.topbar-mode{font-size:clamp(11px,1.5vh,14px);color:var(--accent);letter-spacing:1px;font-weight:600;text-transform:uppercase;}
+.topbar-turn{font-size:clamp(11px,1.5vh,14px);color:var(--muted);letter-spacing:0.5px;font-weight:400;}
 .topbar-label{font-size:clamp(11px,1.5vh,14px);color:var(--muted);font-weight:400;}
 .topbar-name{font-size:clamp(18px,3vh,28px);font-weight:700;margin-left:4px;transition:color .3s;}
 .topbar-stat{display:flex;flex-direction:column;align-items:center;gap:0;padding:3px 14px;border-left:0.5px solid var(--bdr);}
@@ -437,7 +459,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .tile-showcase-group{display:flex;flex-direction:column;gap:6px;}
 .tile-sg-core{flex:1;}
 .tile-sg-nums{flex:4;}
-.tile-showcase-group-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+.tile-showcase-group-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;text-align:center;margin-bottom:8px;}
 .tile-showcase-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
 .tile-show-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
 .tile-show-item{width:40px;height:40px;border-radius:7px;background:var(--surf);border:1px solid var(--bdr2);overflow:hidden;position:relative;flex-shrink:0;}
@@ -479,11 +501,20 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 /* 전문가 모드 탭 */
 .expert-intro{background:var(--red-bg);border:0.5px solid var(--red);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--txt2);line-height:1.65;font-weight:300;}
 .expert-intro b{color:var(--red);font-weight:600;}
-.expert-steps{display:flex;flex-direction:column;gap:12px;}
-.expert-step{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
-.expert-step-num{width:32px;height:32px;border-radius:8px;background:var(--red-bg);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;}
-.expert-step h4{font-size:13px;color:var(--txt);font-weight:600;margin-bottom:4px;}
-.expert-step p{font-size:13px;color:var(--txt2);line-height:1.65;font-weight:300;}
+/* 3-column expert layout */
+.expert-cols{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:12px;align-items:stretch;}
+.expert-col{display:grid;grid-template-rows:subgrid;grid-row:span 2;gap:10px;}
+.expert-col-head{background:var(--red-bg);border:0.5px solid var(--red);border-radius:10px;padding:12px 14px;}
+.expert-col-num-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.expert-col-num{width:28px;height:28px;border-radius:7px;background:rgba(255,255,255,0.07);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+.expert-col-head h4{font-size:13px;color:var(--txt);font-weight:700;margin:0;}
+.expert-col-head p{font-size:12px;color:var(--txt2);line-height:1.6;font-weight:300;}
+.expert-col-example{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;}
+.expert-col-example .example-label{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;text-align:center;}
+.expert-col-example .example-desc{font-size:11px;color:var(--txt2);line-height:1.55;text-align:center;font-weight:300;}
+.expert-example-icon{width:56px;height:56px;border-radius:12px;background:var(--surf3);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--red);}
+@media (max-width:640px){.expert-cols{grid-template-columns:1fr;}}
+@media (orientation:landscape) and (max-height:500px){.expert-cols{gap:8px;}.expert-col-head{padding:9px 11px;}}
 /* 공통 섹션 타이틀 */
 .rules-section-title{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:1.5px;}
 
@@ -552,7 +583,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
   width:100%;text-align:left;margin-top:4px;font-weight:400;
 }
 .impos-why b{color:var(--txt);font-weight:700;}
-/* mini board viz */
+/* mini board viz — lightweight icon/number cells */
 .impos-viz{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:2px;}
 .impos-cell{
   width:32px;height:32px;border-radius:4px;
@@ -560,17 +591,14 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
   display:flex;align-items:center;justify-content:center;
   font-size:13px;font-weight:700;position:relative;
 }
-/* confirmed mine (forced) — yellow */
-.impos-cell.forced-mine{background:#2a2000;border:1.5px solid #c8960a;color:#e8b820;}
-/* confirmed safe — green */
-.impos-cell.forced-safe{background:#0a2018;border:1.5px solid #28b870;color:#28b870;}
-/* conflict tile — red, same border thickness */
-.impos-cell.conflict{background:var(--red-bg);border:1.5px solid var(--red);color:var(--red);}
+.impos-cell.impos-ok{background:rgba(31,158,90,0.08);border:1.5px solid var(--green);}
+.impos-cell.impos-conflict{background:var(--red-bg);border:1.5px solid var(--red);}
+.impos-cell.impos-empty{background:rgba(255,255,255,.04);border:1px dashed rgba(180,180,180,0.3);}
 .impos-cell[data-v="0"]{color:var(--num0)}.impos-cell[data-v="1"]{color:var(--num1)}
 .impos-cell[data-v="2"]{color:var(--num2)}.impos-cell[data-v="3"]{color:var(--num3)}
 .impos-cell[data-v="4"]{color:var(--num4)}.impos-cell[data-v="5"]{color:var(--num5)}
 .impos-cell[data-v="6"]{color:var(--num6)}.impos-cell[data-v="7"]{color:var(--num7)}
-.impos-cell[data-v="8"]{color:var(--num8)}.impos-cell[data-v="M"]{color:var(--red);}
+.impos-cell[data-v="8"]{color:var(--num8)}.impos-cell.impos-mine{color:#e8b820;font-size:16px;}
 .impos-btn{
   margin-top:6px;padding:12px 32px;border-radius:10px;border:none;
   background:var(--accent);color:#fff;
@@ -613,8 +641,8 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 /* ORBITAL BASE THEME — single dark theme, vivid accent colors */
 body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gradient(circle at 50% 10%,#1b272c 0,#11181c 55%);}
 #s-setup{background:radial-gradient(circle at 50% 30%,#243238 0,#11181c 68%)}
-.logo-sub{color:#d7e0e3;letter-spacing:5px;font-weight:700;font-size:15px}
-.setup-intro{color:var(--txt2);font-size:13px;line-height:1.7;text-align:center;margin-bottom:4px}
+.logo-sub{color:#d7e0e3;letter-spacing:5px;font-weight:700;font-size:22px}
+.setup-intro{color:var(--txt2);font-size:15px;line-height:1.7;text-align:center;margin-bottom:4px}
 .setup-card,.diff-wrap{box-shadow:none}
 .topbar{background:#172126}
 .board-center{background:transparent}
@@ -637,9 +665,9 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 .sprite-empty{display:block;width:100%;height:100%}
 .cell.empty{border-style:dashed;border-width:1.5px;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.28)}
 .cell.empty.hl{box-shadow:inset 0 0 0 1px var(--accent)}
-.cell.by-p1{background:transparent;border-color:rgba(109,160,199,.22)}
+.cell.by-p1{background:transparent;border-color:var(--p1c);border-width:2px;}
 .cell.blocked{background:rgba(0,0,0,0.35)!important;border:none!important;border-radius:4px!important;pointer-events:none;}
-.cell.by-p2{background:transparent;border-color:rgba(109,160,199,.22)}
+.cell.by-p2{background:transparent;border-color:var(--p2c);border-width:2px;}
 .lamp{border:none;background:transparent!important;box-shadow:none!important;width:28px;height:28px}
 .lamp-core{width:100%;height:100%;background:url('assets/revision_token.svg') center/contain no-repeat!important;border-radius:0}
 .lamp.off{opacity:.35}
@@ -695,16 +723,13 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="impos-why" id="impos-why"></div>
     <div class="impos-legend" id="impos-legend" style="display:none;gap:10px;flex-wrap:wrap;justify-content:center;width:100%;">
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
-        <div style="width:14px;height:14px;border-radius:3px;background:#fff8d6;border:1.5px solid #c8960a;flex-shrink:0"></div>반드시 코어
-      </div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
-        <div style="width:14px;height:14px;border-radius:3px;background:#e8f8ef;border:1.5px solid var(--green);flex-shrink:0"></div>반드시 안전
-      </div>
-      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
-        <div style="width:14px;height:14px;border-radius:3px;background:var(--surf2);border:1px solid var(--bdr);flex-shrink:0"></div>미확정
+        <div style="width:14px;height:14px;border-radius:3px;background:rgba(31,158,90,0.08);border:1.5px solid var(--green);flex-shrink:0"></div>정상 타일
       </div>
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
         <div style="width:14px;height:14px;border-radius:3px;background:var(--red-bg);border:1.5px solid var(--red);flex-shrink:0"></div>모순 타일
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;border:1px dashed rgba(180,180,180,0.3);flex-shrink:0"></div>빈 칸
       </div>
     </div>
     <div class="impos-viz" id="impos-viz"></div>
@@ -712,6 +737,11 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <i class="ti ti-arrow-right"></i> 결과 확인
     </button>
   </div>
+</div>
+
+<div class="map-preview-tooltip" id="map-preview-tooltip">
+  <div class="map-preview-name" id="map-preview-name"></div>
+  <div class="map-preview-grid" id="map-preview-grid"></div>
 </div>
 
 <!-- SETUP -->
@@ -743,8 +773,35 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       </div>
     </div>
 
+    <div class="setup-qref" id="setup-qref">
+      <div class="setup-qref-card">
+        <i class="ti ti-cards"></i>
+        <div><div class="setup-qref-title">설계안 4장 유지</div><div class="setup-qref-desc">손패에는 항상 4장의 타일을 유지합니다.</div></div>
+      </div>
+      <div class="setup-qref-card">
+        <i class="ti ti-bolt"></i>
+        <div><div class="setup-qref-title">숫자 = 인접 코어 수</div><div class="setup-qref-desc">숫자 타일은 주변 최대 8칸의 에너지 코어 개수를 나타냅니다.</div></div>
+      </div>
+      <div class="setup-qref-card">
+        <i class="ti ti-bolt-filled"></i>
+        <div><div class="setup-qref-title">에너지 코어 10개 고정</div><div class="setup-qref-desc">덱에는 항상 에너지 코어 10개가 포함됩니다.</div></div>
+      </div>
+      <div class="setup-qref-card">
+        <i class="ti ti-pencil"></i>
+        <div><div class="setup-qref-title">설계 수정 1회</div><div class="setup-qref-desc">게임당 1회, 원하는 만큼 손패를 교체할 수 있습니다.</div></div>
+      </div>
+      <div class="setup-qref-card" id="qref-mode-card">
+        <i class="ti ti-alert-triangle" id="qref-mode-icon"></i>
+        <div><div class="setup-qref-title" id="qref-mode-title">중앙 AI 실시간 검증</div><div class="setup-qref-desc" id="qref-mode-desc">타일을 놓을 때마다 자동으로 가능성을 확인합니다.</div></div>
+      </div>
+      <div class="setup-qref-card">
+        <i class="ti ti-trophy"></i>
+        <div><div class="setup-qref-title">불가능한 설계 제출 시 패배</div><div class="setup-qref-desc">모순이 생기면 그 타일을 놓은 플레이어가 패배합니다.</div></div>
+      </div>
+    </div>
+
     <div class="setup-section setup-sn-map">
-      <div class="setup-section-title">맵 선택</div>
+      <div class="setup-section-title">맵 선택<span style="font-size:10px;letter-spacing:0.5px;text-transform:none;font-weight:400;color:var(--muted);margin-left:6px;opacity:0.75;">(커서를 올려놓으면 맵의 형태를 미리 볼 수 있습니다.)</span></div>
       <div class="map-select-grid">
         <div class="map-card active" id="map-card-0" onclick="setSelectedMap(0)">
           <span class="map-card-icon"><i class="ti ti-planet"></i></span>
@@ -772,12 +829,12 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="setup-section setup-sn-fp">
       <div class="setup-section-title">시작 플레이어</div>
       <div class="fp-row">
-        <button class="fp-btn active" id="fp-p1" onclick="setFirstPlayer(0)">
+        <button class="fp-btn" id="fp-p1" onclick="setFirstPlayer(0)">
           <span class="fp-icon"><i class="ti ti-user"></i></span>
           플레이어 1
           <span class="fp-label">먼저 시작</span>
         </button>
-        <button class="fp-btn" id="fp-random" onclick="setFirstPlayer('random')">
+        <button class="fp-btn active" id="fp-random" onclick="setFirstPlayer('random')">
           <span class="fp-icon"><i class="ti ti-dice"></i></span>
           랜덤
           <span class="fp-label">무작위 결정</span>
@@ -794,6 +851,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <button class="btn-rules-open" type="button" onclick="openRulesModal()"><i class="ti ti-book"></i> 게임 규칙</button>
       <button class="btn-start" onclick="startGame()"><i class="ti ti-player-play"></i> 게임 시작</button>
     </div>
+    <div class="setup-hint">첫 게임은 보통 모드 / 행성 M / 랜덤으로 설정하여 플레이하시는 것을 추천드립니다.</div>
   </div>
 </div>
 
@@ -820,7 +878,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="ppanel active" id="pp0">
       <div class="pp-top">
         <div class="pp-name"><div class="ndot" style="background:var(--p1c)"></div><span id="ppn0">P1</span></div>
-        <div class="pp-lbl">설계 수정 토큰</div>
+        <div class="pp-lbl">설계안 재굴림</div>
         <div class="token-lamps" id="lamps0"></div>
       </div>
       <div class="pp-hand">
@@ -830,8 +888,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <div class="pp-footer" id="ft0">
         <div class="status-mini" id="st0">설계안을 선택하세요</div>
         <div id="act0-normal">
-          <button class="btn btn-place" id="bp0" onclick="doPlace()" disabled style="margin-bottom:4px"><i class="ti ti-layout-grid-add"></i> 모듈 배치</button>
-          <button class="btn btn-reroll" id="br0" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-pencil"></i> 설계안 폐기</button>
+          <button class="btn btn-reroll" id="br0" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-pencil"></i> 설계안 재굴림</button>
           <button class="btn btn-impos expert-only" id="impos0" onclick="openImpossible()" style="display:none"><i class="ti ti-ban"></i> 불가능 선언</button>
         </div>
         <div id="act0-reroll" style="display:none">
@@ -860,7 +917,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="ppanel right inactive" id="pp1">
       <div class="pp-top">
         <div class="pp-name"><div class="ndot" style="background:var(--p2c)"></div><span id="ppn1">P2</span></div>
-        <div class="pp-lbl">설계 수정 토큰</div>
+        <div class="pp-lbl">설계안 재굴림</div>
         <div class="token-lamps" id="lamps1"></div>
       </div>
       <div class="pp-hand">
@@ -870,8 +927,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <div class="pp-footer hidden" id="ft1">
         <div class="status-mini" id="st1"></div>
         <div id="act1-normal">
-          <button class="btn btn-place" id="bp1" onclick="doPlace()" disabled style="margin-bottom:4px"><i class="ti ti-layout-grid-add"></i> 모듈 배치</button>
-          <button class="btn btn-reroll" id="br1" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-pencil"></i> 설계안 폐기</button>
+          <button class="btn btn-reroll" id="br1" onclick="startReroll()" style="margin-bottom:4px"><i class="ti ti-pencil"></i> 설계안 재굴림</button>
           <button class="btn btn-impos expert-only" id="impos1" onclick="openImpossible()" style="display:none"><i class="ti ti-ban"></i> 불가능 선언</button>
         </div>
         <div id="act1-reroll" style="display:none">
@@ -938,7 +994,6 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="numbers">숫자와 코어</button>
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="winlose">승패 조건</button>
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="revision">설계 수정</button>
-      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="reference">빠른 참조</button>
       <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="expert">전문가 모드</button>
     </div>
 
@@ -1005,7 +1060,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
               <div class="howto-step-icon">③</div>
               <div>
                 <h4>손패 보충</h4>
-                <p>덱에서 새 타일을 받아 손패 4장을 유지합니다. 에너지 코어는 항상 10개 포함됩니다.</p>
+                <p>덱에서 새 타일을 자동으로 받아 손패 4장을 유지합니다.</p>
               </div>
             </div>
           </div>
@@ -1035,12 +1090,12 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
             </div>
           </div>
           <div class="rules-example-card">
-            <div class="rules-example-name">예시 C — 모서리 타일</div>
+            <div class="rules-example-name">예시 C — 모서리와 가장자리</div>
             <div class="rules-example-top">
               <div class="board example-board" id="rules-example-edge" aria-label="모서리 타일 예시 보드"></div>
             </div>
             <div class="rules-example-desc">
-              <p>모서리·가장자리 타일은 인접 칸이 8개보다 적습니다. 여기선 <b>3칸 중 코어 2개</b>가 있다는 뜻입니다.</p>
+              <p>좌상단 <b>2</b>: 인접 3칸 중 코어가 정확히 2개. 우측 가장자리 <b>5</b>: 인접 5칸이 모두 코어여야 성립합니다.</p>
             </div>
           </div>
         </div>
@@ -1049,13 +1104,15 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <!-- ④ 승패 조건 -->
       <section class="rules-tab-panel" data-rule-panel="winlose">
         <div class="winlose-flow">
-          <div class="winlose-flow-step"><b>타일 배치</b>빈 칸에 타일을 놓는다</div>
+          <div class="winlose-flow-step"><b>내 차례</b>손패에서 타일 선택</div>
           <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
-          <div class="winlose-flow-step"><b>AI 즉시 검증</b>모든 숫자 조건 동시 확인</div>
+          <div class="winlose-flow-step"><b>배치</b>게임판 빈 칸에 놓기</div>
           <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
-          <div class="winlose-flow-step"><b>가능</b>게임 계속, 상대 차례</div>
+          <div class="winlose-flow-step"><b>AI 검증</b>현재 배치로 유효한 코어 배치가 존재하는가?</div>
+          <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
+          <div class="winlose-flow-step"><b>가능</b>손패 보충 → 상대 차례</div>
           <div class="winlose-flow-arrow" style="color:var(--red)"><i class="ti ti-slash"></i></div>
-          <div class="winlose-flow-step"><b>불가능</b>배치한 플레이어 즉시 패배</div>
+          <div class="winlose-flow-step" style="border-color:var(--red)"><b style="color:var(--red)">불가능</b>배치한 플레이어 즉시 패배</div>
         </div>
         <div class="rules-example-row">
           <div class="rules-example-card">
@@ -1064,7 +1121,8 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
               <div class="board example-board" id="rules-example-win" aria-label="완성된 예시 보드"></div>
             </div>
             <div class="rules-example-desc">
-              <p>36칸이 모순 없이 모두 채워지면 <b>마지막 타일을 놓은 플레이어</b>가 승리합니다.</p>
+              <p><b>① 완성 승리</b> — 모든 칸이 채워지고 숫자 조건이 모두 성립하면, 마지막 타일을 놓은 플레이어가 승리합니다.</p>
+              <p style="margin-top:6px"><b>② 상대 실수로 인한 승리</b> — 상대가 모순을 일으키는 타일을 놓으면, 그 즉시 내가 승리합니다.</p>
             </div>
           </div>
           <div class="rules-example-card">
@@ -1073,7 +1131,8 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
               <div class="board example-board" id="rules-example-lose" aria-label="모순 예시 보드"></div>
             </div>
             <div class="rules-example-desc">
-              <p>강조된 주변 칸에 코어가 있으나 숫자가 <b>0</b>을 요구합니다 — 모순이 발생해 그 타일을 놓은 플레이어가 즉시 패배합니다.</p>
+              <p><b>① 직접 모순 유발</b> — 내가 놓은 타일로 인해 어떤 에너지 코어 배치로도 모든 숫자 조건을 만족할 수 없는 상태가 되면 즉시 패배합니다.</p>
+              <p style="margin-top:6px"><b>② 불가피한 실수</b> — 남은 칸이 적어 어디에 놓아도 모순이 생길 수밖에 없다면, 그 타일을 배치하는 순간 패배입니다.</p>
             </div>
           </div>
         </div>
@@ -1083,7 +1142,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
       <section class="rules-tab-panel" data-rule-panel="revision">
         <div class="revision-note">
           <img src="assets/revision_token.svg" alt="">
-          <p>각 플레이어는 게임 중 <b>한 번</b>, 설계 수정 토큰을 사용해 손패의 타일을 원하는 만큼 버리고 같은 수만큼 새 타일을 받을 수 있습니다. 전략적으로 불리한 손패를 교체할 기회입니다.</p>
+          <p>각 플레이어는 게임 중 <b>한 번</b>, 설계안 재굴림을 사용해 손패의 타일을 원하는 만큼 버리고 같은 수만큼 새 타일을 받을 수 있습니다. 전략적으로 불리한 손패를 교체할 기회입니다.</p>
         </div>
         <div class="revision-tip">
           <b>팁 1.</b> 버릴 타일 수에 제한이 없습니다. 손패 전부를 교체하거나 한 장만 바꿀 수도 있습니다.<br>
@@ -1092,61 +1151,43 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
         </div>
       </section>
 
-      <!-- ⑥ 빠른 참조 -->
-      <section class="rules-tab-panel" data-rule-panel="reference">
-        <div class="quick-grid">
-          <div class="quick-card">
-            <i class="ti ti-cards"></i>
-            <div><h4>설계안 4장 유지</h4><p>손패에는 항상 4장의 타일을 유지합니다.</p></div>
-          </div>
-          <div class="quick-card">
-            <i class="ti ti-bolt"></i>
-            <div><h4>숫자 = 인접 코어 수</h4><p>숫자 타일은 주변 최대 8칸의 에너지 코어 개수를 나타냅니다.</p></div>
-          </div>
-          <div class="quick-card">
-            <i class="ti ti-bolt-filled"></i>
-            <div><h4>에너지 코어 10개 고정</h4><p>덱에는 항상 에너지 코어 10개가 포함됩니다.</p></div>
-          </div>
-          <div class="quick-card">
-            <i class="ti ti-pencil"></i>
-            <div><h4>설계 수정 1회</h4><p>게임당 1회, 원하는 만큼 손패를 교체할 수 있습니다.</p></div>
-          </div>
-          <div class="quick-card">
-            <i class="ti ti-alert-triangle"></i>
-            <div><h4>중앙 AI 실시간 검증</h4><p>타일을 놓을 때마다 자동으로 가능성을 확인합니다.</p></div>
-          </div>
-          <div class="quick-card">
-            <i class="ti ti-trophy"></i>
-            <div><h4>불가능한 설계 제출 시 패배</h4><p>모순이 생기면 그 타일을 놓은 플레이어가 패배합니다.</p></div>
-          </div>
-        </div>
-      </section>
-
       <!-- ⑦ 전문가 모드 -->
       <section class="rules-tab-panel" data-rule-panel="expert">
         <div class="expert-intro">
-          전문가 모드에서는 <b>중앙 AI의 자동 판정이 없습니다.</b> 플레이어가 직접 상대의 배치가 불가능한지 판단하고 선언해야 합니다.
+          전문가 모드에서는 <b>중앙 AI의 자동 판정이 없습니다.</b> 타일을 배치해도 즉시 결과가 나오지 않으며, 플레이어가 직접 불가능 여부를 판단하고 선언해야 합니다.
         </div>
-        <div class="expert-steps">
-          <div class="expert-step">
-            <div class="expert-step-num">1</div>
-            <div>
-              <h4>불가능 선언</h4>
-              <p>상대가 타일을 배치한 직후, "현재 설계도는 어떤 에너지 코어 배치로도 불가능하다"고 판단되면 타일 배치 대신 <b>불가능 선언</b>을 할 수 있습니다.</p>
+        <div class="expert-cols">
+          <!-- Step 1 -->
+          <div class="expert-col">
+            <div class="expert-col-head">
+              <div class="expert-col-num-row"><div class="expert-col-num">1</div><h4>불가능 선언</h4></div>
+              <p>상대가 타일을 배치한 직후, 현재 설계도로는 어떤 에너지 코어 배치로도 모든 숫자 조건을 동시에 만족할 수 없다고 판단되면 타일 배치 대신 <b>불가능 선언</b>을 선택합니다. 확신이 없다면 선언하지 않는 것이 안전합니다.</p>
+            </div>
+            <div class="expert-col-example">
+              <div class="board example-board" id="rules-example-expert1" style="--cell-size:38px"></div>
+              <div class="example-desc"><span style="color:var(--p1c);font-weight:600">P1</span>이 3행 4열에 숫자 <b>2</b>를 배치. <span style="color:var(--p2c);font-weight:600">P2</span>는 이 구성이 불가능하다 판단해 불가능 선언을 했습니다.</div>
             </div>
           </div>
-          <div class="expert-step">
-            <div class="expert-step-num">2</div>
-            <div>
-              <h4>반박 시도</h4>
-              <p>선언을 받은 플레이어(상대)는 직접 게임판 위에 <b>에너지 코어를 배치</b>해 모든 숫자 조건을 만족하는 해답이 존재함을 증명해야 합니다.</p>
+          <!-- Step 2 -->
+          <div class="expert-col">
+            <div class="expert-col-head">
+              <div class="expert-col-num-row"><div class="expert-col-num">2</div><h4>반박 시도</h4></div>
+              <p>선언을 받은 플레이어는 게임판에 직접 <b>에너지 코어를 배치</b>해, 모든 숫자 조건이 동시에 성립하는 해답이 존재함을 증명해야 합니다. 증명에 성공하면 선언자가 패배합니다.</p>
+            </div>
+            <div class="expert-col-example">
+              <div class="board example-board" id="rules-example-expert2" style="--cell-size:38px"></div>
+              <div class="example-desc"><span style="color:var(--p1c);font-weight:600">P1</span>은 남은 칸에 코어를 직접 배치해 숫자 조건이 성립함을 증명하려 합니다. 강조 칸이 시도한 코어 위치입니다.</div>
             </div>
           </div>
-          <div class="expert-step">
-            <div class="expert-step-num">3</div>
-            <div>
-              <h4>결과 판정</h4>
-              <p><b>반박 성공</b>(해답 증명) → 선언자 패배.<br><b>반박 포기</b>(증명 불가) → 선언자 승리.</p>
+          <!-- Step 3 -->
+          <div class="expert-col">
+            <div class="expert-col-head">
+              <div class="expert-col-num-row"><div class="expert-col-num">3</div><h4>결과 판정</h4></div>
+              <p><b>반박 성공</b>이면 선언자 패배, <b>반박 포기</b>이면 선언자 승리입니다. 해답이 없어 증명하지 못하거나 스스로 포기한 경우 선언자가 승리합니다.</p>
+            </div>
+            <div class="expert-col-example">
+              <div class="board example-board" id="rules-example-expert3" style="--cell-size:38px"></div>
+              <div class="example-desc">코어 2개가 배치됐지만 <b>1</b>은 인접 코어가 정확히 1개여야 해 모순. <span style="color:var(--p1c);font-weight:600">P1</span>은 반박을 포기하고 <span style="color:var(--p2c);font-weight:600">P2</span>가 승리합니다.</div>
             </div>
           </div>
         </div>
@@ -1171,18 +1212,18 @@ let G={};
 let difficulty='normal';
 let MAP_CELLS=null; // null = all playable; 2D array of 0|1 otherwise
 let selectedMap=0;  // 0-2 = specific map, 'random' = random
-let firstPlayer=0;  // 0, 1, or 'random'
+let firstPlayer='random';  // 0, 1, or 'random'
 
 const MAPS=[
   {id:'map1',name:'행성 M',rows:6,cols:6,bg:'board_bg1.png',cells:null},
   {id:'map2',name:'위성 T',rows:7,cols:7,bg:'board_bg2.png',cells:[
-    [0,0,1,1,1,0,0],
-    [0,1,1,1,1,1,0],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1],
-    [0,1,1,1,1,1,0],
-    [0,0,1,1,1,0,0],
+    [0,1,1,1,0,0,0],
+    [0,1,1,1,1,1,1],
+    [0,1,1,1,1,1,1],
+    [1,1,1,0,1,1,1],
+    [1,1,1,1,1,1,0],
+    [1,1,1,1,1,1,0],
+    [0,0,0,1,1,1,0],
   ]},
   {id:'map3',name:'행성 V',rows:8,cols:8,bg:'board_bg3.png',cells:[
     [0,0,0,1,1,0,0,0],
@@ -1212,6 +1253,77 @@ function setSelectedMap(idx){
   }
 }
 
+/* ── MAP PREVIEW TOOLTIP ── */
+(function(){
+  const tooltip=document.getElementById('map-preview-tooltip');
+  const nameEl=document.getElementById('map-preview-name');
+  const gridEl=document.getElementById('map-preview-grid');
+  let hoverTimer=null;
+
+  // full-grid definitions for preview (including random = null)
+  const previewDefs=[
+    {name:'행성 M',rows:6,cols:6,cells:null},
+    {name:'위성 T',rows:7,cols:7,cells:[
+      [0,1,1,1,0,0,0],[0,1,1,1,1,1,1],[0,1,1,1,1,1,1],
+      [1,1,1,0,1,1,1],[1,1,1,1,1,1,0],[1,1,1,1,1,1,0],[0,0,0,1,1,1,0]
+    ]},
+    {name:'행성 V',rows:8,cols:8,cells:[
+      [0,0,0,1,1,0,0,0],[0,0,1,1,1,1,0,0],[0,1,1,1,1,1,1,0],[1,1,1,1,1,1,1,1],
+      [1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,0],[0,0,1,1,1,1,0,0],[0,0,0,1,1,0,0,0]
+    ]},
+    {name:'랜덤',rows:null,cols:null,cells:null}
+  ];
+
+  function showPreview(mapIdx, anchorEl){
+    const def=previewDefs[mapIdx];
+    if(!def) return;
+    nameEl.textContent=def.name;
+    gridEl.innerHTML='';
+    if(def.rows===null){
+      // random — show ? icon
+      gridEl.style.gridTemplateColumns='1fr';
+      const msg=document.createElement('div');
+      msg.style.cssText='font-size:28px;color:var(--muted);text-align:center;padding:8px 16px;';
+      msg.textContent='?';
+      gridEl.appendChild(msg);
+    } else {
+      gridEl.style.gridTemplateColumns=`repeat(${def.cols},16px)`;
+      for(let r=0;r<def.rows;r++) for(let c=0;c<def.cols;c++){
+        const cell=document.createElement('div');
+        const playable=!def.cells||def.cells[r][c]===1;
+        cell.className='map-preview-cell'+(playable?'':' blocked');
+        gridEl.appendChild(cell);
+      }
+    }
+    // position tooltip above anchor
+    const rect=anchorEl.getBoundingClientRect();
+    tooltip.style.left=Math.max(8,rect.left+rect.width/2-100)+'px';
+    tooltip.style.top=(rect.top-8)+'px';
+    tooltip.style.transform='translateY(-100%)';
+    tooltip.classList.add('visible');
+  }
+
+  function hidePreview(){
+    clearTimeout(hoverTimer);
+    tooltip.classList.remove('visible');
+  }
+
+  document.querySelectorAll('.map-card').forEach(card=>{
+    card.addEventListener('mouseenter',e=>{
+      const id=card.id;
+      let idx=null;
+      if(id==='map-card-0') idx=0;
+      else if(id==='map-card-1') idx=1;
+      else if(id==='map-card-2') idx=2;
+      else if(id==='map-card-random') idx=3;
+      if(idx===null) return;
+      hoverTimer=setTimeout(()=>showPreview(idx,card),500);
+    });
+    card.addEventListener('mouseleave',hidePreview);
+    card.addEventListener('click',hidePreview);
+  });
+})();
+
 function setFirstPlayer(choice){
   firstPlayer=choice;
   ['fp-p1','fp-random','fp-p2'].forEach(id=>document.getElementById(id)?.classList.remove('active'));
@@ -1234,7 +1346,13 @@ const RULE_ADJ_CENTER=[[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]];
 const RULE_EXAMPLES={
   zero:{highlights:RULE_ADJ_CENTER,tiles:[{r:1,c:1,v:'0'}]},
   three:{highlights:RULE_ADJ_CENTER,tiles:[{r:1,c:1,v:'3'},{r:0,c:0,v:'M'},{r:0,c:2,v:'M'},{r:2,c:0,v:'M'}]},
-  edge:{highlights:[[0,1],[1,0],[1,1]],tiles:[{r:0,c:0,v:'2'},{r:0,c:1,v:'M'},{r:1,c:0,v:'M'}]},
+  edge:{
+    highlights:[[0,1],[1,0],[1,1],[1,2],[1,3],[2,2],[3,2],[3,3]],
+    tiles:[
+      {r:0,c:0,v:'2'},{r:0,c:1,v:'M'},{r:1,c:0,v:'M'},
+      {r:2,c:3,v:'5'},{r:1,c:2,v:'M'},{r:1,c:3,v:'M'},{r:2,c:2,v:'M'},{r:3,c:2,v:'M'},{r:3,c:3,v:'M'}
+    ]
+  },
   // 승리: 4×4 fully valid board (verified: single M at 2,2, all numbers correct)
   win:{
     highlights:[],
@@ -1249,10 +1367,25 @@ const RULE_EXAMPLES={
   lose:{
     highlights:[[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]],
     tiles:[{r:1,c:1,v:'0'},{r:0,c:1,v:'M'}]
+  },
+  // 전문가 step1: P1이 (2,3)에 숫자2 배치 — (0,3)=0, (3,3)=1 기배치
+  expert1:{
+    highlights:[[2,3]],
+    tiles:[{r:0,c:3,v:'0'},{r:2,c:3,v:'2'},{r:3,c:3,v:'1'}]
+  },
+  // 전문가 step2: P1이 (2,2),(3,2)에 코어 배치 시도
+  expert2:{
+    highlights:[[2,2],[3,2]],
+    tiles:[{r:0,c:3,v:'0'},{r:2,c:2,v:'M'},{r:2,c:3,v:'2'},{r:3,c:2,v:'M'},{r:3,c:3,v:'1'}]
+  },
+  // 전문가 step3: (3,3)=1이 주변 코어 2개(모순) → 반박 포기
+  expert3:{
+    highlights:[[2,2],[3,2],[3,3]],
+    tiles:[{r:0,c:3,v:'0'},{r:2,c:2,v:'M'},{r:2,c:3,v:'2'},{r:3,c:2,v:'M'},{r:3,c:3,v:'1'}]
   }
 };
 
-const RULE_TABS=['goal','howto','numbers','winlose','revision','reference','expert'];
+const RULE_TABS=['goal','howto','numbers','winlose','revision','expert'];
 
 function renderTileShowcase(){
   const core=document.getElementById('showcase-core');
@@ -1324,11 +1457,18 @@ function renderRulesExamples(){
   renderRulesExample('rules-example-edge',RULE_EXAMPLES.edge);
   renderRulesExample('rules-example-win',RULE_EXAMPLES.win);
   renderRulesExample('rules-example-lose',RULE_EXAMPLES.lose);
+  renderRulesExample('rules-example-expert1',RULE_EXAMPLES.expert1);
+  renderRulesExample('rules-example-expert2',RULE_EXAMPLES.expert2);
+  renderRulesExample('rules-example-expert3',RULE_EXAMPLES.expert3,{conflictHi:true});
 }
 
-function renderRulesExample(id,config){
+function renderRulesExample(id,config,opts={}){
   const board=document.getElementById(id);
-  if(!board) return;
+  if(!board||board.children.length>0) return;
+  _renderRulesExampleInto(board,config,opts);
+}
+
+function _renderRulesExampleInto(board,config,opts={}){
   const tiles=new Map(config.tiles.map(t=>[`${t.r},${t.c}`,t.v]));
   const highlights=new Set(config.highlights.map(([r,c])=>`${r},${c}`));
   board.innerHTML='';
@@ -1336,18 +1476,22 @@ function renderRulesExample(id,config){
     const key=`${r},${c}`;
     const cell=document.createElement('div');
     cell.className='cell';
-    if(highlights.has(key)) cell.classList.add('example-hi');
+    const isHi=highlights.has(key);
     if(tiles.has(key)){
       const v=tiles.get(key);
       cell.classList.add('placed');
       cell.dataset.v=v;
       cell.innerHTML=spriteMarkup(v,true);
+      if(opts.conflictHi&&isHi) cell.classList.add('example-hi');
+      else if(isHi) cell.classList.add('example-hi');
     } else {
       cell.classList.add('empty');
+      if(isHi) cell.classList.add('example-hi');
     }
     board.appendChild(cell);
   }
 }
+
 
 document.querySelectorAll('[data-rule-tab]').forEach(btn=>{
   btn.addEventListener('click',()=>setRulesTab(btn.dataset.ruleTab));
@@ -1361,6 +1505,24 @@ function setDiff(d){
   document.getElementById('diff-expert').className='diff-btn'+(d==='expert'?' active-expert':'');
   document.querySelectorAll('.expert-rule').forEach(el=>el.style.display=d==='expert'?'':'none');
   document.querySelectorAll('.normal-rule').forEach(el=>el.style.display=d==='normal'?'':'none');
+  // update setup quick-ref mode card
+  const mc=document.getElementById('qref-mode-card');
+  const mi=document.getElementById('qref-mode-icon');
+  const mt=document.getElementById('qref-mode-title');
+  const md=document.getElementById('qref-mode-desc');
+  if(mc&&mi&&mt&&md){
+    if(d==='expert'){
+      mc.classList.add('expert-card');
+      mi.className='ti ti-ban';
+      mt.textContent='불가능 선언 → 상대 반박';
+      md.textContent='AI 판정 없이 직접 불가능을 선언하고 상대가 반박합니다.';
+    } else {
+      mc.classList.remove('expert-card');
+      mi.className='ti ti-alert-triangle';
+      mt.textContent='중앙 AI 실시간 검증';
+      md.textContent='타일을 놓을 때마다 자동으로 가능성을 확인합니다.';
+    }
+  }
 }
 
 function buildDeck(){
@@ -1553,7 +1715,7 @@ function renderGame(){
       document.getElementById('act'+i+'-normal').style.display=norm?'':'none';
       document.getElementById('act'+i+'-reroll').style.display=norm?'none':'';
       if(norm) document.getElementById('st'+i).textContent='설계안을 선택하세요';
-      document.getElementById('bp'+i).disabled=G.selTile===null;
+      const bpEl=document.getElementById('bp'+i);if(bpEl) bpEl.disabled=G.selTile===null;
       document.getElementById('br'+i).disabled=p.tokens<=0;
       document.getElementById('brc'+i).disabled=G.rsel.length===0;
       const impBtn=document.getElementById('impos'+i);
@@ -1640,7 +1802,7 @@ function selTile(i){
   G.selTile=G.selTile===i?null:i;
   setStatus(G.selTile!==null?'건설 구역을 선택하세요':'설계안을 선택하세요');
   renderHand(G.cur);renderBoard();
-  document.getElementById('bp'+G.cur).disabled=G.selTile===null;
+  const bpCur=document.getElementById('bp'+G.cur);if(bpCur) bpCur.disabled=G.selTile===null;
 }
 function doPlace(){if(G.selTile===null){setStatus('설계안을 먼저 선택하세요');return;}setStatus('건설 구역을 선택하세요');}
 function placeCell(r,c){
@@ -1974,37 +2136,30 @@ function showImpossibleOverlay(placerIdx, result) {
 
   const viz = document.getElementById('impos-viz');
   viz.innerHTML = '';
-  viz.style.cssText = `display:grid;grid-template-columns:repeat(${COLS},32px);gap:3px;`;
+  viz.style.cssText = `display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:2px;max-width:${COLS*35+COLS*3}px;`;
 
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
       const cell = document.createElement('div');
-      if(!isPlayable(r,c)){cell.className='impos-cell';cell.style.background='rgba(0,0,0,0.35)';cell.style.border='none';viz.appendChild(cell);continue;}
-      cell.className = 'impos-cell';
-      const v = G.board[r][c];
       const key = `${r},${c}`;
-
+      if (!isPlayable(r,c)) {
+        cell.className='impos-cell';cell.style.background='rgba(0,0,0,0.35)';cell.style.border='none';
+        viz.appendChild(cell);continue;
+      }
+      const v = G.board[r][c];
+      cell.className = 'impos-cell';
       if (v !== null) {
-        // Placed tile
         cell.dataset.v = v;
         if (v === 'M') {
+          cell.classList.add('impos-mine');
           cell.innerHTML = '<i class="ti ti-bolt"></i>';
-          cell.classList.add('forced-mine');
+          cell.classList.add(conflictSet.has(key) ? 'impos-conflict' : 'impos-ok');
         } else {
           cell.textContent = v;
-          if (conflictSet.has(key)) cell.classList.add('conflict');
+          cell.classList.add(conflictSet.has(key) ? 'impos-conflict' : 'impos-ok');
         }
       } else {
-        // Empty cell — show deduction
-        if (forcedMines.has(key)) {
-          cell.classList.add('forced-mine');
-          cell.innerHTML = '<i class="ti ti-bolt" style="font-size:12px"></i>';
-        } else if (forcedSafe.has(key)) {
-          cell.classList.add('forced-safe');
-          cell.innerHTML = '<i class="ti ti-check" style="font-size:12px"></i>';
-        } else if (conflictSet.has(key)) {
-          cell.classList.add('conflict');
-        }
+        cell.classList.add('impos-empty');
       }
       viz.appendChild(cell);
     }
