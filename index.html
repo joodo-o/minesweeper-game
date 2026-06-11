@@ -55,91 +55,112 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .screen.active{display:flex;}
 
 /* ══ SETUP ══ */
-#s-setup{align-items:center;justify-content:center;gap:14px;padding:24px 20px;overflow-y:auto;background:var(--bg);}
+#s-setup{align-items:stretch;justify-content:flex-start;padding:0;overflow:hidden;background:var(--bg);}
+.setup-scroll{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  padding:clamp(28px,10vh,80px) 20px 24px;
+  overflow-y:auto;
+  height:100%;
+  width:100%;
+}
+.setup-header{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;max-width:680px;}
 .logo-sub{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;text-align:center;}
-.setup-card{background:var(--surf);border:0.5px solid var(--bdr2);border-radius:14px;padding:16px;width:100%;max-width:380px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .card-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px;font-weight:500;}
-.pinput{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+/* setup sections */
+.setup-section{display:flex;flex-direction:column;gap:8px;width:100%;max-width:680px;}
+.setup-section-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-weight:500;}
+/* player name inputs */
+.setup-card{background:var(--surf);border:0.5px solid var(--bdr2);border-radius:14px;padding:14px 16px;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.pinput{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.pinput:last-child{margin-bottom:0;}
 .pdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .pinput input{flex:1;background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:8px;padding:9px 12px;color:var(--txt);font-size:14px;outline:none;font-family:'A2z',sans-serif;}
 .pinput input:focus{border-color:var(--accent)}
-.diff-wrap{display:flex;align-items:stretch;background:var(--surf);border-radius:10px;border:0.5px solid var(--bdr2);overflow:hidden;width:100%;max-width:380px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+/* map selection */
+.map-select-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;}
+.map-card{background:var(--surf);border:1.5px solid var(--bdr2);border-radius:12px;padding:12px 10px;cursor:pointer;transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;min-height:100px;}
+.map-card:hover{background:var(--surf2);}
+/* map active colors by identity */
+#map-card-0.active{border-color:#b87843;background:rgba(184,120,67,.12);}
+#map-card-0.active .map-card-icon{color:#b87843;}
+#map-card-1.active{border-color:var(--p2c);background:var(--p2-tint);}
+#map-card-1.active .map-card-icon{color:var(--p2c);}
+#map-card-2.active{border-color:#c0aa78;background:rgba(192,170,120,.12);}
+#map-card-2.active .map-card-icon{color:#c0aa78;}
+#map-card-random.active{border-color:#8faab8;background:rgba(143,170,184,.12);}
+#map-card-random.active .map-card-icon{color:#8faab8;}
+.map-card-icon{font-size:22px;color:var(--muted);transition:color .2s;line-height:1;}
+.map-card-name{font-size:13px;font-weight:700;color:var(--txt);}
+.map-card-info{font-size:10px;color:var(--muted);letter-spacing:0.5px;}
+.map-card-desc{font-size:10px;color:var(--txt2);line-height:1.45;font-weight:300;}
+.map-card-random .map-card-icon{font-size:28px;}
+/* mode toggle */
+.diff-wrap{display:flex;align-items:stretch;background:var(--surf);border-radius:10px;border:0.5px solid var(--bdr2);overflow:hidden;width:100%;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
 .diff-btn{flex:1;padding:11px 8px;border:none;background:transparent;color:var(--muted);font-family:'A2z',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .diff-btn.active-normal{background:rgba(209,169,90,.15);color:var(--accent);}
 .diff-btn.active-expert{background:var(--red-bg);color:var(--red);}
 .diff-sep{width:0.5px;background:var(--bdr2);flex-shrink:0;}
 .diff-desc{font-size:10px;font-weight:400;opacity:0.7;}
-.btn-start{width:100%;max-width:380px;padding:14px;background:var(--accent);border:none;border-radius:12px;font-size:16px;font-weight:700;letter-spacing:2px;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'A2z',sans-serif;box-shadow:0 2px 8px rgba(184,144,10,0.25);}
+/* first player */
+.fp-row{display:flex;gap:8px;width:100%;}
+.fp-btn{flex:1;padding:10px 8px;background:var(--surf);border:1.5px solid var(--bdr2);border-radius:10px;color:var(--txt2);font-family:'A2z',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:border-color .2s,background .2s,color .2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fp-btn:hover{background:var(--surf2);}
+/* fp active colors by identity */
+#fp-p1.active{border-color:var(--p1c);background:var(--p1-tint);color:var(--p1c);}
+#fp-random.active{border-color:#8faab8;background:rgba(143,170,184,.12);color:#8faab8;}
+#fp-p2.active{border-color:var(--p2c);background:var(--p2-tint);color:var(--p2c);}
+.fp-btn .fp-icon{font-size:16px;}
+.fp-btn .fp-label{font-size:10px;font-weight:400;opacity:0.75;}
+/* action buttons */
+.setup-actions{display:flex;gap:10px;width:100%;max-width:680px;padding-bottom:8px;}
+.btn-start{flex:2;padding:14px;background:#8faab8;border:none;border-radius:12px;font-size:16px;font-weight:700;letter-spacing:2px;color:#1a2d36;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'A2z',sans-serif;box-shadow:0 2px 8px rgba(143,170,184,0.25);}
 .btn-start:active{opacity:.85}
-
-.rules-card{background:var(--surf);border:0.5px solid var(--bdr2);border-radius:14px;padding:16px 18px;width:100%;max-width:560px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}.rules-catchphrase{font-size:13px;line-height:1.55;color:var(--txt);font-weight:700;margin-bottom:13px;padding:10px 12px;border-radius:10px;background:var(--accent-bg);border:0.5px solid var(--bdr2);}
-.rules-card .card-title{margin-bottom:10px;}
+.btn-rules-open{flex:1;padding:14px 10px;background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:12px;font-size:14px;font-weight:700;color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'A2z',sans-serif;}
+.btn-rules-open:active{opacity:.85;transform:scale(.97);}
+/* fallback list */
 .rules-list{margin:0;padding-left:22px;color:var(--txt2);font-size:12px;line-height:1.65;}
 .rules-list li{padding-left:4px;margin-bottom:5px;}
 .rules-list li:last-child{margin-bottom:0;}
 .rules-list b{color:var(--txt);font-weight:700;}
-.mode-title{width:100%;max-width:380px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;font-weight:500;margin-bottom:-4px;}
-.mode-row{display:flex;flex-direction:column;gap:14px;align-items:center;width:100%;}
-.setup-header{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;}
-@media (max-height:760px){#s-setup{justify-content:flex-start}.rules-card{padding:13px 15px}.rules-list{font-size:11px;line-height:1.5}.setup-card{padding:13px}.btn-start{padding:12px}}
-
-/* Mobile landscape: compact 2-column layout so mode selection fits without scrolling */
+/* landscape: keep single column, just tighter padding */
+@media (orientation:landscape){
+  .setup-scroll{padding:clamp(16px,6vh,48px) 20px 16px;gap:8px;}
+  .setup-header{margin-bottom:2px;}
+}
+@media (max-height:700px) and (orientation:portrait){
+  .setup-scroll{gap:10px;padding:16px 16px 16px;}
+  .map-select-grid{gap:7px;}.map-card{padding:8px 6px;min-height:80px;}
+  .map-card-desc{display:none;}.map-card-info{display:none;}
+}
+/* Mobile landscape: ultra-compact */
 @media (orientation:landscape) and (max-height:500px){
   html,body{overflow:hidden;}
-  #s-setup{
-    display:grid;
-    grid-template-columns:240px 1fr;
-    grid-template-rows:auto 1fr auto;
-    grid-template-areas:
-      "header header"
-      "side   rules"
-      "mode   mode";
-    gap:6px 14px;
-    align-items:stretch;
-    justify-items:stretch;
-    padding:8px 14px;
-    overflow:hidden;
-    max-width:1000px;
-    width:100%;
-    margin:0 auto;
-    height:100%;
-  }
-
-  .setup-header{grid-area:header;display:flex;align-items:baseline;gap:10px;justify-content:center;}
-  .logo-sub{font-size:11px;margin:0;}
-  .setup-intro{font-size:10px;line-height:1.3;margin:0;}
-  .setup-intro br{display:none;}
-
-  .setup-card{grid-area:side;max-width:none;padding:8px 10px;overflow:hidden;display:flex;flex-direction:column;}
-  .setup-card .card-title{margin-bottom:4px;font-size:9px;}
-  .pinput{margin-bottom:5px;}
-  .pinput input{padding:5px 8px;font-size:11px;}
-  .pdot{width:7px;height:7px;}
-
-  .rules-card{grid-area:rules;max-width:none;padding:8px 10px;min-height:0;overflow-y:auto;display:flex;flex-direction:column;}
-  .rules-catchphrase{font-size:10px;padding:5px 8px;margin-bottom:5px;line-height:1.35;flex-shrink:0;}
-  .rules-card .card-title{margin-bottom:4px;font-size:9px;flex-shrink:0;}
-  .rules-list{column-count:2;column-gap:16px;font-size:9px;line-height:1.35;}
-  .rules-list li{break-inside:avoid;margin-bottom:2px;}
-
-  /* mode row: title + diff buttons + start button laid out horizontally */
-  .mode-row{
-    grid-area:mode;
-    display:flex;
-    align-items:stretch;
-    gap:10px;
-  }
-  .mode-title{display:none;} /* redundant in compact row, drop label */
-  .diff-wrap{max-width:none;margin:0;flex:1;}
-  .diff-btn{padding:6px 8px;font-size:11px;}
-  .diff-desc{font-size:8.5px;}
-  .btn-start{max-width:none;width:auto;flex-shrink:0;padding:0 22px;white-space:nowrap;font-size:13px;}
+  .setup-section-title{font-size:9px;letter-spacing:1.5px;}
+  .pinput{margin-bottom:4px;}.pinput input{padding:5px 8px;font-size:11px;}.pdot{width:7px;height:7px;}
+  .map-select-grid{gap:5px;}.map-card{padding:5px 4px;min-height:50px;}
+  .map-card-name{font-size:10px;}.map-card-desc{display:none;}
+  .diff-btn{padding:6px 8px;font-size:11px;}.diff-desc{font-size:8px;}
+  .fp-btn{padding:6px 5px;font-size:11px;}.fp-btn .fp-label{display:none;}
+  .btn-start{padding:9px;font-size:12px;letter-spacing:1px;}.btn-rules-open{padding:9px 8px;font-size:11px;}
+  .rules-modal{width:96vw;height:94vh;max-height:94vh;}
+  .rules-nav-btn{width:28px;}.rules-nav-btn i{font-size:17px;}
+  .rules-tab-panel.active{padding:0 12px;}
+  .howto-pair,.goal-pair,.winlose-outcome{grid-template-columns:1fr 1fr;}
+  .quick-grid{grid-template-columns:repeat(2,1fr);}
+  .rules-example-row{gap:10px;}
+  .example-board{--cell-size:32px;--cell-gap:3px;--cell-fs:14px;}
 }
 
 
 /* ══ TOPBAR ══ */
 #s-game{flex-direction:column;height:100%;overflow:hidden;}
-.topbar{height:var(--topbar-h);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:20px;padding:0 20px;background:var(--surf);border-bottom:0.5px solid var(--bdr2);box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.topbar{height:var(--topbar-h);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:20px;padding:0 20px;background:var(--surf);border-bottom:0.5px solid var(--bdr2);box-shadow:0 1px 3px rgba(0,0,0,0.06);position:relative;}
+.topbar-info{position:absolute;left:16px;display:flex;flex-direction:column;gap:1px;align-items:flex-start;}
+.topbar-mode{font-size:clamp(9px,1.1vh,11px);color:var(--accent);letter-spacing:1px;font-weight:600;text-transform:uppercase;}
+.topbar-turn{font-size:clamp(9px,1.1vh,11px);color:var(--muted);letter-spacing:0.5px;font-weight:400;}
 .topbar-label{font-size:clamp(11px,1.5vh,14px);color:var(--muted);font-weight:400;}
 .topbar-name{font-size:clamp(18px,3vh,28px);font-weight:700;margin-left:4px;transition:color .3s;}
 .topbar-stat{display:flex;flex-direction:column;align-items:center;gap:0;padding:3px 14px;border-left:0.5px solid var(--bdr);}
@@ -201,7 +222,7 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 
 /* ══ BOARD CENTER ══ */
 .board-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);min-width:0;min-height:0;padding:8px;gap:10px;}
-.board{display:grid;grid-template-columns:repeat(6,var(--cell-size));grid-template-rows:repeat(6,var(--cell-size));gap:var(--cell-gap);flex-shrink:0;position:relative;padding:10px;border-radius:14px;background:url('assets/board_bg.png') center/100% 100% no-repeat;border:1px solid rgba(190,210,216,.12);box-shadow:0 8px 24px rgba(0,0,0,.22);}
+.board{display:grid;grid-template-columns:repeat(6,var(--cell-size));grid-template-rows:repeat(6,var(--cell-size));gap:var(--cell-gap);flex-shrink:0;position:relative;padding:10px;border-radius:14px;background:url('assets/board_bg1.png') center/100% 100% no-repeat;border:1px solid rgba(190,210,216,.12);box-shadow:0 8px 24px rgba(0,0,0,.22);}
 
 /* CELLS */
 .cell{width:var(--cell-size);height:var(--cell-size);border-radius:6px;background:var(--surf);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:var(--cell-fs);font-weight:700;cursor:pointer;transition:background .15s,border-color .15s,transform .1s;position:relative;}
@@ -297,12 +318,209 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .sim-reset-btn:active{opacity:.85;}
 
 /* MODAL */
-.moverlay{display:none;position:fixed;inset:0;background:rgba(14,14,18,0.75);backdrop-filter:blur(3px);z-index:100;align-items:center;justify-content:center;padding:20px;}
+.moverlay{display:none;position:fixed;inset:0;background:rgba(14,14,18,0.75);backdrop-filter:blur(3px);z-index:180;align-items:center;justify-content:center;padding:20px;}
 .moverlay.open{display:flex}
 .modal{background:var(--surf);border-radius:16px;padding:20px;width:100%;max-width:340px;border:0.5px solid var(--bdr2);box-shadow:0 4px 20px rgba(0,0,0,0.12);}
 .modal h3{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:7px;color:var(--red)}
 .modal p{font-size:13px;color:var(--txt2);margin-bottom:16px;line-height:1.6;font-weight:400;}
 .mbtns{display:flex;gap:8px}.mbtns .btn{flex:1}
+
+/* RULES MODAL */
+.rules-help-btn{
+  width:32px;height:32px;border-radius:8px;border:0.5px solid var(--bdr2);
+  background:var(--surf2);color:var(--accent);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-family:'A2z',sans-serif;flex-shrink:0;
+}
+.rules-help-btn:active{transform:scale(.94)}
+.rules-help-btn i{font-size:18px;}
+.rules-modal{
+  width:90vw;max-width:1200px;height:88vh;max-height:88vh;
+  padding:0;display:flex;flex-direction:column;overflow:hidden;
+}
+.rules-modal-head{
+  flex-shrink:0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  padding:18px 20px 12px;border-bottom:0.5px solid var(--bdr2);
+}
+.rules-modal-kicker{
+  font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:5px;
+}
+.rules-modal h3{margin:0;color:var(--txt);font-size:20px;line-height:1.2;}
+.rules-modal h3 i{color:var(--accent);}
+.rules-modal-close{
+  width:34px;height:34px;border-radius:8px;border:0.5px solid var(--bdr2);
+  background:var(--surf2);color:var(--txt2);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;
+}
+.rules-modal-close:active{transform:scale(.94)}
+.rules-modal-close i{font-size:18px;}
+.rules-tabs{
+  flex-shrink:0;display:flex;gap:6px;overflow-x:auto;padding:10px 16px;
+  border-bottom:0.5px solid var(--bdr);scrollbar-width:thin;
+}
+.rules-tab-btn{
+  border:0.5px solid var(--bdr2);border-radius:8px;background:var(--surf2);color:var(--txt2);
+  font-family:'A2z',sans-serif;font-size:12px;font-weight:500;white-space:nowrap;
+  padding:8px 12px;cursor:pointer;
+}
+.rules-tab-btn.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);font-weight:600;}
+.rules-nav-area{flex:1;display:flex;align-items:stretch;min-height:0;overflow:hidden;}
+.rules-nav-btn{width:36px;flex-shrink:0;background:transparent;border:none;color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;border-radius:0;}
+.rules-nav-btn:hover{background:var(--surf2);color:var(--txt);}
+.rules-nav-btn:disabled{opacity:.18;cursor:default;}
+.rules-nav-btn i{font-size:22px;}
+.rules-tab-panels{flex:1;min-height:0;overflow-y:auto;padding:20px 4px 24px;}
+.rules-tab-panel{display:none;}
+.rules-tab-panel.active{display:block;padding:0 20px;}
+.rules-modal p{margin:0;color:var(--txt2);font-size:14px;line-height:1.7;font-weight:300;}
+.rules-modal b{color:var(--txt);font-weight:600;}
+/* 게임 목표 탭 */
+.goal-intro{font-size:15px;line-height:1.6;color:var(--txt);font-weight:400;background:var(--accent-bg);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.goal-intro b{font-weight:600;}
+.goal-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.goal-box{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;}
+.goal-box-title{font-size:13px;font-weight:600;color:var(--accent);display:flex;align-items:center;gap:6px;margin-bottom:2px;}
+.goal-box-title i{font-size:16px;}
+.goal-box p{font-size:13px;color:var(--txt2);line-height:1.65;font-weight:300;}
+/* 진행 방법 탭 */
+.howto-intro{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px 16px;margin-bottom:16px;font-size:14px;color:var(--txt);font-weight:400;line-height:1.65;text-align:center;}
+.howto-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.howto-card{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.howto-card-title{font-size:13px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:7px;}
+.howto-card-title i{color:var(--accent);font-size:16px;background:var(--accent-bg);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.howto-card p{font-size:13px;color:var(--txt2);line-height:1.6;font-weight:300;}
+.howto-screenshot{width:100%;aspect-ratio:10/16;background:var(--surf3);border:1px dashed var(--bdr2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;}
+.howto-bottom{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.howto-bottom i{color:var(--accent);font-size:18px;background:var(--accent-bg);width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.howto-bottom-text h4{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:4px;}
+.howto-bottom-text p{font-size:13px;color:var(--txt2);line-height:1.6;font-weight:300;}
+/* 숫자와 코어 탭 — 가로 나열 */
+.rules-example-row{display:flex;flex-direction:row;gap:14px;align-items:stretch;}
+.rules-example-row .rules-example-card{flex:1;min-width:0;}
+.rules-example-card{
+  background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px;
+  display:flex;flex-direction:column;gap:11px;
+}
+.rules-example-top{display:flex;gap:14px;align-items:center;flex-wrap:wrap;}
+.rules-example-name{font-size:13px;color:var(--txt);font-weight:600;}
+.rules-example-desc{background:var(--surf);border:0.5px solid var(--bdr);border-radius:8px;padding:10px 11px;}
+/* example-board: responsive, fills container, real board background */
+.example-board{
+  width:100%;
+  display:grid!important;
+  grid-template-columns:repeat(4,1fr)!important;
+  grid-template-rows:repeat(4,auto)!important;
+  gap:3px!important;
+  padding:7px;border-radius:10px;
+  background:url('assets/board_bg1.png') center/100% 100% no-repeat;
+  box-shadow:0 4px 16px rgba(0,0,0,.22);
+}
+.example-board>.cell{
+  width:100%!important;height:auto!important;
+  aspect-ratio:1/1;
+  font-size:clamp(10px,1.8vw,18px);
+  cursor:default;
+}
+.example-board>.cell:active{transform:none;}
+.example-board .sprite{padding:2px;}
+.example-board .cell.example-hi{background:var(--accent-bg)!important;border-color:var(--accent);}
+.example-board .cell.example-hi::after{
+  content:"";position:absolute;inset:0;border-radius:5px;background:var(--accent-bg);pointer-events:none;
+}
+/* conflict: placed tile that is inside a highlighted zone → shows contradiction */
+.example-board .cell.placed.example-hi{background:var(--red-bg)!important;border-color:var(--red)!important;}
+.example-board .cell.placed.example-hi::after{background:var(--red-bg);}
+/* tile showcase */
+.tile-showcase-wrap{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:12px 14px;margin-bottom:14px;}
+.tile-showcase-desc{font-size:13px;color:var(--txt2);font-weight:300;margin-bottom:10px;line-height:1.5;}
+.tile-showcase-desc b{color:var(--txt);font-weight:600;}
+.tile-showcase-body{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;}
+.tile-showcase-group{display:flex;flex-direction:column;gap:6px;}
+.tile-sg-core{flex:1;}
+.tile-sg-nums{flex:4;}
+.tile-showcase-group-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
+.tile-showcase-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+.tile-show-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.tile-show-item{width:40px;height:40px;border-radius:7px;background:var(--surf);border:1px solid var(--bdr2);overflow:hidden;position:relative;flex-shrink:0;}
+.tile-show-count{font-size:10px;color:var(--muted);font-weight:400;}
+/* howto layout: image left (3fr) + steps right (2fr) */
+.howto-layout{display:grid;grid-template-columns:3fr 2fr;gap:14px;align-items:start;}
+.howto-guide-img img{width:100%;display:block;border-radius:10px;border:0.5px solid var(--bdr2);}
+.howto-steps-list{display:flex;flex-direction:column;gap:8px;}
+.howto-step{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:11px 13px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;}
+.howto-step-icon{width:30px;height:30px;border-radius:8px;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;flex-shrink:0;font-family:'A2z',sans-serif;}
+.howto-step h4{font-size:14px;color:var(--txt);font-weight:700;margin-bottom:4px;}
+.howto-step p{font-size:13px;color:var(--txt2);line-height:1.6;font-weight:300;}
+/* revision tip */
+.revision-tip{margin-top:12px;padding:10px 14px;background:var(--surf2);border-radius:8px;font-size:12px;color:var(--muted);line-height:1.6;font-weight:300;}
+.revision-tip b{color:var(--txt2);font-weight:500;}
+/* 승패 조건 탭 */
+.winlose-flow{display:flex;align-items:center;gap:0;margin-bottom:14px;flex-wrap:wrap;}
+.winlose-flow-step{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--txt2);font-weight:300;line-height:1.4;text-align:center;flex:1;min-width:100px;}
+.winlose-flow-step b{color:var(--txt);font-weight:600;display:block;margin-bottom:2px;}
+.winlose-flow-arrow{color:var(--muted);font-size:18px;padding:0 6px;flex-shrink:0;}
+.winlose-outcome{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.winlose-box{border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;}
+.winlose-box.win{background:rgba(31,158,90,0.1);border:0.5px solid var(--green);}
+.winlose-box.lose{background:var(--red-bg);border:0.5px solid var(--red);}
+.winlose-box h4{font-size:14px;font-weight:600;margin-bottom:2px;display:flex;align-items:center;gap:6px;}
+.winlose-box.win h4{color:var(--green);}
+.winlose-box.lose h4{color:var(--red);}
+.winlose-box p{font-size:13px;color:var(--txt2);line-height:1.6;font-weight:300;}
+/* 설계 수정 탭 */
+.revision-note{display:flex;align-items:center;gap:16px;background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:18px;}
+.revision-note img{width:54px;height:54px;flex-shrink:0;}
+.revision-note p{font-size:14px;color:var(--txt2);line-height:1.7;font-weight:300;}
+/* 빠른 참조 탭 */
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.quick-card{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:13px;display:flex;gap:9px;align-items:flex-start;}
+.quick-card i{color:var(--accent);font-size:18px;line-height:1.2;flex-shrink:0;}
+.quick-card h4{font-size:13px;color:var(--txt);font-weight:600;margin-bottom:4px;}
+.quick-card p{font-size:12px;line-height:1.55;font-weight:300;}
+/* 전문가 모드 탭 */
+.expert-intro{background:var(--red-bg);border:0.5px solid var(--red);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:var(--txt2);line-height:1.65;font-weight:300;}
+.expert-intro b{color:var(--red);font-weight:600;}
+.expert-steps{display:flex;flex-direction:column;gap:12px;}
+.expert-step{background:var(--surf2);border:0.5px solid var(--bdr2);border-radius:10px;padding:14px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;}
+.expert-step-num{width:32px;height:32px;border-radius:8px;background:var(--red-bg);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;flex-shrink:0;}
+.expert-step h4{font-size:13px;color:var(--txt);font-weight:600;margin-bottom:4px;}
+.expert-step p{font-size:13px;color:var(--txt2);line-height:1.65;font-weight:300;}
+/* 공통 섹션 타이틀 */
+.rules-section-title{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:1.5px;}
+
+@media (max-width:640px){
+  .rules-modal{max-height:84vh;}
+  .rules-modal-head{padding:14px 14px 10px;}
+  .rules-tabs{padding:8px 12px;}
+  .rules-tab-panels{padding:14px;}
+  .mode-compare,.quick-grid{grid-template-columns:1fr;}
+  .rules-hero-title{font-size:18px;}
+  .example-board{--cell-size:36px;}
+}
+
+@media (orientation:landscape) and (max-height:500px){
+  .moverlay{padding:8px;}
+  .rules-modal{max-width:94vw;max-height:92vh;}
+  .rules-modal-head{padding:10px 12px 8px;}
+  .rules-modal h3{font-size:16px;}
+  .rules-modal-kicker{font-size:8px;margin-bottom:3px;}
+  .rules-modal-close{width:28px;height:28px;}
+  .rules-tabs{padding:6px 10px;gap:5px;}
+  .rules-tab-btn{font-size:10px;padding:6px 8px;border-radius:7px;}
+  .rules-tab-panels{padding:10px 12px;}
+  .rules-modal p,.flow-line{font-size:11px;line-height:1.5;}
+  .rules-hero-title{font-size:14px;padding:8px 10px;margin-bottom:10px;}
+  .rules-example-stack{gap:10px;}
+  .rules-example-card{padding:10px;gap:8px;}
+  .rules-example-top{gap:10px;}
+  .example-board{--cell-size:30px;--cell-gap:3px;padding:6px;}
+  .rules-step{padding:9px;gap:8px;}
+  .rules-step i{width:28px;height:28px;font-size:15px;}
+  .rules-step h4,.mode-box h4{font-size:12px;}
+  .mode-compare{gap:8px;}
+  .mode-box,.quick-card,.revision-note{padding:10px;}
+  .quick-card h4{font-size:11px;}
+  .quick-card p{font-size:10px;}
+}
 
 /* IMPOSSIBLE OVERLAY */
 .impos-overlay{
@@ -420,6 +638,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 .cell.empty{border-style:dashed;border-width:1.5px;background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.28)}
 .cell.empty.hl{box-shadow:inset 0 0 0 1px var(--accent)}
 .cell.by-p1{background:transparent;border-color:rgba(109,160,199,.22)}
+.cell.blocked{background:rgba(0,0,0,0.35)!important;border:none!important;border-radius:4px!important;pointer-events:none;}
 .cell.by-p2{background:transparent;border-color:rgba(109,160,199,.22)}
 .lamp{border:none;background:transparent!important;box-shadow:none!important;width:28px;height:28px}
 .lamp-core{width:100%;height:100%;background:url('assets/revision_token.svg') center/contain no-repeat!important;border-radius:0}
@@ -428,7 +647,7 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 .ppanel:not(.right) .pp-name:before{background-image:url('assets/player_red.svg')}
 .ppanel.right .pp-name:before{background-image:url('assets/player_blue.svg')}
 .pp-name .ndot{display:none}
-.btn-start,.btn-place{color:#fff}
+.btn-start{color:#1a2d36}.btn-place{color:#fff}
 .btn-reroll{background:#28363c}
 .rules-summary{border-top:1px solid var(--bdr);padding-top:8px}
 </style>
@@ -497,50 +716,94 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
 
 <!-- SETUP -->
 <div id="s-setup" class="screen active">
-  <div class="setup-header">
-    <div class="logo-sub">ORBITAL BASE DESIGN</div>
-    <div class="setup-intro">미지 행성의 거주 기지를 공동 설계하십시오.<br>모든 모듈은 중앙 건설 AI의 검증을 통과해야 합니다.</div>
-  </div>
-  <div class="setup-card">
-    <div class="card-title">플레이어 이름</div>
-    <div class="pinput"><div class="pdot" style="background:var(--p1c)"></div><input id="n1" value="플레이어 1" maxlength="10"></div>
-    <div class="pinput"><div class="pdot" style="background:var(--p2c)"></div><input id="n2" value="플레이어 2" maxlength="10"></div>
-  </div>
-
-  <div class="rules-card">
-    <div class="rules-catchphrase">지뢰를 찾는 대신, 지뢰찾기 규칙이 성립하는 맵을 함께 완성하세요.</div>
-    <div class="card-title">게임 규칙</div>
-    <ol class="rules-list">
-      <li>두 플레이어는 번갈아 <b>손패의 타일 하나를 게임판의 빈칸</b>에 배치합니다. <br> (각 플레이어 손패에서 타일을 클릭한 후, 맵의 빈 칸을 클릭)</li>
-      <li>타일을 놓으면 덱에서 새 타일을 받아 손패 4장을 유지합니다.</li>
-      <li>덱에 있는 타일은 에너지 코어(지뢰) 혹은 0~8의 숫자가 적힌 설계안이 존재합니다.</li>
-      <li>설계안의 숫자는 주변 최대 8칸에 존재해야 하는 <b>에너지 코어(지뢰)의 정확한 개수</b>를 뜻합니다.</li>
-      <li>새로 타일을 놓을 때, <b>맵의 모든 조건을 동시에 만족</b>할 수 있어야 합니다.</li>
-      <li>(보통 모드) 새 타일을 놓은 뒤 가능한 배치가 하나도 남지 않으면 <b>그 타일을 놓은 플레이어가 즉시 패배</b>합니다. <br> (게임판의 36칸이 모순 없이 모두 채워지면 마지막 타일을 놓은 플레이어가 승리합니다.)</li>
-      <li>각 플레이어는 게임 중 한 번 설계 수정 토큰을 사용해 원하는 손패를 버리고 같은 수만큼 새 타일을 받을 수 있습니다.</li>
-      <li>덱에는 항상 <b>에너지 코어 10개</b>가 포함됩니다.</li>
-      <li><b>보통 모드</b>: 타일을 놓을 때마다 중앙 AI가 즉시 가능성을 검증해 모순 발생 시 자동으로 패배 판정합니다.</li>
-      <li><b>전문가 모드</b>: AI 자동 판정 없이, 스스로 판단해 <b>"불가능 선언"</b>을 외칠 수 있습니다. 선언 시 상대가 직접 코어를 배치해 반박을 시도합니다 — 반박 성공 시 선언자 패배, 실패(포기) 시 선언자 승리.</li>
-    </ol>
-  </div>
-  <div class="mode-row">
-    <div class="mode-title">모드 선택</div>
-    <div class="diff-wrap">
-      <button class="diff-btn active-normal" id="diff-normal" onclick="setDiff('normal')">
-        보통 모드<span class="diff-desc">자동 모순 감지</span>
-      </button>
-      <div class="diff-sep"></div>
-      <button class="diff-btn" id="diff-expert" onclick="setDiff('expert')">
-        전문가 모드<span class="diff-desc">불가능 직접 선언</span>
-      </button>
+  <div class="setup-scroll">
+    <div class="setup-header">
+      <div class="logo-sub">ORBITAL BASE DESIGN</div>
+      <div class="setup-intro">미지 행성의 거주 기지를 공동 설계하십시오.</div>
     </div>
-    <button class="btn-start" onclick="startGame()"><i class="ti ti-player-play"></i> 게임 시작</button>
+
+    <div class="setup-section setup-sn-names">
+      <div class="setup-section-title">플레이어 이름</div>
+      <div class="setup-card">
+        <div class="pinput"><div class="pdot" style="background:var(--p1c)"></div><input id="n1" value="플레이어 1" maxlength="10"></div>
+        <div class="pinput"><div class="pdot" style="background:var(--p2c)"></div><input id="n2" value="플레이어 2" maxlength="10"></div>
+      </div>
+    </div>
+
+    <div class="setup-section setup-sn-mode">
+      <div class="setup-section-title">게임 모드</div>
+      <div class="diff-wrap">
+        <button class="diff-btn active-normal" id="diff-normal" onclick="setDiff('normal')">
+          보통 모드<span class="diff-desc">자동 모순 감지</span>
+        </button>
+        <div class="diff-sep"></div>
+        <button class="diff-btn" id="diff-expert" onclick="setDiff('expert')">
+          전문가 모드<span class="diff-desc">불가능 직접 선언</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="setup-section setup-sn-map">
+      <div class="setup-section-title">맵 선택</div>
+      <div class="map-select-grid">
+        <div class="map-card active" id="map-card-0" onclick="setSelectedMap(0)">
+          <span class="map-card-icon"><i class="ti ti-planet"></i></span>
+          <span class="map-card-name">행성 M</span>
+          <span class="map-card-desc">이미 어떤 문명이 개발하려 했던 흔적이 있다.</span>
+        </div>
+        <div class="map-card" id="map-card-1" onclick="setSelectedMap(1)">
+          <span class="map-card-icon"><i class="ti ti-moon"></i></span>
+          <span class="map-card-name">위성 T</span>
+          <span class="map-card-desc">지구와 그 기후가 비슷하다고 한다.</span>
+        </div>
+        <div class="map-card" id="map-card-2" onclick="setSelectedMap(2)">
+          <span class="map-card-icon"><i class="ti ti-planet-off"></i></span>
+          <span class="map-card-name">행성 V</span>
+          <span class="map-card-desc">너무 덥다. 공기 정화가 급선무인 듯 하다.</span>
+        </div>
+        <div class="map-card map-card-random" id="map-card-random" onclick="setSelectedMap('random')">
+          <span class="map-card-icon"><i class="ti ti-dice-3"></i></span>
+          <span class="map-card-name">랜덤</span>
+          <span class="map-card-desc">무작위로 선택합니다.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-section setup-sn-fp">
+      <div class="setup-section-title">시작 플레이어</div>
+      <div class="fp-row">
+        <button class="fp-btn active" id="fp-p1" onclick="setFirstPlayer(0)">
+          <span class="fp-icon"><i class="ti ti-user"></i></span>
+          플레이어 1
+          <span class="fp-label">먼저 시작</span>
+        </button>
+        <button class="fp-btn" id="fp-random" onclick="setFirstPlayer('random')">
+          <span class="fp-icon"><i class="ti ti-dice"></i></span>
+          랜덤
+          <span class="fp-label">무작위 결정</span>
+        </button>
+        <button class="fp-btn" id="fp-p2" onclick="setFirstPlayer(1)">
+          <span class="fp-icon"><i class="ti ti-user"></i></span>
+          플레이어 2
+          <span class="fp-label">먼저 시작</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="setup-actions">
+      <button class="btn-rules-open" type="button" onclick="openRulesModal()"><i class="ti ti-book"></i> 게임 규칙</button>
+      <button class="btn-start" onclick="startGame()"><i class="ti ti-player-play"></i> 게임 시작</button>
+    </div>
   </div>
 </div>
 
 <!-- GAME -->
 <div id="s-game" class="screen">
   <div class="topbar">
+    <div class="topbar-info">
+      <span class="topbar-mode" id="topbar-mode">보통 모드</span>
+      <span class="topbar-turn" id="topbar-turn">1턴</span>
+    </div>
     <span class="topbar-label">현재 차례</span>
     <span class="topbar-name" id="turn-name">—</span>
     <div class="topbar-stat">
@@ -582,6 +845,9 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="board-center" id="board-center">
       <div class="board" id="board"></div>
       <div class="rules-summary">
+        <button class="rules-help-btn" type="button" onclick="openRulesModal()" aria-label="규칙 설명 열기" title="규칙 설명">
+          <i class="ti ti-help"></i>
+        </button>
         <div class="rule-item"><i class="ti ti-cards"></i>설계안 4장 유지</div>
         <div class="rule-item"><i class="ti ti-pencil"></i>설계 수정 1회</div>
         <div class="rule-item"><i class="ti ti-bolt"></i>숫자 = 인접 코어 수</div>
@@ -653,25 +919,439 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
   </div>
 </div>
 
+<!-- RULES MODAL -->
+<div class="moverlay" id="m-rules">
+  <div class="modal rules-modal" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+    <div class="rules-modal-head">
+      <div>
+        <div class="rules-modal-kicker">ORBITAL BASE GUIDE</div>
+        <h3 id="rules-modal-title"><i class="ti ti-book"></i> 규칙 설명</h3>
+      </div>
+      <button class="rules-modal-close" type="button" onclick="closeModal('m-rules')" aria-label="규칙 설명 닫기">
+        <i class="ti ti-x"></i>
+      </button>
+    </div>
+
+    <div class="rules-tabs" role="tablist" aria-label="규칙 설명 탭">
+      <button class="rules-tab-btn active" type="button" role="tab" aria-selected="true"  data-rule-tab="goal">게임 목표</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="howto">진행 방법</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="numbers">숫자와 코어</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="winlose">승패 조건</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="revision">설계 수정</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="reference">빠른 참조</button>
+      <button class="rules-tab-btn" type="button" role="tab" aria-selected="false" data-rule-tab="expert">전문가 모드</button>
+    </div>
+
+    <div class="rules-nav-area">
+    <button class="rules-nav-btn" id="rules-prev-btn" type="button" onclick="stepRulesTab(-1)" aria-label="이전 탭" disabled>
+      <i class="ti ti-chevron-left"></i>
+    </button>
+    <div class="rules-tab-panels">
+
+      <!-- ① 게임 목표 -->
+      <section class="rules-tab-panel active" data-rule-panel="goal">
+        <div class="goal-intro">
+          미지 행성의 거주 기지 설계도를 완성하십시오.<br>
+          두 설계사는 <b>번갈아 타일을 배치</b>하며 36칸의 게임판을 채워 나갑니다. 모든 타일은 <b>중앙 AI의 검증을 통과</b>해야 하며, 모순을 만들어낸 설계사는 즉시 프로젝트에서 탈락합니다.
+        </div>
+        <div class="goal-pair">
+          <div class="goal-box">
+            <div class="goal-box-title"><i class="ti ti-layout-grid-add"></i> 타일을 배치하세요</div>
+            <p>손패에서 타일을 골라 게임판의 빈 칸에 놓으세요. 배치한 타일이 기존의 모든 숫자 조건과 동시에 만족될 수 있어야 합니다. 36칸을 모두 채우면 <b>마지막 타일을 놓은 플레이어가 승리</b>합니다.</p>
+          </div>
+          <div class="goal-box">
+            <div class="goal-box-title"><i class="ti ti-target-arrow"></i> 상대방이 불가능한 상황을 만들도록 유도하세요</div>
+            <p>상대방이 어떤 타일을 놓아도 모순이 생기는 상황을 만드세요. 불가능한 설계를 제출한 플레이어는 <b>즉시 패배</b>합니다. 단순히 타일을 채우는 것이 아니라, 상대의 선택지를 좁히는 전략이 필요합니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ② 진행 방법 -->
+      <section class="rules-tab-panel" data-rule-panel="howto">
+        <div class="howto-intro">두 플레이어는 번갈아가며 손패의 타일 하나를 게임판의 빈 칸 위에 배치합니다.</div>
+        <div class="tile-showcase-wrap">
+          <div class="tile-showcase-desc" id="showcase-desc">타일은 총 <b>45개</b>가 있으며, 그 종류와 개수는 다음과 같습니다.</div>
+          <div class="tile-showcase-body">
+            <div class="tile-showcase-group tile-sg-core">
+              <div class="tile-showcase-group-lbl">에너지 코어</div>
+              <div class="tile-showcase-row" id="showcase-core"></div>
+            </div>
+            <div class="tile-showcase-group tile-sg-nums">
+              <div class="tile-showcase-group-lbl">숫자 설계안 (0 ~ 8)</div>
+              <div class="tile-showcase-row" id="showcase-nums"></div>
+            </div>
+          </div>
+        </div>
+        <div class="howto-layout">
+          <div class="howto-guide-img">
+            <img src="assets/Guide01.png" alt="① 설계안 선택 후 ② 게임판에 배치하는 과정">
+          </div>
+          <div class="howto-steps-list">
+            <div class="howto-step">
+              <div class="howto-step-icon">①</div>
+              <div>
+                <h4>설계안 선택</h4>
+                <p>손패에서 배치할 타일 하나를 클릭해 선택합니다. 선택된 타일은 강조 표시됩니다.</p>
+              </div>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-icon">②</div>
+              <div>
+                <h4>타일 배치</h4>
+                <p>게임판의 빈 칸을 클릭해 선택한 타일을 배치합니다. 배치 즉시 중앙 AI가 모순 여부를 검증합니다.</p>
+              </div>
+            </div>
+            <div class="howto-step">
+              <div class="howto-step-icon">③</div>
+              <div>
+                <h4>손패 보충</h4>
+                <p>덱에서 새 타일을 받아 손패 4장을 유지합니다. 에너지 코어는 항상 10개 포함됩니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ③ 숫자와 코어 -->
+      <section class="rules-tab-panel" data-rule-panel="numbers">
+        <div class="rules-section-title"><i class="ti ti-info-circle"></i> 숫자 타일은 주변 8칸 안에 있어야 할 에너지 코어의 정확한 개수를 나타냅니다.</div>
+        <div class="rules-example-row">
+          <div class="rules-example-card">
+            <div class="rules-example-name">예시 A — "0"의 의미</div>
+            <div class="rules-example-top">
+              <div class="board example-board" id="rules-example-zero" aria-label="0의 의미 예시 보드"></div>
+            </div>
+            <div class="rules-example-desc">
+              <p><b>숫자 0</b>은 강조된 주변 8칸에 에너지 코어가 <b>하나도 없어야</b> 한다는 뜻입니다.</p>
+            </div>
+          </div>
+          <div class="rules-example-card">
+            <div class="rules-example-name">예시 B — "3"의 의미</div>
+            <div class="rules-example-top">
+              <div class="board example-board" id="rules-example-three" aria-label="3의 의미 예시 보드"></div>
+            </div>
+            <div class="rules-example-desc">
+              <p><b>숫자 3</b>은 강조된 8칸 안에 에너지 코어가 <b>정확히 3개</b> 있어야 한다는 뜻입니다.</p>
+            </div>
+          </div>
+          <div class="rules-example-card">
+            <div class="rules-example-name">예시 C — 모서리 타일</div>
+            <div class="rules-example-top">
+              <div class="board example-board" id="rules-example-edge" aria-label="모서리 타일 예시 보드"></div>
+            </div>
+            <div class="rules-example-desc">
+              <p>모서리·가장자리 타일은 인접 칸이 8개보다 적습니다. 여기선 <b>3칸 중 코어 2개</b>가 있다는 뜻입니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ④ 승패 조건 -->
+      <section class="rules-tab-panel" data-rule-panel="winlose">
+        <div class="winlose-flow">
+          <div class="winlose-flow-step"><b>타일 배치</b>빈 칸에 타일을 놓는다</div>
+          <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
+          <div class="winlose-flow-step"><b>AI 즉시 검증</b>모든 숫자 조건 동시 확인</div>
+          <div class="winlose-flow-arrow"><i class="ti ti-arrow-right"></i></div>
+          <div class="winlose-flow-step"><b>가능</b>게임 계속, 상대 차례</div>
+          <div class="winlose-flow-arrow" style="color:var(--red)"><i class="ti ti-slash"></i></div>
+          <div class="winlose-flow-step"><b>불가능</b>배치한 플레이어 즉시 패배</div>
+        </div>
+        <div class="rules-example-row">
+          <div class="rules-example-card">
+            <div class="rules-example-name" style="color:var(--green)"><i class="ti ti-trophy" style="margin-right:4px"></i>승리 조건</div>
+            <div class="rules-example-top">
+              <div class="board example-board" id="rules-example-win" aria-label="완성된 예시 보드"></div>
+            </div>
+            <div class="rules-example-desc">
+              <p>36칸이 모순 없이 모두 채워지면 <b>마지막 타일을 놓은 플레이어</b>가 승리합니다.</p>
+            </div>
+          </div>
+          <div class="rules-example-card">
+            <div class="rules-example-name" style="color:var(--red)"><i class="ti ti-x" style="margin-right:4px"></i>패배 조건</div>
+            <div class="rules-example-top">
+              <div class="board example-board" id="rules-example-lose" aria-label="모순 예시 보드"></div>
+            </div>
+            <div class="rules-example-desc">
+              <p>강조된 주변 칸에 코어가 있으나 숫자가 <b>0</b>을 요구합니다 — 모순이 발생해 그 타일을 놓은 플레이어가 즉시 패배합니다.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ⑤ 설계 수정 -->
+      <section class="rules-tab-panel" data-rule-panel="revision">
+        <div class="revision-note">
+          <img src="assets/revision_token.svg" alt="">
+          <p>각 플레이어는 게임 중 <b>한 번</b>, 설계 수정 토큰을 사용해 손패의 타일을 원하는 만큼 버리고 같은 수만큼 새 타일을 받을 수 있습니다. 전략적으로 불리한 손패를 교체할 기회입니다.</p>
+        </div>
+        <div class="revision-tip">
+          <b>팁 1.</b> 버릴 타일 수에 제한이 없습니다. 손패 전부를 교체하거나 한 장만 바꿀 수도 있습니다.<br>
+          <b>팁 2.</b> 에너지 코어가 손패에 몰렸을 때, 또는 현재 판에 놓을 수 없는 타일만 남았을 때 사용하면 효과적입니다.<br>
+          <b>팁 3.</b> 토큰은 게임당 1회만 주어지므로, 정말 필요한 순간까지 아끼는 것이 좋습니다.
+        </div>
+      </section>
+
+      <!-- ⑥ 빠른 참조 -->
+      <section class="rules-tab-panel" data-rule-panel="reference">
+        <div class="quick-grid">
+          <div class="quick-card">
+            <i class="ti ti-cards"></i>
+            <div><h4>설계안 4장 유지</h4><p>손패에는 항상 4장의 타일을 유지합니다.</p></div>
+          </div>
+          <div class="quick-card">
+            <i class="ti ti-bolt"></i>
+            <div><h4>숫자 = 인접 코어 수</h4><p>숫자 타일은 주변 최대 8칸의 에너지 코어 개수를 나타냅니다.</p></div>
+          </div>
+          <div class="quick-card">
+            <i class="ti ti-bolt-filled"></i>
+            <div><h4>에너지 코어 10개 고정</h4><p>덱에는 항상 에너지 코어 10개가 포함됩니다.</p></div>
+          </div>
+          <div class="quick-card">
+            <i class="ti ti-pencil"></i>
+            <div><h4>설계 수정 1회</h4><p>게임당 1회, 원하는 만큼 손패를 교체할 수 있습니다.</p></div>
+          </div>
+          <div class="quick-card">
+            <i class="ti ti-alert-triangle"></i>
+            <div><h4>중앙 AI 실시간 검증</h4><p>타일을 놓을 때마다 자동으로 가능성을 확인합니다.</p></div>
+          </div>
+          <div class="quick-card">
+            <i class="ti ti-trophy"></i>
+            <div><h4>불가능한 설계 제출 시 패배</h4><p>모순이 생기면 그 타일을 놓은 플레이어가 패배합니다.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ⑦ 전문가 모드 -->
+      <section class="rules-tab-panel" data-rule-panel="expert">
+        <div class="expert-intro">
+          전문가 모드에서는 <b>중앙 AI의 자동 판정이 없습니다.</b> 플레이어가 직접 상대의 배치가 불가능한지 판단하고 선언해야 합니다.
+        </div>
+        <div class="expert-steps">
+          <div class="expert-step">
+            <div class="expert-step-num">1</div>
+            <div>
+              <h4>불가능 선언</h4>
+              <p>상대가 타일을 배치한 직후, "현재 설계도는 어떤 에너지 코어 배치로도 불가능하다"고 판단되면 타일 배치 대신 <b>불가능 선언</b>을 할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="expert-step">
+            <div class="expert-step-num">2</div>
+            <div>
+              <h4>반박 시도</h4>
+              <p>선언을 받은 플레이어(상대)는 직접 게임판 위에 <b>에너지 코어를 배치</b>해 모든 숫자 조건을 만족하는 해답이 존재함을 증명해야 합니다.</p>
+            </div>
+          </div>
+          <div class="expert-step">
+            <div class="expert-step-num">3</div>
+            <div>
+              <h4>결과 판정</h4>
+              <p><b>반박 성공</b>(해답 증명) → 선언자 패배.<br><b>반박 포기</b>(증명 불가) → 선언자 승리.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <button class="rules-nav-btn" id="rules-next-btn" type="button" onclick="stepRulesTab(1)" aria-label="다음 탭">
+      <i class="ti ti-chevron-right"></i>
+    </button>
+    </div><!-- end rules-nav-area -->
+  </div>
+</div>
+
 <script>
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 const NUM_DIST={'0':3,'1':10,'2':8,'3':6,'4':3,'5':2,'6':1,'7':1,'8':1};
-const ROWS=6,COLS=6,HSIZE=4;
+let ROWS=6,COLS=6;
+const HSIZE=4;
 let G={};
 let difficulty='normal';
+let MAP_CELLS=null; // null = all playable; 2D array of 0|1 otherwise
+let selectedMap=0;  // 0-2 = specific map, 'random' = random
+let firstPlayer=0;  // 0, 1, or 'random'
+
+const MAPS=[
+  {id:'map1',name:'행성 M',rows:6,cols:6,bg:'board_bg1.png',cells:null},
+  {id:'map2',name:'위성 T',rows:7,cols:7,bg:'board_bg2.png',cells:[
+    [0,0,1,1,1,0,0],
+    [0,1,1,1,1,1,0],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1],
+    [0,1,1,1,1,1,0],
+    [0,0,1,1,1,0,0],
+  ]},
+  {id:'map3',name:'행성 V',rows:8,cols:8,bg:'board_bg3.png',cells:[
+    [0,0,0,1,1,0,0,0],
+    [0,0,1,1,1,1,0,0],
+    [0,1,1,1,1,1,1,0],
+    [1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1],
+    [0,1,1,1,1,1,1,0],
+    [0,0,1,1,1,1,0,0],
+    [0,0,0,1,1,0,0,0],
+  ]},
+];
+
+function isPlayable(r,c){
+  if(r<0||r>=ROWS||c<0||c>=COLS) return false;
+  if(!MAP_CELLS) return true;
+  return MAP_CELLS[r][c]===1;
+}
+
+function setSelectedMap(idx){
+  selectedMap=idx;
+  document.querySelectorAll('.map-card').forEach(el=>el.classList.remove('active'));
+  if(idx==='random'){
+    document.getElementById('map-card-random')?.classList.add('active');
+  } else {
+    document.getElementById('map-card-'+idx)?.classList.add('active');
+  }
+}
+
+function setFirstPlayer(choice){
+  firstPlayer=choice;
+  ['fp-p1','fp-random','fp-p2'].forEach(id=>document.getElementById(id)?.classList.remove('active'));
+  if(choice===0) document.getElementById('fp-p1')?.classList.add('active');
+  else if(choice==='random') document.getElementById('fp-random')?.classList.add('active');
+  else if(choice===1) document.getElementById('fp-p2')?.classList.add('active');
+}
 function spriteMarkup(v, showBadge=false){
   let badge='';
   if(showBadge){
     if(v==='M') badge=`<span class="sprite-badge" data-v="M"><i class="ti ti-bolt"></i></span>`;
     else badge=`<span class="sprite-badge" data-v="${v}">${v}</span>`;
   }
-  if(v==='0') return `<span class="sprite-empty"></span>${badge}`;
   const file=v==='M'?'energy_core.png':`module_${v}.png`;
   const alt=v==='M'?'에너지 코어':'기지 모듈';
   return `<img class="sprite" src="assets/${file}" alt="${alt}">${badge}`;
 }
+
+const RULE_ADJ_CENTER=[[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]];
+const RULE_EXAMPLES={
+  zero:{highlights:RULE_ADJ_CENTER,tiles:[{r:1,c:1,v:'0'}]},
+  three:{highlights:RULE_ADJ_CENTER,tiles:[{r:1,c:1,v:'3'},{r:0,c:0,v:'M'},{r:0,c:2,v:'M'},{r:2,c:0,v:'M'}]},
+  edge:{highlights:[[0,1],[1,0],[1,1]],tiles:[{r:0,c:0,v:'2'},{r:0,c:1,v:'M'},{r:1,c:0,v:'M'}]},
+  // 승리: 4×4 fully valid board (verified: single M at 2,2, all numbers correct)
+  win:{
+    highlights:[],
+    tiles:[
+      {r:0,c:0,v:'0'},{r:0,c:1,v:'0'},{r:0,c:2,v:'0'},{r:0,c:3,v:'0'},
+      {r:1,c:0,v:'0'},{r:1,c:1,v:'1'},{r:1,c:2,v:'1'},{r:1,c:3,v:'1'},
+      {r:2,c:0,v:'0'},{r:2,c:1,v:'1'},{r:2,c:2,v:'M'},{r:2,c:3,v:'1'},
+      {r:3,c:0,v:'0'},{r:3,c:1,v:'1'},{r:3,c:2,v:'1'},{r:3,c:3,v:'1'},
+    ]
+  },
+  // 모순: "0" at (1,1) with M at (0,1) in its neighborhood → contradiction
+  lose:{
+    highlights:[[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]],
+    tiles:[{r:1,c:1,v:'0'},{r:0,c:1,v:'M'}]
+  }
+};
+
+const RULE_TABS=['goal','howto','numbers','winlose','revision','reference','expert'];
+
+function renderTileShowcase(){
+  const core=document.getElementById('showcase-core');
+  const nums=document.getElementById('showcase-nums');
+  if(!core||core.children.length>0) return;
+  const counts={M:10,...Object.fromEntries(Object.entries(NUM_DIST))};
+  const total=Object.values(counts).reduce((a,b)=>a+b,0);
+  const desc=document.getElementById('showcase-desc');
+  if(desc) desc.innerHTML=`타일은 총 <b>${total}개</b>가 있으며, 그 종류와 개수는 다음과 같습니다.`;
+  const makeItem=(v,count,badge)=>{
+    const wrap=document.createElement('div');
+    wrap.className='tile-show-wrap';
+    const item=document.createElement('div');
+    item.className='tile-show-item';
+    item.innerHTML=spriteMarkup(v,badge);
+    const lbl=document.createElement('div');
+    lbl.className='tile-show-count';
+    lbl.textContent=count+'개';
+    wrap.appendChild(item);wrap.appendChild(lbl);
+    return wrap;
+  };
+  core.appendChild(makeItem('M',10,false));
+  ['0','1','2','3','4','5','6','7','8'].forEach(v=>{
+    nums.appendChild(makeItem(v,NUM_DIST[v],true));
+  });
+}
+
+function openRulesModal(){
+  renderRulesExamples();
+  renderTileShowcase();
+  setRulesTab('goal');
+  openModal('m-rules');
+}
+
+function setRulesTab(name){
+  document.querySelectorAll('[data-rule-tab]').forEach(btn=>{
+    const active=btn.dataset.ruleTab===name;
+    btn.classList.toggle('active',active);
+    btn.setAttribute('aria-selected',active?'true':'false');
+  });
+  document.querySelectorAll('[data-rule-panel]').forEach(panel=>{
+    panel.classList.toggle('active',panel.dataset.rulePanel===name);
+  });
+  // scroll tab button into view
+  const activeBtn=document.querySelector(`[data-rule-tab="${name}"]`);
+  if(activeBtn) activeBtn.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  // update arrow states
+  const idx=RULE_TABS.indexOf(name);
+  const prev=document.getElementById('rules-prev-btn');
+  const next=document.getElementById('rules-next-btn');
+  if(prev) prev.disabled=idx<=0;
+  if(next) next.disabled=idx>=RULE_TABS.length-1;
+  // reset scroll position of panels
+  const panels=document.querySelector('.rules-tab-panels');
+  if(panels) panels.scrollTop=0;
+}
+
+function stepRulesTab(dir){
+  const active=document.querySelector('[data-rule-tab].active');
+  if(!active) return;
+  const idx=RULE_TABS.indexOf(active.dataset.ruleTab);
+  const next=idx+dir;
+  if(next>=0&&next<RULE_TABS.length) setRulesTab(RULE_TABS[next]);
+}
+
+function renderRulesExamples(){
+  renderRulesExample('rules-example-zero',RULE_EXAMPLES.zero);
+  renderRulesExample('rules-example-three',RULE_EXAMPLES.three);
+  renderRulesExample('rules-example-edge',RULE_EXAMPLES.edge);
+  renderRulesExample('rules-example-win',RULE_EXAMPLES.win);
+  renderRulesExample('rules-example-lose',RULE_EXAMPLES.lose);
+}
+
+function renderRulesExample(id,config){
+  const board=document.getElementById(id);
+  if(!board) return;
+  const tiles=new Map(config.tiles.map(t=>[`${t.r},${t.c}`,t.v]));
+  const highlights=new Set(config.highlights.map(([r,c])=>`${r},${c}`));
+  board.innerHTML='';
+  for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+    const key=`${r},${c}`;
+    const cell=document.createElement('div');
+    cell.className='cell';
+    if(highlights.has(key)) cell.classList.add('example-hi');
+    if(tiles.has(key)){
+      const v=tiles.get(key);
+      cell.classList.add('placed');
+      cell.dataset.v=v;
+      cell.innerHTML=spriteMarkup(v,true);
+    } else {
+      cell.classList.add('empty');
+    }
+    board.appendChild(cell);
+  }
+}
+
+document.querySelectorAll('[data-rule-tab]').forEach(btn=>{
+  btn.addEventListener('click',()=>setRulesTab(btn.dataset.ruleTab));
+});
 
 
 
@@ -720,11 +1400,17 @@ function updateSizes(){
   const pw=ts+20;
   document.documentElement.style.setProperty('--panel-w',pw+'px');
 
-  // 6. Board cell size from remaining space
+  // 6. Board cell size from remaining space — always sized to fit 6×6 footprint.
+  //    For larger maps (7×7, 8×8) scale cs down so COLS*cs + gaps = same board size.
   const baw=vw-pw*2-16;
   const bah=mainH-52;
-  let cs=Math.floor(Math.min(baw/6.3,bah/6.3));
-  cs=Math.max(26,Math.min(120,cs));
+  let cs6=Math.floor(Math.min(baw/6.3,bah/6.3));
+  cs6=Math.max(22,Math.min(120,cs6));
+  // fit COLS columns in the same physical width as 6 columns
+  // total = n*cs + (n-1)*gap = n*cs + (n-1)*cs*0.06 = cs*(n + (n-1)*0.06)
+  const boardDim=Math.max(ROWS,COLS);
+  const fitFactor=6.3/(boardDim+(boardDim-1)*0.06);
+  let cs=Math.max(16,Math.floor(cs6*fitFactor));
   const gap=Math.max(2,Math.round(cs*0.06));
   const fs=Math.max(11,Math.round(cs*0.44));
   const tfs=Math.max(11,Math.round(ts*0.40));
@@ -736,9 +1422,9 @@ function updateSizes(){
   document.documentElement.style.setProperty('--tile-fs',tfs+'px');
 
   // re-stamp board grids (CSS vars alone don't retrigger grid layout)
-  document.querySelectorAll('.board').forEach(b=>{
-    b.style.gridTemplateColumns=`repeat(6,${cs}px)`;
-    b.style.gridTemplateRows=`repeat(6,${cs}px)`;
+  document.querySelectorAll('.board:not(.example-board)').forEach(b=>{
+    b.style.gridTemplateColumns=`repeat(${COLS},${cs}px)`;
+    b.style.gridTemplateRows=`repeat(${ROWS},${cs}px)`;
     b.style.gap=gap+'px';
   });
 
@@ -755,12 +1441,14 @@ function updateSizes(){
     const boardChrome=22; // .board padding(10px*2) + border(1px*2)
     const vAvailH=vh - vTopH - vBottomH - areaPad - boardChrome;
     const vAvailW=vw - areaPad - boardChrome;
-    // solve vcs*6 + gap*5 = avail, with gap ≈ vcs*0.06
-    let vcs=Math.floor(Math.min(vAvailW, vAvailH) / 6.3);
-    vcs=Math.max(20,Math.min(120,vcs));
+    // Size verify board to the same 6×6 footprint, then scale for larger maps
+    let vcs6=Math.floor(Math.min(vAvailW/6.3,vAvailH/6.3));
+    vcs6=Math.max(18,Math.min(120,vcs6));
+    const vDim=Math.max(ROWS,COLS);
+    let vcs=Math.max(14,Math.floor(vcs6*6.3/(vDim+(vDim-1)*0.06)));
     const vgap=Math.max(2,Math.round(vcs*0.06));
-    vboard.style.gridTemplateColumns=`repeat(6,${vcs}px)`;
-    vboard.style.gridTemplateRows=`repeat(6,${vcs}px)`;
+    vboard.style.gridTemplateColumns=`repeat(${COLS},${vcs}px)`;
+    vboard.style.gridTemplateRows=`repeat(${ROWS},${vcs}px)`;
     vboard.style.gap=vgap+'px';
     document.documentElement.style.setProperty('--vcell-size',vcs+'px');
     document.documentElement.style.setProperty('--vcell-fs',Math.max(11,Math.round(vcs*0.44))+'px');
@@ -818,16 +1506,26 @@ if(isStandalone()){
 function startGame(){
   const n1=document.getElementById('n1').value.trim()||'플레이어 1';
   const n2=document.getElementById('n2').value.trim()||'플레이어 2';
+  // resolve map
+  const mapIdx=(selectedMap==='random')?Math.floor(Math.random()*3):selectedMap;
+  const map=MAPS[mapIdx];
+  ROWS=map.rows; COLS=map.cols; MAP_CELLS=map.cells;
+  document.getElementById('board').style.backgroundImage=`url('assets/${map.bg}')`;
+  const vb=document.getElementById('vboard');
+  if(vb) vb.style.backgroundImage=`url('assets/${map.bg}')`;
+  // resolve first player
+  const startP=(firstPlayer==='random')?Math.floor(Math.random()*2):firstPlayer;
   G={
     players:[
       {name:n1,color:'var(--p1c)',tintCls:'by-p1',lampCls:'p1-lamp',tokens:1,hand:[]},
       {name:n2,color:'var(--p2c)',tintCls:'by-p2',lampCls:'p2-lamp',tokens:1,hand:[]}
     ],
-    cur:0,deck:buildDeck(),
+    cur:startP,deck:buildDeck(),
     board:Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
-    boardOwner:Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)), // who placed
+    boardOwner:Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
     mines:0,selTile:null,reroll:false,rsel:[],
-    vPlaced:[],imposer:-1,gameOver:false
+    vPlaced:[],imposer:-1,gameOver:false,
+    turn:1,mapName:map.name
   };
   for(let p=0;p<2;p++) for(let i=0;i<HSIZE;i++) if(G.deck.length) G.players[p].hand.push(G.deck.pop());
   showScreen('s-game');
@@ -869,6 +1567,13 @@ function renderGame(){
   document.getElementById('turn-name').style.color=G.players[cp].color;
   document.getElementById('deckc').textContent=G.deck.length;
   document.getElementById('minec').textContent=G.mines;
+  const modeEl=document.getElementById('topbar-mode');
+  if(modeEl){
+    modeEl.textContent=difficulty==='expert'?'전문가 모드':'보통 모드';
+    modeEl.style.color=difficulty==='expert'?'var(--red)':'var(--accent)';
+  }
+  const turnEl=document.getElementById('topbar-turn');
+  if(turnEl) turnEl.textContent=(G.turn||1)+'턴';
   renderBoard();
 }
 
@@ -904,6 +1609,11 @@ function renderBoard(){
   const b=document.getElementById('board');b.innerHTML='';
   for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=document.createElement('div');cell.className='cell';
+    if(!isPlayable(r,c)){
+      cell.classList.add('blocked');
+      b.appendChild(cell);
+      continue;
+    }
     const v=G.board[r][c];const owner=G.boardOwner[r][c];
     if(v!==null){
       cell.classList.add('placed');
@@ -934,7 +1644,7 @@ function selTile(i){
 }
 function doPlace(){if(G.selTile===null){setStatus('설계안을 먼저 선택하세요');return;}setStatus('건설 구역을 선택하세요');}
 function placeCell(r,c){
-  if(G.board[r][c]!==null||G.gameOver) return;
+  if(!isPlayable(r,c)||G.board[r][c]!==null||G.gameOver) return;
   if(G.selTile===null){setStatus('설계안을 먼저 선택하세요');return;}
   const p=G.players[G.cur];const v=p.hand[G.selTile];
   G.board[r][c]=v;G.boardOwner[r][c]=G.cur;
@@ -948,6 +1658,7 @@ function placeCell(r,c){
 }
 function endTurn(){
   G.selTile=null;G.reroll=false;G.rsel=[];
+  G.turn=(G.turn||1)+1;
   // CSP auto-check — normal mode only
   if(difficulty==='normal'){
     const result = checkBoardPossibility(G.board);
@@ -956,7 +1667,11 @@ function endTurn(){
       return;
     }
   }
-  if(G.board.flat().every(v=>v!==null)){showResult(G.cur,'설계도가 완성되었습니다!','ti-layout-grid');return;}
+  // win: all playable cells filled
+  let allFilled=true;
+  for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++)
+    if(isPlayable(r,c)&&G.board[r][c]===null){allFilled=false;break;}
+  if(allFilled){showResult(G.cur,'설계도가 완성되었습니다!','ti-layout-grid');return;}
   G.cur=1-G.cur;renderGame();
 }
 function startReroll(){if(G.players[G.cur].tokens<=0)return;G.reroll=true;G.rsel=[];renderGame();}
@@ -983,7 +1698,7 @@ function getAdjacentCells(r, c) {
   const adj = [];
   for (let dr = -1; dr <= 1; dr++)
     for (let dc = -1; dc <= 1; dc++)
-      if ((dr || dc) && r+dr >= 0 && r+dr < ROWS && c+dc >= 0 && c+dc < COLS)
+      if ((dr || dc) && isPlayable(r+dr, c+dc))
         adj.push([r+dr, c+dc]);
   return adj;
 }
@@ -1066,7 +1781,7 @@ function checkBoardPossibility(board) {
   const allEmpty = [];
   for (let r = 0; r < ROWS; r++)
     for (let c = 0; c < COLS; c++)
-      if (board[r][c] === null && !fixed.has(`${r},${c}`)) allEmpty.push([r,c]);
+      if (isPlayable(r,c) && board[r][c] === null && !fixed.has(`${r},${c}`)) allEmpty.push([r,c]);
 
   // For backtracking, also track what's forced across ALL solutions
   // (intersect forced mine/safe across all valid solutions)
@@ -1178,6 +1893,7 @@ function renderVBoard(){
   const b=document.getElementById('vboard');b.innerHTML='';
   for(let r=0;r<ROWS;r++) for(let c=0;c<COLS;c++){
     const cell=document.createElement('div');cell.className='cell';
+    if(!isPlayable(r,c)){cell.classList.add('blocked');b.appendChild(cell);continue;}
     const placed=G.vPlaced.find(p=>p.r===r&&p.c===c);
     const orig=G.board[r][c];const owner=G.boardOwner[r][c];
     if(placed){
@@ -1263,6 +1979,7 @@ function showImpossibleOverlay(placerIdx, result) {
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
       const cell = document.createElement('div');
+      if(!isPlayable(r,c)){cell.className='impos-cell';cell.style.background='rgba(0,0,0,0.35)';cell.style.border='none';viz.appendChild(cell);continue;}
       cell.className = 'impos-cell';
       const v = G.board[r][c];
       const key = `${r},${c}`;
@@ -1380,6 +2097,7 @@ function renderSimPalette(){
 }
 
 function simPlace(r,c){
+  if(!isPlayable(r,c)) return;
   if(_simSelected===null){
     G.board[r][c]=null;G.boardOwner[r][c]=null;
   } else {
