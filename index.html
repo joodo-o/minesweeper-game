@@ -593,6 +593,10 @@ body{background:var(--bg);color:var(--txt);font-family:'A2z',system-ui,sans-seri
 .impos-cell.impos-ok{background:rgba(31,158,90,0.08);border:1.5px solid var(--green);}
 .impos-cell.impos-conflict{background:var(--red-bg);border:1.5px solid var(--red);}
 .impos-cell.impos-empty{background:rgba(255,255,255,.04);border:1px dashed rgba(180,180,180,0.3);}
+/* forced deductions in empty cells */
+.impos-cell.impos-forced-mine{background:#231a00;border:1.5px solid #c8960a;color:#e8b820;font-size:15px;}
+.impos-cell.impos-forced-safe{background:#001a0d;border:1.5px solid var(--green);color:var(--green);font-size:12px;}
+.impos-cell.impos-conflict-empty{background:var(--red-bg);border:1.5px solid var(--red);color:var(--red);font-size:11px;}
 .impos-cell[data-v="0"]{color:var(--num0)}.impos-cell[data-v="1"]{color:var(--num1)}
 .impos-cell[data-v="2"]{color:var(--num2)}.impos-cell[data-v="3"]{color:var(--num3)}
 .impos-cell[data-v="4"]{color:var(--num4)}.impos-cell[data-v="5"]{color:var(--num5)}
@@ -720,15 +724,21 @@ body{font-family:'A2z',"Noto Sans KR",system-ui,sans-serif;background:radial-gra
     <div class="impos-placer" id="impos-placer-name">—</div>
     <div class="impos-placer-label">이(가) 실현 불가능한 설계을 만들었습니다</div>
     <div class="impos-why" id="impos-why"></div>
-    <div class="impos-legend" id="impos-legend" style="display:none;gap:10px;flex-wrap:wrap;justify-content:center;width:100%;">
+    <div class="impos-legend" id="impos-legend" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:100%;">
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
-        <div style="width:14px;height:14px;border-radius:3px;background:rgba(31,158,90,0.08);border:1.5px solid var(--green);flex-shrink:0"></div>정상 타일
+        <div style="width:14px;height:14px;border-radius:3px;background:rgba(31,158,90,0.08);border:1.5px solid var(--green);flex-shrink:0"></div>정상
       </div>
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
-        <div style="width:14px;height:14px;border-radius:3px;background:var(--red-bg);border:1.5px solid var(--red);flex-shrink:0"></div>모순 타일
+        <div style="width:14px;height:14px;border-radius:3px;background:var(--red-bg);border:1.5px solid var(--red);flex-shrink:0"></div>모순
       </div>
       <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
-        <div style="width:14px;height:14px;border-radius:3px;border:1px dashed rgba(180,180,180,0.3);flex-shrink:0"></div>빈 칸
+        <div style="width:14px;height:14px;border-radius:3px;background:#231a00;border:1.5px solid #c8960a;flex-shrink:0"></div>반드시 코어
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;background:#001a0d;border:1.5px solid var(--green);flex-shrink:0"></div>반드시 빈칸
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--txt2);">
+        <div style="width:14px;height:14px;border-radius:3px;border:1px dashed rgba(180,180,180,0.3);flex-shrink:0"></div>미확정
       </div>
     </div>
     <div class="impos-viz" id="impos-viz"></div>
@@ -2123,8 +2133,7 @@ function showImpossibleOverlay(placerIdx, result) {
   const forcedMines = result.forcedMines || new Set();
   const forcedSafe  = result.forcedSafe  || new Set();
 
-  const hasDeductions = forcedMines.size > 0 || forcedSafe.size > 0;
-  document.getElementById('impos-legend').style.display = hasDeductions ? 'flex' : 'none';
+  // legend always visible
 
   const viz = document.getElementById('impos-viz');
   viz.innerHTML = '';
@@ -2151,7 +2160,19 @@ function showImpossibleOverlay(placerIdx, result) {
           cell.classList.add(conflictSet.has(key) ? 'impos-conflict' : 'impos-ok');
         }
       } else {
-        cell.classList.add('impos-empty');
+        // empty cell — show deduction state
+        if (forcedMines.has(key)) {
+          cell.classList.add('impos-forced-mine');
+          cell.innerHTML = '<i class="ti ti-bolt"></i>';
+        } else if (forcedSafe.has(key)) {
+          cell.classList.add('impos-forced-safe');
+          cell.innerHTML = '<i class="ti ti-x"></i>';
+        } else if (conflictSet.has(key)) {
+          cell.classList.add('impos-conflict-empty');
+          cell.innerHTML = '?';
+        } else {
+          cell.classList.add('impos-empty');
+        }
       }
       viz.appendChild(cell);
     }
